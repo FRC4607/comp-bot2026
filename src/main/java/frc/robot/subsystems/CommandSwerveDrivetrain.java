@@ -6,15 +6,8 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.ClosedLoopOutputType;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.DriveMotorArrangement;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerFeedbackType;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
-import com.ctre.phoenix6.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.Matrix;
@@ -30,11 +23,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
-import frc.robot.generated.TunerDrivetrainBuilder.TunerSwerveDrivetrain;
-import frc.robot.Calibrations;
-import frc.robot.Constants;
-import frc.robot.Calibrations.DrivetrainCalibrations;
-
+import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
 /**
  * Class that extends the Phoenix 6 SwerveDrivetrain class and implements
@@ -56,24 +45,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final SwerveRequest.SysIdSwerveTranslation m_translationCharacterization = new SwerveRequest.SysIdSwerveTranslation();
     private final SwerveRequest.SysIdSwerveSteerGains m_steerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
     private final SwerveRequest.SysIdSwerveRotation m_rotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
-
-       
-
-    // The closed-loop output type to use for the steer motors;
-    // This affects the PID/FF gains for the steer motors
-    private static final ClosedLoopOutputType kSteerClosedLoopOutput = ClosedLoopOutputType.TorqueCurrentFOC;
-    // The closed-loop output type to use for the drive motors;
-    // This affects the PID/FF gains for the drive motors
-    private static final ClosedLoopOutputType kDriveClosedLoopOutput = ClosedLoopOutputType.TorqueCurrentFOC;
-
-    // The type of motor used for the drive motor
-    private static final DriveMotorArrangement kDriveMotorType = DriveMotorArrangement.TalonFX_Integrated;
-    // The type of motor used for the drive motor
-    private static final SteerMotorArrangement kSteerMotorType = SteerMotorArrangement.TalonFX_Integrated;
-
-    // The remote sensor feedback type to use for the steer motors;
-    // When not Pro-licensed, Fused*/Sync* automatically fall back to Remote*
-    private static final SteerFeedbackType kSteerFeedbackType = SteerFeedbackType.FusedCANcoder;
 
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
@@ -314,62 +285,4 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     ) {
         super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds), visionMeasurementStdDevs);
     }
-
-    public static CommandSwerveDrivetrain createDrivetrain() {
-        return new CommandSwerveDrivetrain(
-            DrivetrainConstants, FrontLeft, FrontRight, BackLeft, BackRight
-        );
-    }
-
-    
-    public static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
-        .withCANBusName(Constants.DrivetrainConstants.kCANBus.getName())
-        .withPigeon2Id(Constants.DrivetrainConstants.kPigeonId)
-        .withPigeon2Configs(Calibrations.DrivetrainCalibrations.pigeonConfigs);
-
-    private static final SwerveModuleConstantsFactory<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> ConstantCreator =
-        new SwerveModuleConstantsFactory<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>()
-            .withDriveMotorGearRatio(Constants.DrivetrainConstants.kDriveGearRatio)
-            .withSteerMotorGearRatio(Constants.DrivetrainConstants.kSteerGearRatio)
-            .withCouplingGearRatio(Constants.DrivetrainConstants.kCoupleRatio)
-            .withWheelRadius(Calibrations.DrivetrainCalibrations.kWheelRadius)
-            .withSteerMotorGains(Calibrations.DrivetrainCalibrations.steerGains)
-            .withDriveMotorGains(Calibrations.DrivetrainCalibrations.driveGains)
-            .withSteerMotorClosedLoopOutput(kSteerClosedLoopOutput)
-            .withDriveMotorClosedLoopOutput(kDriveClosedLoopOutput)
-            .withSlipCurrent(Calibrations.DrivetrainCalibrations.kSlipCurrent)
-            .withSpeedAt12Volts(Calibrations.DrivetrainCalibrations.kSpeedAt12Volts)
-            .withDriveMotorType(kDriveMotorType)
-            .withSteerMotorType(kSteerMotorType)
-            .withFeedbackSource(kSteerFeedbackType)
-            .withDriveMotorInitialConfigs(Calibrations.DrivetrainCalibrations.driveInitialConfigs)
-            .withSteerMotorInitialConfigs(Calibrations.DrivetrainCalibrations.steerInitialConfigs)
-            .withEncoderInitialConfigs(Calibrations.DrivetrainCalibrations.encoderInitialConfigs)
-            .withSteerInertia(Calibrations.DrivetrainCalibrations.kSteerInertia)
-            .withDriveInertia(Calibrations.DrivetrainCalibrations.kDriveInertia)
-            .withSteerFrictionVoltage(Calibrations.DrivetrainCalibrations.kSteerFrictionVoltage)
-            .withDriveFrictionVoltage(Calibrations.DrivetrainCalibrations.kDriveFrictionVoltage);
-            
-            public static final SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> FrontLeft =
-                ConstantCreator.createModuleConstants(
-                    Constants.DrivetrainConstants.kFrontLeftSteerMotorId, Constants.DrivetrainConstants.kFrontLeftDriveMotorId, Constants.DrivetrainConstants.kFrontLeftEncoderId, Calibrations.DrivetrainCalibrations.kFrontLeftEncoderOffset,
-                    Constants.DrivetrainConstants.kFrontLeftXPos, Constants.DrivetrainConstants.kFrontLeftYPos, Calibrations.DrivetrainCalibrations.kInvertLeftSide, Calibrations.DrivetrainCalibrations.kFrontLeftSteerMotorInverted, Calibrations.DrivetrainCalibrations.kFrontLeftEncoderInverted
-                );
-            public static final SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> FrontRight =
-                ConstantCreator.createModuleConstants(
-                    Constants.DrivetrainConstants.kFrontRightSteerMotorId, Constants.DrivetrainConstants.kFrontRightDriveMotorId, Constants.DrivetrainConstants.kFrontRightEncoderId, Calibrations.DrivetrainCalibrations.kFrontRightEncoderOffset,
-                    Constants.DrivetrainConstants.kFrontRightXPos, Constants.DrivetrainConstants.kFrontRightYPos, Calibrations.DrivetrainCalibrations.kInvertRightSide, Calibrations.DrivetrainCalibrations.kFrontRightSteerMotorInverted, Calibrations.DrivetrainCalibrations.kFrontRightEncoderInverted
-                );
-            public static final SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> BackLeft =
-                ConstantCreator.createModuleConstants(
-                    Constants.DrivetrainConstants.kBackLeftSteerMotorId, Constants.DrivetrainConstants.kBackLeftDriveMotorId, Constants.DrivetrainConstants.kBackLeftEncoderId, Calibrations.DrivetrainCalibrations.kBackLeftEncoderOffset,
-                    Constants.DrivetrainConstants.kBackLeftXPos, Constants.DrivetrainConstants.kBackLeftYPos, Calibrations.DrivetrainCalibrations.kInvertLeftSide, Calibrations.DrivetrainCalibrations.kBackLeftSteerMotorInverted, Calibrations.DrivetrainCalibrations.kBackLeftEncoderInverted
-                );
-            public static final SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> BackRight =
-                ConstantCreator.createModuleConstants(
-                    Constants.DrivetrainConstants.kBackRightSteerMotorId, Constants.DrivetrainConstants.kBackRightDriveMotorId, Constants.DrivetrainConstants.kBackRightEncoderId, Calibrations.DrivetrainCalibrations.kBackRightEncoderOffset,
-                    Constants.DrivetrainConstants.kBackRightXPos, Constants.DrivetrainConstants.kBackRightYPos, Calibrations.DrivetrainCalibrations.kInvertRightSide, Calibrations.DrivetrainCalibrations.kBackRightSteerMotorInverted, Calibrations.DrivetrainCalibrations.kBackRightEncoderInverted
-                );
-
-            
-        }
+}
