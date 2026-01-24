@@ -16,6 +16,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.IntakeManifoldCalibrations;
+import frc.robot.Constants.IntakeManifoldConstants;
 
 public class IntakeManifold extends SubsystemBase {
   /** Creates a new IntakeManifold. */
@@ -30,51 +32,51 @@ public class IntakeManifold extends SubsystemBase {
 
   public IntakeManifold() {
 
-    m_motor1 = new TalonFX(0, "kachow");
-    m_encoder = new CANcoder(0, "kachow");
+    m_motor1 = new TalonFX(IntakeManifoldConstants.kMotor1CANID, "kachow");
+    m_encoder = new CANcoder(IntakeManifoldConstants.kEncoderCANID, "kachow");
 
     m_talonFXConfig = new TalonFXConfiguration();
     m_encoderConfig = new CANcoderConfiguration();
 
     m_request = new DynamicMotionMagicTorqueCurrentFOC(
       0,
-      0,
-      0)
-      .withJerk(0);
+      IntakeManifoldCalibrations.kMaxVelocity,
+      IntakeManifoldCalibrations.kMaxAcceleration)
+      .withJerk(IntakeManifoldCalibrations.kMaxJerk);
 
     m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
     m_talonFXConfig.Feedback.FeedbackRemoteSensorID = m_encoder.getDeviceID();
-    m_talonFXConfig.Feedback.SensorToMechanismRatio = 0;
-    m_talonFXConfig.Feedback.RotorToSensorRatio = 0;
+    m_talonFXConfig.Feedback.SensorToMechanismRatio = IntakeManifoldConstants.kSensorToMechanismRatio;
+    m_talonFXConfig.Feedback.RotorToSensorRatio = IntakeManifoldConstants.kRotorToSensorRatio;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
 
-    m_talonFXConfig.Slot0.kG = 0;
-    m_talonFXConfig.Slot0.kS = 0;
-    m_talonFXConfig.Slot0.kP = 0;
-    m_talonFXConfig.Slot0.kI = 0;
-    m_talonFXConfig.Slot0.kD = 0;
+    m_talonFXConfig.Slot0.kG = IntakeManifoldCalibrations.kG;
+    m_talonFXConfig.Slot0.kS = IntakeManifoldCalibrations.kS;
+    m_talonFXConfig.Slot0.kP = IntakeManifoldCalibrations.kP;
+    m_talonFXConfig.Slot0.kI = IntakeManifoldCalibrations.kI;
+    m_talonFXConfig.Slot0.kD = IntakeManifoldCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = 0;
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = 0;
-    m_talonFXConfig.MotionMagic.MotionMagicJerk = 0;
+    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = IntakeManifoldCalibrations.kMaxVelocity;
+    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IntakeManifoldCalibrations.kMaxAcceleration;
+    m_talonFXConfig.MotionMagic.MotionMagicJerk = IntakeManifoldCalibrations.kMaxJerk;
 
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 0;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = 0;
+    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IntakeManifoldCalibrations.kMaxAmperage;
+    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IntakeManifoldCalibrations.kMaxAmperage;
 
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.25;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = IntakeManifoldCalibrations.kForwardSoftLimit;
 
     m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = IntakeManifoldCalibrations.kReverseSoftLimit;
 
     m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
 
-    m_encoderConfig.MagnetSensor.MagnetOffset = 0;
-    m_encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0;
+    m_encoderConfig.MagnetSensor.MagnetOffset = IntakeManifoldCalibrations.kEncoderOffset;
+    m_encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = IntakeManifoldCalibrations.kEncoderDiscontinuityPoint;
     m_encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
     m_encoder.getConfigurator().apply(m_encoderConfig);
