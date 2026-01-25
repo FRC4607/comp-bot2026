@@ -10,4 +10,13 @@ public class Constants {
     public class DrivetrainConstants {
         
     }
+
+    public class ClimberConstants {
+
+        /** CAN ID of outer chain motor. */
+        public static final int kOuterMotorCANID = 0;
+
+        /** CAN ID of inner chain motor. */
+        public static final int kInnerMotorCANID = 0;
+    }
 }
