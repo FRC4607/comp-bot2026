@@ -18,53 +18,50 @@ import frc.robot.Constants.ClimberConstants;
 
 public class ClimberOuter extends SubsystemBase {
 
-  private final TalonFX m_outerMotor1;
-  private final TalonFX m_outerMotor2;
+  private final TalonFX m_motor1;
+  private final TalonFX m_motor2;
 
+  private final TalonFXConfiguration m_talonFXConfig;
 
-
-  private final TalonFXConfiguration m_outerTalonFXConfig;
-
-  private final MotionMagicTorqueCurrentFOC m_request1;
+  private final MotionMagicTorqueCurrentFOC m_request;
 
   /** Creates a new Climber. */
   public ClimberOuter() {
-    m_outerMotor1 = new TalonFX(ClimberConstants.kOuterMotor1CANID, "kachow");
-    m_outerMotor2 = new TalonFX(ClimberConstants.kOuterMotor2CANID, "kachow");
 
-    m_outerTalonFXConfig = new TalonFXConfiguration();
+    m_motor1 = new TalonFX(ClimberConstants.kOuterMotor1CANID, "kachow");
+    m_motor2 = new TalonFX(ClimberConstants.kOuterMotor2CANID, "kachow");
 
-    m_request1 = new MotionMagicTorqueCurrentFOC(0);
+    m_talonFXConfig = new TalonFXConfiguration();
 
-    m_outerTalonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    m_outerTalonFXConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+    m_request = new MotionMagicTorqueCurrentFOC(0);
 
-    m_outerTalonFXConfig.Slot0.kG = ClimberCalibrations.kOuterkG;
-    m_outerTalonFXConfig.Slot0.kS = ClimberCalibrations.kOuterkS;
-    m_outerTalonFXConfig.Slot0.kP = ClimberCalibrations.kOuterkP;
-    m_outerTalonFXConfig.Slot0.kI = ClimberCalibrations.kOuterkI;
-    m_outerTalonFXConfig.Slot0.kD = ClimberCalibrations.kOuterkD;
+    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
-    m_outerTalonFXConfig.MotionMagic.MotionMagicCruiseVelocity = ClimberCalibrations.kOuterCruiseVelocity;
-    m_outerTalonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kOuterAcceleration;
-    m_outerTalonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kOuterJerk;
+    m_talonFXConfig.Slot0.kG = ClimberCalibrations.kOuterkG;
+    m_talonFXConfig.Slot0.kS = ClimberCalibrations.kOuterkS;
+    m_talonFXConfig.Slot0.kP = ClimberCalibrations.kOuterkP;
+    m_talonFXConfig.Slot0.kI = ClimberCalibrations.kOuterkI;
+    m_talonFXConfig.Slot0.kD = ClimberCalibrations.kOuterkD;
 
-    m_outerTalonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    m_outerTalonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kOuterForwardSoftLimit;
+    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = ClimberCalibrations.kOuterCruiseVelocity;
+    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kOuterAcceleration;
+    m_talonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kOuterJerk;
 
-    m_outerTalonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    m_outerTalonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ClimberCalibrations.kOuterReverseSoftLimit;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kOuterForwardSoftLimit;
 
-    m_outerMotor1.getConfigurator().apply(m_outerTalonFXConfig);
-    m_outerMotor2.getConfigurator().apply(m_outerTalonFXConfig);
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ClimberCalibrations.kOuterReverseSoftLimit;
 
-    m_outerMotor2.setControl(new Follower(ClimberConstants.kOuterMotor1CANID, MotorAlignmentValue.Aligned));
+    m_motor1.getConfigurator().apply(m_talonFXConfig);
+    m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-    
+    m_motor2.setControl(new Follower(ClimberConstants.kOuterMotor1CANID, MotorAlignmentValue.Aligned));
   }
 
-  public void setOuterClimberSetpoint(double newSetpoint) {
-    m_outerMotor1.setControl(m_request1
+  public void updateSetpoint(double newSetpoint) {
+    m_motor1.setControl(m_request
       .withPosition(newSetpoint));
   }
 
