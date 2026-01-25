@@ -24,7 +24,7 @@ public class ClimberInner extends SubsystemBase {
   private final TalonFXConfiguration m_talonFXConfig;
 
   private final MotionMagicTorqueCurrentFOC m_request;
-  
+
   /** Creates a new InnerClimber. */
   public ClimberInner() {
 
@@ -63,6 +63,10 @@ public class ClimberInner extends SubsystemBase {
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request
       .withPosition(newSetpoint));
+  }
+
+  public double getPosition() {
+    return m_motor1.getPosition().getValueAsDouble();
   }
 
   @Override
