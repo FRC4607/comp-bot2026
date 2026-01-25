@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.ClimberInner;
+import frc.robot.subsystems.ClimberOuter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class RobotContainer {
@@ -37,6 +39,8 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final ClimberInner m_climberInner = new ClimberInner();
+    public final ClimberOuter m_ClimberOuter = new ClimberOuter();
 
     public RobotContainer() {
         configureBindings();
