@@ -25,4 +25,8 @@ public class Constants {
         /** How many motor rotations equal one sensor rotation. */
         public static final double kRotorToSensorRatio = 0;
     }
+
+    public class IntakeWheelConstants {
+        public static final int kMotor1CANID = 0;
+    }
 }

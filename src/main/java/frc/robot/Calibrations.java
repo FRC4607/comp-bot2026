@@ -64,4 +64,28 @@ public class Calibrations {
         public static final double kEncoderDiscontinuityPoint = 0;
 
     }
+
+    public class IntakeWheelCalibrations {
+
+        /** Max acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 0;
+
+        /** Static feedforward. */
+        public static final double kS = 0;
+
+        /** Velocity feedforward. */
+        public static final double kV = 0;
+
+        /** Proportional gain. */
+        public static final double kP = 0;
+
+        /** Integral gain. */
+        public static final double kI = 0;
+
+        /** Derivative gain. */
+        public static final double kD = 0;
+
+        /** Maximum amperage of the motor. */
+        public static final double kMaxAmperage = 40;
+    }
 }

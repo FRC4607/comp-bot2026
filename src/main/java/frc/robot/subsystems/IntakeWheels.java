@@ -11,6 +11,8 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.IntakeWheelCalibrations;
+import frc.robot.Constants.IntakeWheelConstants;
 
 public class IntakeWheels extends SubsystemBase {
 
@@ -23,25 +25,25 @@ public class IntakeWheels extends SubsystemBase {
   /** Creates a new IntakeWheels. */
   public IntakeWheels() {
 
-    m_motor1 = new TalonFX(0, "kachow");
+    m_motor1 = new TalonFX(IntakeWheelConstants.kMotor1CANID, "kachow");
 
     m_talonFXConfig = new TalonFXConfiguration();
 
     m_request = new VelocityTorqueCurrentFOC(0)
-      .withAcceleration(0);
+      .withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-    m_talonFXConfig.Slot0.kS = 0;
-    m_talonFXConfig.Slot0.kV = 0;
-    m_talonFXConfig.Slot0.kP = 0;
-    m_talonFXConfig.Slot0.kI = 0;
-    m_talonFXConfig.Slot0.kD = 0;
+    m_talonFXConfig.Slot0.kS = IntakeWheelCalibrations.kS;
+    m_talonFXConfig.Slot0.kV = IntakeWheelCalibrations.kV;
+    m_talonFXConfig.Slot0.kP = IntakeWheelCalibrations.kP;
+    m_talonFXConfig.Slot0.kI = IntakeWheelCalibrations.kI;
+    m_talonFXConfig.Slot0.kD = IntakeWheelCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = 0;
+    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IntakeWheelCalibrations.kMaxAcceleration;
 
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 0;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = 0;
+    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IntakeWheelCalibrations.kMaxAmperage;
+    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IntakeWheelCalibrations.kMaxAmperage;
 
     m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
