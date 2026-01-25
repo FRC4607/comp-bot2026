@@ -65,6 +65,10 @@ public class ClimberOuter extends SubsystemBase {
       .withPosition(newSetpoint));
   }
 
+  public double getPosition() {
+    return m_motor1.getPosition().getValueAsDouble();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
