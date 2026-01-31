@@ -16,6 +16,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.TurretCalibrations;
+import frc.robot.Constants.TurretConstants;
 
 public class turret extends SubsystemBase {
 
@@ -36,57 +38,57 @@ public class turret extends SubsystemBase {
   /** Creates a new turret. */
   public turret() {
 
-    m_motor = new TalonFX(0, "kachow");
+    m_motor = new TalonFX(TurretConstants.kMotorCANID, "kachow");
 
     m_talonFXConfig = new TalonFXConfiguration();
 
     m_request = new MotionMagicTorqueCurrentFOC(0);
 
-    m_encoder1 = new CANcoder(0, "kachow");
-    m_encoder2 = new CANcoder(0, "kachow");
+    m_encoder1 = new CANcoder(TurretConstants.kEncoder1CANID, "kachow");
+    m_encoder2 = new CANcoder(TurretConstants.kEncoder2CANID, "kachow");
 
     m_encoderConfig1 = new CANcoderConfiguration();
     m_encoderConfig2 = new CANcoderConfiguration();
 
     m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    m_talonFXConfig.Feedback.FeedbackRemoteSensorID = 0;
-    m_talonFXConfig.Feedback.SensorToMechanismRatio = 0;
-    m_talonFXConfig.Feedback.RotorToSensorRatio = 0;
+    m_talonFXConfig.Feedback.FeedbackRemoteSensorID = TurretConstants.kEncoder1CANID;
+    m_talonFXConfig.Feedback.SensorToMechanismRatio = TurretConstants.kEncoder1ToMechanism;
+    m_talonFXConfig.Feedback.RotorToSensorRatio = TurretConstants.kEncoder1ToRotor;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
 
-    m_talonFXConfig.Slot0.kG = 0;
-    m_talonFXConfig.Slot0.kS = 0;
-    m_talonFXConfig.Slot0.kP = 0;
-    m_talonFXConfig.Slot0.kI = 0;
-    m_talonFXConfig.Slot0.kD = 0;
+    m_talonFXConfig.Slot0.kG = TurretCalibrations.kG;
+    m_talonFXConfig.Slot0.kS = TurretCalibrations.kS;
+    m_talonFXConfig.Slot0.kP = TurretCalibrations.kP;
+    m_talonFXConfig.Slot0.kI = TurretCalibrations.kI;
+    m_talonFXConfig.Slot0.kD = TurretCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = 0;
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = 0;
-    m_talonFXConfig.MotionMagic.MotionMagicJerk = 0;
+    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = TurretCalibrations.kMaxSpeed;
+    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = TurretCalibrations.kMaxAcceleration;
+    m_talonFXConfig.MotionMagic.MotionMagicJerk = TurretCalibrations.kMaxJerk;
 
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = 0;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = 0;
+    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = TurretCalibrations.kMaxAmperage;
+    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = TurretCalibrations.kMaxAmperage;
 
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.25;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = TurretCalibrations.kForwardSoftLimit;
 
     m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = TurretCalibrations.kReverseSoftLimit;
 
     m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     m_motor.getConfigurator().apply(m_talonFXConfig);
 
-    m_encoderConfig1.MagnetSensor.MagnetOffset = 0;
-    m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0;
+    m_encoderConfig1.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder1Offset;
+    m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder1Discontinuity;
     m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
     m_encoder1.getConfigurator().apply(m_encoderConfig1);
 
-    m_encoderConfig2.MagnetSensor.MagnetOffset = 0;
-    m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0;
+    m_encoderConfig2.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder2Offset;
+    m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder2Discontinuity;
     m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
     m_encoder2.getConfigurator().apply(m_encoderConfig2);
