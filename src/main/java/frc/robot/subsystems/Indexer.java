@@ -25,12 +25,12 @@ public class Indexer extends SubsystemBase {
   /** Creates a new Indexer. */
   public Indexer() {
 
-    m_motor = new TalonFX(IndexerConstants.kmotorCANID,"kachow");
+    m_motor = new TalonFX(IndexerConstants.kMotorCANID,"kachow");
 
     m_talonFXConfig = new TalonFXConfiguration();
 
     m_request = new VelocityTorqueCurrentFOC(0)
-      .withAcceleration(IndexerCalibrations.kmaxAcceleration);
+      .withAcceleration(IndexerCalibrations.kMaxAcceleration);
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
@@ -40,10 +40,10 @@ public class Indexer extends SubsystemBase {
     m_talonFXConfig.Slot0.kI = IndexerCalibrations.kI;
     m_talonFXConfig.Slot0.kD = IndexerCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IndexerCalibrations.kmaxAcceleration;
+    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IndexerCalibrations.kMaxAcceleration;
 
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IndexerCalibrations.kmaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IndexerCalibrations.kmaxAmperage;
+    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IndexerCalibrations.kMaxAmperage;
+    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IndexerCalibrations.kMaxAmperage;
     
     m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
