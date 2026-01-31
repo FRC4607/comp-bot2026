@@ -10,4 +10,8 @@ public class Constants {
     public class DrivetrainConstants {
         
     }
+
+    public class IndexerConstants {
+        public static final int kmotorCANID = 0;
+    }
 }
