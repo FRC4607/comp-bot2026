@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -24,6 +25,7 @@ public class ClimberOuter extends SubsystemBase {
   private final TalonFXConfiguration m_talonFXConfig;
 
   private final MotionMagicTorqueCurrentFOC m_request;
+  private final TorqueCurrentFOC m_openLoopRequest;
 
   /** Creates a new Climber. */
   public ClimberOuter() {
@@ -34,6 +36,7 @@ public class ClimberOuter extends SubsystemBase {
     m_talonFXConfig = new TalonFXConfiguration();
 
     m_request = new MotionMagicTorqueCurrentFOC(0);
+    m_openLoopRequest = new TorqueCurrentFOC(0);
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
@@ -63,6 +66,11 @@ public class ClimberOuter extends SubsystemBase {
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request
       .withPosition(newSetpoint));
+  }
+
+  public void runOpenLoop(double amperage) {
+    m_motor1.setControl(m_openLoopRequest
+      .withOutput(amperage));
   }
 
   public double getPosition() {

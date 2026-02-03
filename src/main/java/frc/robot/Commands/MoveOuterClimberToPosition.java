@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberOuter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class MoveOuterClimber extends Command {
+public class MoveOuterClimberToPosition extends Command {
   private double m_setpoint;
   private double m_tolerance;
   private ClimberOuter m_climberOuter;
   /** Creates a new MoveOuterClimber. */
-  public MoveOuterClimber(double setpoint, double tolerance, ClimberOuter climberOuter) {
+  public MoveOuterClimberToPosition(double setpoint, double tolerance, ClimberOuter climberOuter) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;
     m_climberOuter = climberOuter;
