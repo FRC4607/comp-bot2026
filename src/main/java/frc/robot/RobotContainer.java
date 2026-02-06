@@ -9,6 +9,8 @@ import static edu.wpi.first.units.Units.*;
 import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
+import frc.robot.Commands.SetInnerClimberAmperage;
+import frc.robot.Commands.SetOuterClimberAmperage;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -42,7 +44,7 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final ClimberInner m_climberInner = new ClimberInner();
-    public final ClimberOuter m_ClimberOuter = new ClimberOuter();
+    public final ClimberOuter m_climberOuter = new ClimberOuter();
 
     public RobotContainer() {
         configureBindings();
@@ -75,9 +77,14 @@ public class RobotContainer {
         joystick.povUp().onTrue(new MoveInnerClimberToPosition(4, 1, m_climberInner));
         joystick.povDown().onTrue(new MoveInnerClimberToPosition(0, 1, m_climberInner));
 
-        joystick.y().onTrue(new MoveOuterClimberToPosition(7, 1, m_ClimberOuter));
-        joystick.a().onTrue(new MoveOuterClimberToPosition(0, 1, m_ClimberOuter));
+        joystick.y().onTrue(new MoveOuterClimberToPosition(7, 1, m_climberOuter));
+        joystick.a().onTrue(new MoveOuterClimberToPosition(0, 1, m_climberOuter));
 
+        joystick.rightBumper().whileTrue(new SetInnerClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberInner));
+        joystick.leftBumper().whileTrue(new SetOuterClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberOuter));
+
+
+        
         // reset the field-centric heading on left bumper press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 

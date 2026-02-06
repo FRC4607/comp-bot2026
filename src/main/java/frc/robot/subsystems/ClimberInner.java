@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ClimberCalibrations;
@@ -51,25 +52,27 @@ public class ClimberInner extends SubsystemBase {
     m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kInnerAcceleration;
     m_talonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kInnerJerk;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kInnerForwardSoftLimit;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ClimberCalibrations.kInnerReverseSoftLimit;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
     m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-    m_motor2.setControl(new Follower(ClimberConstants.kInnerMotor1CANID, MotorAlignmentValue.Aligned));
+    m_motor1.setControl(new Follower(ClimberConstants.kInnerMotor2CANID, MotorAlignmentValue.Aligned));
   }
 
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request
+    m_motor2.setControl(m_request
       .withPosition(newSetpoint));
   }
 
   public void runOpenLoop(double amperage) {
-    m_motor1.setControl(m_openLoopRequest
+    m_motor2.setControl(m_openLoopRequest
       .withOutput(amperage));
   }
 

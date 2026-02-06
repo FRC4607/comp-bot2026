@@ -51,10 +51,10 @@ public class ClimberOuter extends SubsystemBase {
     m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kOuterAcceleration;
     m_talonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kOuterJerk;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kOuterForwardSoftLimit;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ClimberCalibrations.kOuterReverseSoftLimit;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
