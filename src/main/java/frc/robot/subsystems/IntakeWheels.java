@@ -56,6 +56,10 @@ public class IntakeWheels extends SubsystemBase {
     );
   }
 
+  public double getVelocity() {
+    return m_motor1.getVelocity().getValueAsDouble();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

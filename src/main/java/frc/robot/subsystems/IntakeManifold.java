@@ -89,7 +89,7 @@ public class IntakeManifold extends SubsystemBase {
    */
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request
-      .withPosition(newSetpoint));
+      .withPosition(newSetpoint / 360));
   }
 
   /**
