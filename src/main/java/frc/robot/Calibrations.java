@@ -40,7 +40,7 @@ public class Calibrations {
         public static final double kS = 0;
 
         /** Proportional gain. */
-        public static final double kP = 0;
+        public static final double kP = 1;
 
         /** Integral gain. */
         public static final double kI = 0;
@@ -58,7 +58,7 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = 0;
+        public static final double kEncoderOffset = 0.95;
 
         /** Wrap-around point of the encoder. */
         public static final double kEncoderDiscontinuityPoint = 0;

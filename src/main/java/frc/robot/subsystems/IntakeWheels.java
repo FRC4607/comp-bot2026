@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
+import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -22,6 +24,8 @@ public class IntakeWheels extends SubsystemBase {
 
   private VelocityTorqueCurrentFOC m_request;
 
+  private TorqueCurrentFOC m_openLoopRequest;
+
   /** Creates a new IntakeWheels. */
   public IntakeWheels() {
 
@@ -31,6 +35,8 @@ public class IntakeWheels extends SubsystemBase {
 
     m_request = new VelocityTorqueCurrentFOC(0)
       .withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
+
+    m_openLoopRequest = new TorqueCurrentFOC(0);
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
@@ -54,6 +60,10 @@ public class IntakeWheels extends SubsystemBase {
     m_motor1.setControl(m_request
       .withVelocity(newSetpoint)
     );
+  }
+
+  public void setOpenLoop(double amperage) {
+    m_motor1.set(amperage);
   }
 
   public double getVelocity() {

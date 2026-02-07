@@ -48,6 +48,8 @@ public class IntakeManifold extends SubsystemBase {
     m_talonFXConfig.Feedback.FeedbackRemoteSensorID = m_encoder.getDeviceID();
     m_talonFXConfig.Feedback.SensorToMechanismRatio = IntakeManifoldConstants.kSensorToMechanismRatio;
     m_talonFXConfig.Feedback.RotorToSensorRatio = IntakeManifoldConstants.kRotorToSensorRatio;
+    
+    m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
