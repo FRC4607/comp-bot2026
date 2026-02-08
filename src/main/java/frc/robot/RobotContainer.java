@@ -17,6 +17,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -42,8 +43,8 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    public final IntakeManifold m_intakeManifold = new IntakeManifold();
-    public final IntakeWheels m_IntakeWheels = new IntakeWheels();
+    private final IntakeManifold m_intakeManifold = new IntakeManifold();
+    private final IntakeWheels m_IntakeWheels = new IntakeWheels();
 
     public RobotContainer() {
         configureBindings();
@@ -69,9 +70,9 @@ public class RobotContainer {
         );
 
         // joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
+        // joystick.b().whileTrue(drivetrain.applyRequest(() ->
+        //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+        // ));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -86,8 +87,8 @@ public class RobotContainer {
         joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
         joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
 
-        joystick.a().onTrue(new MoveIntakeToPosition(144, 1, m_intakeManifold))
-            .onFalse(new MoveIntakeToPosition(0, 1, m_intakeManifold));
+        joystick.a().onTrue(new MoveIntakeToPosition(80, 1, m_intakeManifold));
+        joystick.b().onTrue(new MoveIntakeToPosition(0, 1, m_intakeManifold));
 
         joystick.x().onTrue(new SetIntakeWheelsVelocity(80, 100, m_IntakeWheels));
         joystick.x().onFalse(new SetIntakeWheelsVelocity(0, 100, m_IntakeWheels));

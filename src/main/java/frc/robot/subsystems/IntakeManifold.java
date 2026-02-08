@@ -25,8 +25,8 @@ public class IntakeManifold extends SubsystemBase {
   private final TalonFX m_motor1;
   private final CANcoder m_encoder;
 
-  private TalonFXConfiguration m_talonFXConfig;
-  private CANcoderConfiguration m_encoderConfig;
+  private final TalonFXConfiguration m_talonFXConfig;
+  private final CANcoderConfiguration m_encoderConfig;
 
   private final DynamicMotionMagicTorqueCurrentFOC m_request;
 
@@ -39,7 +39,7 @@ public class IntakeManifold extends SubsystemBase {
     m_encoderConfig = new CANcoderConfiguration();
 
     m_request = new DynamicMotionMagicTorqueCurrentFOC(
-      0,
+      0.333,
       IntakeManifoldCalibrations.kMaxVelocity,
       IntakeManifoldCalibrations.kMaxAcceleration)
       .withJerk(IntakeManifoldCalibrations.kMaxJerk);
@@ -48,35 +48,19 @@ public class IntakeManifold extends SubsystemBase {
     m_talonFXConfig.Feedback.FeedbackRemoteSensorID = m_encoder.getDeviceID();
     m_talonFXConfig.Feedback.SensorToMechanismRatio = IntakeManifoldConstants.kSensorToMechanismRatio;
     m_talonFXConfig.Feedback.RotorToSensorRatio = IntakeManifoldConstants.kRotorToSensorRatio;
-    
-    m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-
+    m_talonFXConfig.Slot0.GravityArmPositionOffset = IntakeManifoldCalibrations.kGravityOffset;
     m_talonFXConfig.Slot0.kG = IntakeManifoldCalibrations.kG;
     m_talonFXConfig.Slot0.kS = IntakeManifoldCalibrations.kS;
     m_talonFXConfig.Slot0.kP = IntakeManifoldCalibrations.kP;
     m_talonFXConfig.Slot0.kI = IntakeManifoldCalibrations.kI;
     m_talonFXConfig.Slot0.kD = IntakeManifoldCalibrations.kD;
-
-    m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = IntakeManifoldCalibrations.kMaxVelocity;
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IntakeManifoldCalibrations.kMaxAcceleration;
-    m_talonFXConfig.MotionMagic.MotionMagicJerk = IntakeManifoldCalibrations.kMaxJerk;
-
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IntakeManifoldCalibrations.kMaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IntakeManifoldCalibrations.kMaxAmperage;
-
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = IntakeManifoldCalibrations.kForwardSoftLimit;
-
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = IntakeManifoldCalibrations.kReverseSoftLimit;
-
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
+    
     m_motor1.getConfigurator().apply(m_talonFXConfig);
-
+    
     m_encoderConfig.MagnetSensor.MagnetOffset = IntakeManifoldCalibrations.kEncoderOffset;
     m_encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = IntakeManifoldCalibrations.kEncoderDiscontinuityPoint;
     m_encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
@@ -90,8 +74,7 @@ public class IntakeManifold extends SubsystemBase {
    * @param newSetpoint degrees (0, 360)
    */
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request
-      .withPosition(newSetpoint / 360));
+    m_motor1.setControl(m_request.withPosition(newSetpoint / 360));
   }
 
   /**

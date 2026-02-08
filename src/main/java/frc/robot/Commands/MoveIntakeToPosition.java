@@ -10,9 +10,9 @@ import frc.robot.subsystems.IntakeManifold;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveIntakeToPosition extends Command {
 
-  private double m_setpoint;
-  private double m_tolerance;
-  private IntakeManifold m_intakeManifold;
+  private final double m_setpoint;
+  private final double m_tolerance;
+  private final IntakeManifold m_intakeManifold;
 
   /** Creates a new MoveIntakeToPosition. */
   public MoveIntakeToPosition(double setpoint, double tolerance, IntakeManifold intakeManifold) {

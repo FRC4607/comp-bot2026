@@ -25,43 +25,45 @@ public class Calibrations {
     public class IntakeManifoldCalibrations {
 
         /** Max Velocity of the mechanism. */
-        public static final double kMaxVelocity = 0;
+        public static final double kMaxVelocity = 20;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 0;
+        public static final double kMaxAcceleration = 40;
 
         /** Max jerk of the mechanism. */
-        public static final double kMaxJerk = 0;
+        public static final double kMaxJerk = 9999;
+
+        public static final double kGravityOffset = 0.25;
 
         /** Gravity feedforward. */
-        public static final double kG = 0;
+        public static final double kG = 15;
 
         /** Static feedforward. */
-        public static final double kS = 0;
+        public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 1;
+        public static final double kP = 350;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 0;
+        public static final double kD = 40;
 
         /** Max amperage of the mechanism. */
         public static final double kMaxAmperage = 40;
 
         /** Forward soft limit of the mechanism - mechanism will not power forwards past this point */
-        public static final double kForwardSoftLimit = 0;
+        public static final double kForwardSoftLimit = 0.19;
 
         /** Reverse soft limit of the mechanism - mechanism will not power backwards past this point */
-        public static final double kReverseSoftLimit = 0;
+        public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = 0.95;
+        public static final double kEncoderOffset = -0.039;
 
         /** Wrap-around point of the encoder. */
-        public static final double kEncoderDiscontinuityPoint = 0;
+        public static final double kEncoderDiscontinuityPoint = 1;
 
     }
 

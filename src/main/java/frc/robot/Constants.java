@@ -20,10 +20,10 @@ public class Constants {
         public static final int kEncoderCANID = 24;
 
         /** How many sensor rotations equal one mechanism rotation. */
-        public static final double kSensorToMechanismRatio = 1;
+        public static final double kSensorToMechanismRatio = 2;
 
         /** How many motor rotations equal one sensor rotation. */
-        public static final double kRotorToSensorRatio = 10;
+        public static final double kRotorToSensorRatio = 5;
     }
 
     public class IntakeWheelConstants {
