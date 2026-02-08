@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -87,11 +88,10 @@ public class RobotContainer {
         joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
         joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
 
-        joystick.a().onTrue(new MoveIntakeToPosition(80, 1, m_intakeManifold));
-        joystick.b().onTrue(new MoveIntakeToPosition(0, 1, m_intakeManifold));
+        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
-        joystick.x().onTrue(new SetIntakeWheelsVelocity(80, 100, m_IntakeWheels));
-        joystick.x().onFalse(new SetIntakeWheelsVelocity(0, 100, m_IntakeWheels));
+        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).andThen(new SetIntakeWheelsOpenLoop(() -> 1, m_IntakeWheels)))
+            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
