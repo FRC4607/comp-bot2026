@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
+import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -22,7 +23,7 @@ public class IntakeWheels extends SubsystemBase {
 
   private TalonFXConfiguration m_talonFXConfig;
 
-  private VelocityTorqueCurrentFOC m_request;
+  private MotionMagicVelocityTorqueCurrentFOC m_request;
 
   private TorqueCurrentFOC m_openLoopRequest;
 
@@ -33,33 +34,16 @@ public class IntakeWheels extends SubsystemBase {
 
     m_talonFXConfig = new TalonFXConfiguration();
 
-    m_request = new VelocityTorqueCurrentFOC(0)
+    m_request = new MotionMagicVelocityTorqueCurrentFOC(0)
       .withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
 
     m_openLoopRequest = new TorqueCurrentFOC(0);
-
-    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-
-    m_talonFXConfig.Slot0.kS = IntakeWheelCalibrations.kS;
-    m_talonFXConfig.Slot0.kV = IntakeWheelCalibrations.kV;
-    m_talonFXConfig.Slot0.kP = IntakeWheelCalibrations.kP;
-    m_talonFXConfig.Slot0.kI = IntakeWheelCalibrations.kI;
-    m_talonFXConfig.Slot0.kD = IntakeWheelCalibrations.kD;
-
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IntakeWheelCalibrations.kMaxAcceleration;
-
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = IntakeWheelCalibrations.kMaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = IntakeWheelCalibrations.kMaxAmperage;
-
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
   }
 
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request
-      .withVelocity(newSetpoint)
-    );
+    m_motor1.setControl(m_request.withVelocity(newSetpoint));
   }
 
   public void setOpenLoop(double amperage) {
