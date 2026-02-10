@@ -10,6 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.IndexerCalibrations;
 import frc.robot.Constants.IndexerConstants;
@@ -54,6 +55,10 @@ public class Indexer extends SubsystemBase {
     m_motor.setControl(m_request
       .withVelocity(newSetpoint)
     );
+
+  }
+  public double getVelocity() {
+    return m_motor.getVelocity().getValueAsDouble();
 
   }
 
