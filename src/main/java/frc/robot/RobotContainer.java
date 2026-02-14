@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.SetHoodOpenLoop;
 import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIndexerVelocity;
 import frc.robot.Commands.MoveIntakeToPosition;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeManifold;
 import frc.robot.subsystems.IntakeWheels;
@@ -49,6 +51,7 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final Hood m_hood = new Hood();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();

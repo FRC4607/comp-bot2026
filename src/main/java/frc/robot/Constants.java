@@ -52,4 +52,10 @@ public class Constants {
         public static final double kEncoder1ToRotor = 0;
         
     }
+
+    public class HoodConstants {
+
+        /** CAN ID of the motor */
+        public static final int kMotorCANID = 52;
+    }
 }
