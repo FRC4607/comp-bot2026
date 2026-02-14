@@ -6,11 +6,19 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import frc.Commands.RunFlywheelOpenLoop;
 import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
+import frc.robot.Commands.SetHoodOpenLoop;
+import frc.robot.Commands.SetIndexerOpenLoop;
+import frc.robot.Commands.SetIndexerVelocity;
+import frc.robot.Commands.MoveIntakeToPosition;
+import frc.robot.Commands.SetIntakeWheelsOpenLoop;
+import frc.robot.Commands.SetIntakeWheelsVelocity;
+import frc.robot.Commands.RunTurretOpenLoop;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -18,6 +26,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -26,6 +36,12 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ClimberInner;
 import frc.robot.subsystems.ClimberOuter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.IntakeManifold;
+import frc.robot.subsystems.IntakeWheels;
+import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -45,6 +61,12 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final ClimberInner m_climberInner = new ClimberInner();
     public final ClimberOuter m_climberOuter = new ClimberOuter();
+    public final Flywheel m_flywheel = new Flywheel();
+    public final Hood m_hood = new Hood();
+    private final IntakeManifold m_intakeManifold = new IntakeManifold();
+    private final IntakeWheels m_IntakeWheels = new IntakeWheels();
+    public final Indexer m_indexer = new Indexer();
+    public final Turret m_Turret = new Turret();
 
     public RobotContainer() {
         configureBindings();
@@ -56,9 +78,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed).withDeadband(0.1 * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed).withDeadband(0.1 * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate).withDeadband(0.1 * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -74,8 +96,12 @@ public class RobotContainer {
         //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         // ));
 
-        joystick.povUp().onTrue(new MoveInnerClimberToPosition(4, 1, m_climberInner));
-        joystick.povDown().onTrue(new MoveInnerClimberToPosition(0, 1, m_climberInner));
+        // Run SysId routines when holding back/start and X/Y.
+        // Note that each routine should be run exactly once in a single log.
+        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         joystick.y().onTrue(new MoveOuterClimberToPosition(7, 1, m_climberOuter));
         joystick.a().onTrue(new MoveOuterClimberToPosition(0, 1, m_climberOuter));
@@ -89,6 +115,25 @@ public class RobotContainer {
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.axisGreaterThan(3, 0.1).onTrue(new RunFlywheelOpenLoop(() -> (joystick.getRightTriggerAxis()) / 5, m_flywheel));
+
+        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
+
+        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+
+        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
+
+        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(25, 80, m_IntakeWheels)))
+            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+
+
+
+
+
+
     }
 
     public Command getAutonomousCommand() {
