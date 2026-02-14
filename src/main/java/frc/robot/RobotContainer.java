@@ -10,6 +10,7 @@ import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.MoveIntakeToPosition;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
+import frc.robot.Commands.RunTurretOpenLoop;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -27,6 +28,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeManifold;
 import frc.robot.subsystems.IntakeWheels;
+import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -46,6 +48,7 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
+    public final Turret m_Turret = new Turret();
 
     public RobotContainer() {
         configureBindings();
@@ -94,6 +97,10 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.axisGreaterThan(2, 0.1).onTrue(new RunTurretOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()) / 10, m_Turret));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new RunTurretOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()) / 10, m_Turret));
+        
     }
 
     public Command getAutonomousCommand() {
