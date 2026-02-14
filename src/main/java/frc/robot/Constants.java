@@ -14,7 +14,7 @@ public class Constants {
     public class TurretConstants {
 
         /** CAN ID of the motor. */
-        public static final int kMotorCANID = 0;
+        public static final int kMotorCANID = 32;
 
         /** CAN ID of the first encoder. */
         public static final int kEncoder1CANID = 0;

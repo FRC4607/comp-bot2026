@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.TurretCalibrations;
 import frc.robot.Constants.TurretConstants;
 
-public class turret extends SubsystemBase {
+public class Turret extends SubsystemBase {
 
   private final TalonFX m_motor;
 
@@ -36,7 +36,7 @@ public class turret extends SubsystemBase {
   private double m_position;
 
   /** Creates a new turret. */
-  public turret() {
+  public Turret() {
 
     m_motor = new TalonFX(TurretConstants.kMotorCANID, "kachow");
 
@@ -71,10 +71,10 @@ public class turret extends SubsystemBase {
     m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = TurretCalibrations.kMaxAmperage;
     m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = TurretCalibrations.kMaxAmperage;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = TurretCalibrations.kForwardSoftLimit;
 
-    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = TurretCalibrations.kReverseSoftLimit;
 
     m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -103,6 +103,10 @@ public class turret extends SubsystemBase {
 
     m_motor.setControl(m_request.withPosition(newSetpoint));
 
+  }
+
+  public void runOpenLoop(double dutyCycle) {
+    m_motor.set(dutyCycle);
   }
 
   public double getPosition() {
