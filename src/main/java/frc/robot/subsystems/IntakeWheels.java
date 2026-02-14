@@ -10,6 +10,7 @@ import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -21,11 +22,9 @@ public class IntakeWheels extends SubsystemBase {
 
   private final TalonFX m_motor1;
 
-  private TalonFXConfiguration m_talonFXConfig;
+  private final TalonFXConfiguration m_talonFXConfig;
 
-  private MotionMagicVelocityTorqueCurrentFOC m_request;
-
-  private TorqueCurrentFOC m_openLoopRequest;
+  private final VelocityTorqueCurrentFOC m_request;
 
   /** Creates a new IntakeWheels. */
   public IntakeWheels() {
@@ -34,16 +33,25 @@ public class IntakeWheels extends SubsystemBase {
 
     m_talonFXConfig = new TalonFXConfiguration();
 
-    m_request = new MotionMagicVelocityTorqueCurrentFOC(0)
-      .withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
+    m_request = new VelocityTorqueCurrentFOC(0);
 
-    m_openLoopRequest = new TorqueCurrentFOC(0);
+    m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
+
+    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+    m_talonFXConfig.Slot0.kS = IntakeWheelCalibrations.kS;
+    m_talonFXConfig.Slot0.kV = IntakeWheelCalibrations.kV;
+    m_talonFXConfig.Slot0.kP = IntakeWheelCalibrations.kP;
+    m_talonFXConfig.Slot0.kI = IntakeWheelCalibrations.kI;
+    m_talonFXConfig.Slot0.kD = IntakeWheelCalibrations.kD;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
   }
 
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request.withVelocity(newSetpoint));
+    m_motor1.setControl(m_request.withVelocity(25).withSlot(0));
+    System.out.println("set");
   }
 
   public void setOpenLoop(double amperage) {

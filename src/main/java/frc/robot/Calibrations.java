@@ -42,13 +42,13 @@ public class Calibrations {
         public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 350;
+        public static final double kP = 500;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 40;
+        public static final double kD = 60;
 
         /** Max amperage of the mechanism. */
         public static final double kMaxAmperage = 40;
@@ -70,16 +70,16 @@ public class Calibrations {
     public class IntakeWheelCalibrations {
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 0;
+        public static final double kMaxAcceleration = 50;
 
         /** Static feedforward. */
-        public static final double kS = 0;
+        public static final double kS = 2;
 
         /** Velocity feedforward. */
         public static final double kV = 0.0;
 
         /** Proportional gain. */
-        public static final double kP = 0.0;
+        public static final double kP = 2;
 
         /** Integral gain. */
         public static final double kI = 0;

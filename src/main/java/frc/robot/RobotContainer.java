@@ -90,7 +90,7 @@ public class RobotContainer {
 
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
-        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).andThen(new SetIntakeWheelsOpenLoop(() -> 1, m_IntakeWheels)))
+        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(25, 80, m_IntakeWheels)))
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         drivetrain.registerTelemetry(logger::telemeterize);
