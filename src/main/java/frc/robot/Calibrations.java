@@ -20,4 +20,28 @@ public class Calibrations {
     public class DrivetrainCalibrations {
          
     }
+
+    public class FlywheelCalibrations {
+
+        /** Static Feedforward. */
+        public static final double kS = 0;
+
+        /** Velocity Feedforward. */
+        public static final double kV = 0;
+
+        /** Proportional Gain. */
+        public static final double kP = 0;
+
+        /** Integral Gain. */
+        public static final double kI = 0;
+
+        /** Derivative Gain. */
+        public static final double kD = 0;
+
+        /** Max acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 0;
+
+        /** Current limit of each motor. */
+        public static final double kMaxAmperage = 40;
+    }
 }
