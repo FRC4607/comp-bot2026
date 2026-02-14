@@ -110,11 +110,11 @@ public class RobotContainer {
 
         joystick.axisGreaterThan(3, 0.1).onTrue(new RunFlywheelOpenLoop(() -> (joystick.getRightTriggerAxis()) / 5, m_flywheel));
 
-        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
-        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
+        // joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_IntakeWheels));
+        // joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_IntakeWheels));
 
-        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
-        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_indexer));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_indexer));
 
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
