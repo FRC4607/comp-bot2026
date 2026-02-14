@@ -150,4 +150,22 @@ public class Calibrations {
         public static final double kEncoder2Discontinuity = 0;
 
     }
+
+    public class HoodCalibrations {
+
+        /** Static Feedforward */
+        public static final double kS = 0;
+
+        /** Proportional Gain */
+        public static final double kP = 0;
+
+        /** Integral Gain */
+        public static final double kI = 0;
+
+        /** Derivative Gain */
+        public static final double kD = 0;
+
+        /** Max Stator Current of the mechanism. */
+        public static final double kMaxAmperage = 40;
+    }
 }
