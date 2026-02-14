@@ -67,4 +67,19 @@ public class Constants {
         /** CAN ID of the second motor. */
         public static final int kMotor2CANID = 51;
     }
+
+    public class ClimberConstants {
+
+        /** CAN ID of the first outer chain motor. */
+        public static final int kOuterMotor1CANID = 6;
+
+        /** Can ID of the second outer chain motor. */
+        public static final int kOuterMotor2CANID = 23;
+
+        /** CAN ID of the first inner chain motor. */
+        public static final int kInnerMotor1CANID = 34;
+
+        /** CAN ID of the second inner chain motor. */
+        public static final int kInnerMotor2CANID = 15;
+    }
 }

@@ -102,14 +102,6 @@ public class RobotContainer {
         // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-
-        joystick.y().onTrue(new MoveOuterClimberToPosition(7, 1, m_climberOuter));
-        joystick.a().onTrue(new MoveOuterClimberToPosition(0, 1, m_climberOuter));
-
-        joystick.rightBumper().whileTrue(new SetInnerClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberInner));
-        joystick.leftBumper().whileTrue(new SetOuterClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberOuter));
-
-
         
         // reset the field-centric heading on left bumper press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
