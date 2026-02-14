@@ -49,9 +49,9 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    public final Indexer m_indexer = new Indexer();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
+    public final Indexer m_indexer = new Indexer();
     public final Turret m_Turret = new Turret();
 
     public RobotContainer() {
@@ -95,6 +95,9 @@ public class RobotContainer {
         joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
         joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
 
+        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
         joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(25, 80, m_IntakeWheels)))
@@ -102,8 +105,6 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
-        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
 
 
 
