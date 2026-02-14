@@ -10,4 +10,10 @@ public class Constants {
     public class DrivetrainConstants {
         
     }
+
+    public class HoodConstants {
+
+        /** CAN ID of the motor */
+        public static final int kMotorCANID = 52;
+    }
 }

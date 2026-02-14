@@ -15,8 +15,9 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.HoodCalibrations;
+import frc.robot.Constants.HoodConstants;
 
 public class Hood extends SubsystemBase {
   
@@ -30,7 +31,7 @@ public class Hood extends SubsystemBase {
   /** Creates a new hood. */
   public Hood() {
 
-    m_motor = new TalonFXS(52, "kachow");
+    m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
 
     m_talonFXSConfig = new TalonFXSConfiguration();
 
@@ -41,13 +42,13 @@ public class Hood extends SubsystemBase {
     m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    m_talonFXSConfig.Slot0.kS = 0;
-    m_talonFXSConfig.Slot0.kP = 0;
-    m_talonFXSConfig.Slot0.kI = 0;
-    m_talonFXSConfig.Slot0.kD = 0;
+    m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
+    m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
+    m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
+    m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
 
 
-    m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = 40;
+    m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
 
     m_motor.getConfigurator().apply(m_talonFXSConfig);
 
