@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import frc.Commands.RunFlywheelOpenLoop;
 import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.SetHoodOpenLoop;
 import frc.robot.Commands.SetIndexerOpenLoop;
@@ -29,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeManifold;
@@ -51,6 +53,7 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final Flywheel m_flywheel = new Flywheel();
     public final Hood m_hood = new Hood();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
@@ -94,6 +97,10 @@ public class RobotContainer {
 
         // reset the field-centric heading on left bumper press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+
+        drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.axisGreaterThan(3, 0.1).onTrue(new RunFlywheelOpenLoop(() -> (joystick.getRightTriggerAxis()), m_flywheel));
 
         joystick.axisGreaterThan(2, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
         joystick.axisGreaterThan(3, 0.1).onTrue(new SetIntakeWheelsOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_IntakeWheels));
