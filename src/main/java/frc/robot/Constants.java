@@ -11,22 +11,22 @@ public class Constants {
         
     }
 
-    public class TurretConstants {
+    public class IntakeManifoldConstants {
 
-        /** CAN ID of the motor. */
-        public static final int kMotorCANID = 32;
+        /** CAN ID of the first motor. */
+        public static final int kMotor1CANID = 48;
 
-        /** CAN ID of the first encoder. */
-        public static final int kEncoder1CANID = 0;
+        /** CAN ID of the encoder. */
+        public static final int kEncoderCANID = 24;
 
-        /** CAN ID of the second encoder. */
-        public static final int kEncoder2CANID = 0;
+        /** How many sensor rotations equal one mechanism rotation. */
+        public static final double kSensorToMechanismRatio = 2;
 
-        /** Gear ratio of # of sensor rotations to one mechanism rotation. */
-        public static final double kEncoder1ToMechanism = 0;
+        /** How many motor rotations equal one sensor rotation. */
+        public static final double kRotorToSensorRatio = 5;
+    }
 
-        /** Gear ratio of # of motor rotor rotations to one sensor rotation. */
-        public static final double kEncoder1ToRotor = 0;
-        
+    public class IntakeWheelConstants {
+        public static final int kMotor1CANID = 45;
     }
 }
