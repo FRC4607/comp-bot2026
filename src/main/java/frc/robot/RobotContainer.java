@@ -8,6 +8,10 @@ import static edu.wpi.first.units.Units.*;
 
 import frc.Commands.RunFlywheelOpenLoop;
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.MoveInnerClimberToPosition;
+import frc.robot.Commands.MoveOuterClimberToPosition;
+import frc.robot.Commands.SetInnerClimberAmperage;
+import frc.robot.Commands.SetOuterClimberAmperage;
 import frc.robot.Commands.SetHoodOpenLoop;
 import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIndexerVelocity;
@@ -29,6 +33,8 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.ClimberInner;
+import frc.robot.subsystems.ClimberOuter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -53,6 +59,8 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final ClimberInner m_climberInner = new ClimberInner();
+    public final ClimberOuter m_climberOuter = new ClimberOuter();
     public final Flywheel m_flywheel = new Flywheel();
     public final Hood m_hood = new Hood();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
@@ -95,6 +103,14 @@ public class RobotContainer {
         // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
+        joystick.y().onTrue(new MoveOuterClimberToPosition(7, 1, m_climberOuter));
+        joystick.a().onTrue(new MoveOuterClimberToPosition(0, 1, m_climberOuter));
+
+        joystick.rightBumper().whileTrue(new SetInnerClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberInner));
+        joystick.leftBumper().whileTrue(new SetOuterClimberAmperage(() -> (joystick.getLeftTriggerAxis()-joystick.getRightTriggerAxis())*10, m_climberOuter));
+
+
+        
         // reset the field-centric heading on left bumper press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
