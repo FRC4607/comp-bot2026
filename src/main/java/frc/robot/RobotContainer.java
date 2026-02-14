@@ -7,6 +7,8 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.SetIndexerOpenLoop;
+import frc.robot.Commands.SetIndexerVelocity;
 import frc.robot.Commands.MoveIntakeToPosition;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
@@ -26,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeManifold;
 import frc.robot.subsystems.IntakeWheels;
 import frc.robot.subsystems.Turret;
@@ -46,6 +49,7 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final Indexer m_indexer = new Indexer();
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
     public final Turret m_Turret = new Turret();
@@ -97,6 +101,14 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+        joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()), m_indexer));
+
+
+
+
+
     }
 
     public Command getAutonomousCommand() {
