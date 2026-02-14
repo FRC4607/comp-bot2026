@@ -97,10 +97,6 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         drivetrain.registerTelemetry(logger::telemeterize);
-
-        joystick.axisGreaterThan(2, 0.1).onTrue(new RunTurretOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()) / 10, m_Turret));
-        joystick.axisGreaterThan(3, 0.1).onTrue(new RunTurretOpenLoop(() -> (joystick.getLeftTriggerAxis() - joystick.getRightTriggerAxis()) / 10, m_Turret));
-        
     }
 
     public Command getAutonomousCommand() {
