@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -34,8 +35,10 @@ public class Chamber extends SubsystemBase {
 
     m_talonFXConfig = new TalonFXConfiguration();
 
-    m_request = new VelocityTorqueCurrentFOC(0)
-      .withAcceleration(ChamberCalibrations.kMaxAcceleration);
+    m_request = new VelocityTorqueCurrentFOC(0).withAcceleration(ChamberCalibrations.kMaxAcceleration);
+
+    m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
@@ -45,21 +48,11 @@ public class Chamber extends SubsystemBase {
     m_talonFXConfig.Slot0.kI = ChamberCalibrations.kI;
     m_talonFXConfig.Slot0.kD = ChamberCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ChamberCalibrations.kMaxAcceleration;
-
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = ChamberCalibrations.kMaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = ChamberCalibrations.kMaxAmperage;
-    
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
     m_motor1.getConfigurator().apply(m_talonFXConfig); 
   }
 
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request
-      .withVelocity(newSetpoint)
-    );
-
+    m_motor1.setControl(m_request.withVelocity(newSetpoint));
   }
 
   public void runOpenLoop(double dutyCycle) {

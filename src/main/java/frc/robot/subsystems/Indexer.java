@@ -52,7 +52,6 @@ public class Indexer extends SubsystemBase {
 
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request.withVelocity(newSetpoint));
-    System.out.println("set");
   }
 
   public void runOpenLoop(double dutyCycle) {

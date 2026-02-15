@@ -20,6 +20,7 @@ import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.RunTurretOpenLoop;
 import frc.robot.Commands.SetChamberOpenLoop;
+import frc.robot.Commands.SetChamberVelocity;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -116,10 +117,8 @@ public class RobotContainer {
         // joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
         //     .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
-        joystick.a().onTrue(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberOpenLoop(() -> 1, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0.2, m_flywheel)));
-        joystick.b().onTrue(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberOpenLoop(() -> 0, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0, m_flywheel)));
-
-
+        joystick.a().onTrue(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0.2, m_flywheel)));
+        joystick.b().onTrue(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0, m_flywheel)));
 
 
 
