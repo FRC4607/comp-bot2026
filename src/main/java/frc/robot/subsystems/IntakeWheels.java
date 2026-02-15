@@ -33,7 +33,7 @@ public class IntakeWheels extends SubsystemBase {
 
     m_talonFXConfig = new TalonFXConfiguration();
 
-    m_request = new VelocityTorqueCurrentFOC(0);
+    m_request = new VelocityTorqueCurrentFOC(0).withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
 
     m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
     m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
@@ -50,8 +50,7 @@ public class IntakeWheels extends SubsystemBase {
   }
 
   public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request.withVelocity(25).withSlot(0));
-    System.out.println("set");
+    m_motor1.setControl(m_request.withVelocity(newSetpoint));
   }
 
   public void setOpenLoop(double amperage) {

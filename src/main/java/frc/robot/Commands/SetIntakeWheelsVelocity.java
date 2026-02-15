@@ -27,7 +27,7 @@ private IntakeWheels m_intakeWheels;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intakeWheels.updateSetpoint(20);
+    m_intakeWheels.updateSetpoint(m_setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
