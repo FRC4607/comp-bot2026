@@ -43,12 +43,7 @@ public class Flywheel extends SubsystemBase {
     m_talonFXConfig.Slot0.kI = FlywheelCalibrations.kI;
     m_talonFXConfig.Slot0.kD = FlywheelCalibrations.kD;
 
-    m_talonFXConfig.MotionMagic.MotionMagicAcceleration = FlywheelCalibrations.kMaxAcceleration;
-
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = FlywheelCalibrations.kMaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = FlywheelCalibrations.kMaxAmperage;
-
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     m_motor1.getConfigurator().apply(m_talonFXConfig);
     m_motor2.getConfigurator().apply(m_talonFXConfig);
@@ -64,6 +59,10 @@ public class Flywheel extends SubsystemBase {
 
   public void runOpenLoop(double dutyCycle) {
     m_motor1.set(dutyCycle);
+  }
+
+  public double getVelocity() {
+    return m_motor1.getVelocity().getValueAsDouble();
   }
 
   @Override

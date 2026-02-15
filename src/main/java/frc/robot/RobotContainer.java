@@ -6,10 +6,10 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
-import frc.Commands.RunFlywheelOpenLoop;
 import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
+import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
 import frc.robot.Commands.SetHoodOpenLoop;
@@ -21,6 +21,7 @@ import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.RunTurretOpenLoop;
 import frc.robot.Commands.SetChamberOpenLoop;
 import frc.robot.Commands.SetChamberVelocity;
+import frc.robot.Commands.SetFlywheelVelocity;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -117,11 +118,8 @@ public class RobotContainer {
         // joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
         //     .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
-        joystick.a().onTrue(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0.2, m_flywheel)));
-        joystick.b().onTrue(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0, m_flywheel)));
-
-
-
+        joystick.a().onTrue(new SetFlywheelVelocity(75, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
 
     }
