@@ -19,6 +19,7 @@ import frc.robot.Commands.MoveIntakeToPosition;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.RunTurretOpenLoop;
+import frc.robot.Commands.SetChamberOpenLoop;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -33,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.ClimberInner;
 import frc.robot.subsystems.ClimberOuter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -66,6 +68,7 @@ public class RobotContainer {
     private final IntakeManifold m_intakeManifold = new IntakeManifold();
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();
+    public final Chamber m_chamber = new Chamber();
     public final Turret m_Turret = new Turret();
 
     public RobotContainer() {
@@ -108,15 +111,14 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        // joystick.axisGreaterThan(3, 0.1).onTrue(new RunFlywheelOpenLoop(() -> (joystick.getRightTriggerAxis()) / 5, m_flywheel));
-
-        // joystick.axisGreaterThan(2, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_indexer));
-        // joystick.axisGreaterThan(3, 0.1).onTrue(new SetIndexerOpenLoop((() -> joystick.getRightTriggerAxis() - joystick.getLeftTriggerAxis()), m_indexer));
-
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
-        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
-            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+        // joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
+        //     .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+
+        joystick.a().onTrue(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberOpenLoop(() -> 1, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0.2, m_flywheel)));
+        joystick.b().onTrue(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberOpenLoop(() -> 0, m_chamber)).alongWith(new RunFlywheelOpenLoop(() -> 0, m_flywheel)));
+
 
 
 

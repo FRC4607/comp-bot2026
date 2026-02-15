@@ -7,34 +7,31 @@ package frc.robot.Commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Chamber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SetIndexerVelocity extends Command {
-  private double m_velocity;
-  private double m_tolerance;
-  private Indexer m_indexer;
+public class SetChamberOpenLoop extends Command {
+  private DoubleSupplier m_dutyCycle;
+  private Chamber m_chamber;
 
-  /** Creates a new SetIndexerVelocity. */
-  public SetIndexerVelocity(double velocity, double tolerance, Indexer indexer) {
-    m_velocity = velocity;
-    m_tolerance = tolerance;
-    m_indexer = indexer;
+  /** Creates a new SetChamberOpenLoop. */
+  public SetChamberOpenLoop(DoubleSupplier dutyCycle, Chamber chamber) {
+    m_chamber = chamber;
+    m_dutyCycle = dutyCycle;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_indexer);
-
+    addRequirements(m_chamber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_indexer.updateSetpoint(m_velocity);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_chamber.runOpenLoop(m_dutyCycle.getAsDouble());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,7 +40,6 @@ public class SetIndexerVelocity extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_indexer.getVelocity()-m_velocity) < m_tolerance;
-
+    return false;
   }
 }

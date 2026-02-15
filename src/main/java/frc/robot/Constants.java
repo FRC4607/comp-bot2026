@@ -28,10 +28,12 @@ public class Constants {
 
         /** CAN ID of the motor. */
         public static final int kMotor1CANID = 26;
+    }
 
-        /** CAN ID of the second motor. */
-        public static final int kMotor2CANID = 55;
+    public class ChamberConstants {
 
+        /** CAN ID of the first motor. */
+        public static final int kMotor1CANID = 55;
     }
 
     public class TurretConstants {
