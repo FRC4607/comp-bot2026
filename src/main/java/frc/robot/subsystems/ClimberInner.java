@@ -39,7 +39,7 @@ public class ClimberInner extends SubsystemBase {
     m_request = new MotionMagicTorqueCurrentFOC(0);
     m_openLoopRequest = new TorqueCurrentFOC(0);
 
-    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
     m_talonFXConfig.Slot0.kG = ClimberCalibrations.kInnerkG;
@@ -78,6 +78,14 @@ public class ClimberInner extends SubsystemBase {
 
   public double getPosition() {
     return m_motor1.getPosition().getValueAsDouble();
+  }
+
+  public void setPosition(double position) {
+    m_motor1.setPosition(position);
+  }
+
+  public double getVelocity() {
+    return m_motor1.getVelocity().getValueAsDouble();
   }
 
   @Override

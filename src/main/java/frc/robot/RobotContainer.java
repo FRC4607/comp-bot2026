@@ -12,6 +12,7 @@ import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
+import frc.robot.Commands.ZeroClimbersSequence;
 import frc.robot.Commands.SetHoodOpenLoop;
 import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIndexerVelocity;
@@ -115,11 +116,13 @@ public class RobotContainer {
 
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
 
-        // joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
-        //     .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
+            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
-        joystick.a().onTrue(new SetFlywheelVelocity(75, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
+        joystick.a().onTrue(new SetFlywheelVelocity(50, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
+
+        joystick.povDown().onTrue(new ZeroClimbersSequence(m_climberInner, m_climberOuter));
 
 
     }
