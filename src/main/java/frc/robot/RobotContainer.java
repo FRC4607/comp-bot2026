@@ -125,7 +125,7 @@ public class RobotContainer {
         joystick.a().onTrue(new SetFlywheelVelocity(50, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
-        joystick.povDown().onTrue(new ZeroHoodSequence(m_hood));
+        joystick.povDown().onTrue(new MoveHoodToPosition(0, 0.1, m_hood));
         joystick.povRight().onTrue(new MoveHoodToPosition(1, 0.1, m_hood));
         joystick.povLeft().onTrue(new MoveHoodToPosition(2, 0.1, m_hood));
 

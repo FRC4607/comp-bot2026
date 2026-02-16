@@ -182,13 +182,19 @@ public class Calibrations {
         public static final double kS = 0;
 
         /** Proportional Gain */
-        public static final double kP = 10;
+        public static final double kP = 8;
 
         /** Integral Gain */
         public static final double kI = 0;
 
         /** Derivative Gain */
         public static final double kD = 0;
+
+        /** Maximum velocity of the mechanism. */
+        public static final double kMaxSpeed = 20;
+
+        /** Maximum acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 9999;
 
         /** Max Stator Current of the mechanism. */
         public static final double kMaxAmperage = 40;

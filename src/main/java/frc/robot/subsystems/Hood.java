@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.controls.DynamicMotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFXS;
 import com.ctre.phoenix6.signals.AdvancedHallSupportValue;
@@ -29,7 +30,7 @@ public class Hood extends SubsystemBase {
   
   private final TalonFXSConfiguration m_talonFXSConfig;
   
-  private final MotionMagicTorqueCurrentFOC m_request;
+  private final MotionMagicVoltage m_request;
 
 
   /** Creates a new hood. */
@@ -39,7 +40,7 @@ public class Hood extends SubsystemBase {
 
     m_talonFXSConfig = new TalonFXSConfiguration();
 
-    m_request = new MotionMagicTorqueCurrentFOC(0);
+    m_request = new MotionMagicVoltage(0);
 
     m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
 
@@ -47,13 +48,12 @@ public class Hood extends SubsystemBase {
     m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
     
     m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
-    m_talonFXSConfig.Slot0.kG = 0;
     m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
     m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
     m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
     
-    m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = 1;
-    m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = 2;
+    m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = HoodCalibrations.kMaxSpeed;
+    m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = HoodCalibrations.kMaxAcceleration;
     
     m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
