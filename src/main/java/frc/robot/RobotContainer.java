@@ -123,7 +123,8 @@ public class RobotContainer {
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
         joystick.povDown().onTrue(new ZeroClimbersSequence(m_climberInner, m_climberOuter));
-
+        joystick.povLeft().onTrue(new MoveInnerClimberToPosition(25, 2, m_climberInner));
+        joystick.povRight().onTrue(new MoveInnerClimberToPosition(75, 2, m_climberInner));
 
     }
 

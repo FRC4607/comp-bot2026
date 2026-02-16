@@ -224,22 +224,22 @@ public class Calibrations {
         public static final double kOuterkG = 0;
 
         /** Static feedforward. */
-        public static final double kOuterkS = 0;
+        public static final double kOuterkS = 1.3;
 
         /** Proportional Gain.*/
-        public static final double kOuterkP = 0;
+        public static final double kOuterkP = 40;
 
         /** Integral Gain. */
         public static final double kOuterkI = 0;
 
         /** Derivative Gain. */
-        public static final double kOuterkD = 0;
+        public static final double kOuterkD = 5;
 
         /** Max speed. */
-        public static final double kOuterCruiseVelocity = 0;
+        public static final double kOuterCruiseVelocity = 80;
 
         /** Max acceleration. */
-        public static final double kOuterAcceleration = 0;
+        public static final double kOuterAcceleration = 400;
 
         /** Max jerk. */
         public static final double kOuterJerk = 0;
@@ -254,22 +254,22 @@ public class Calibrations {
         public static final double kInnerkG = 0;
 
         /** Static feedforward. */
-        public static final double kInnerkS = 0;
+        public static final double kInnerkS = 1.3;
 
-        /** Proportional gain. */
-        public static final double kInnerkP = 0;
+        /** Proportional Gain.*/
+        public static final double kInnerkP = 40;
 
-        /** Integral gain. */
+        /** Integral Gain. */
         public static final double kInnerkI = 0;
 
-        /** Derivative gain. */
-        public static final double kInnerkD = 0;
+        /** Derivative Gain. */
+        public static final double kInnerkD = 5;
 
         /** Max speed. */
-        public static final double kInnerCruiseVelocity = 0;
+        public static final double kInnerCruiseVelocity = 80;
 
         /** Max acceleration. */
-        public static final double kInnerAcceleration = 0;
+        public static final double kInnerAcceleration = 400;
 
         /** Max jerk. */
         public static final double kInnerJerk = 0;
