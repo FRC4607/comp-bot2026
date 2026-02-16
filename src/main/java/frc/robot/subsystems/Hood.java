@@ -6,26 +6,30 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
+import com.ctre.phoenix6.controls.DynamicMotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFXS;
+import com.ctre.phoenix6.signals.AdvancedHallSupportValue;
 import com.ctre.phoenix6.signals.BrushedMotorWiringValue;
 import com.ctre.phoenix6.signals.ExternalFeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.HoodCalibrations;
 import frc.robot.Constants.HoodConstants;
 
 public class Hood extends SubsystemBase {
   
-  private TalonFXS m_motor;
+  private final TalonFXS m_motor;
   
-  private TalonFXSConfiguration m_talonFXSConfig;
+  private final TalonFXSConfiguration m_talonFXSConfig;
   
-  private MotionMagicTorqueCurrentFOC m_request;
+  private final MotionMagicTorqueCurrentFOC m_request;
 
 
   /** Creates a new hood. */
@@ -39,16 +43,23 @@ public class Hood extends SubsystemBase {
 
     m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
 
-    m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
+    m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
+    
     m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
+    m_talonFXSConfig.Slot0.kG = 0;
     m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
     m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
     m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
+    
+    m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = 1;
+    m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = 2;
+    
+    m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
+    m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
 
-    m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
+    // m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
 
     m_motor.getConfigurator().apply(m_talonFXSConfig);
 
@@ -57,10 +68,20 @@ public class Hood extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+  }
+
+  public double getVelocity() {
+    return m_motor.getVelocity().getValueAsDouble();
+  }
+
+  public double getPosition() {
+    return m_motor.getPosition().getValueAsDouble();
   }
 
   public void updateSetpoint(double newSetpoint) {
     m_motor.setControl(m_request.withPosition(newSetpoint));
+    System.out.println("set" + newSetpoint);
   }
 
   public void runOpenLoop(double dutyCycle) {

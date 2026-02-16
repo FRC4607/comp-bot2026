@@ -7,12 +7,15 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
 import frc.robot.Commands.ZeroClimbersSequence;
+import frc.robot.Commands.ZeroHood;
+import frc.robot.Commands.ZeroHoodSequence;
 import frc.robot.Commands.SetHoodOpenLoop;
 import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIndexerVelocity;
@@ -122,9 +125,9 @@ public class RobotContainer {
         joystick.a().onTrue(new SetFlywheelVelocity(50, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
-        joystick.povDown().onTrue(new ZeroClimbersSequence(m_climberInner, m_climberOuter));
-        joystick.povLeft().onTrue(new MoveInnerClimberToPosition(25, 2, m_climberInner));
-        joystick.povRight().onTrue(new MoveInnerClimberToPosition(75, 2, m_climberInner));
+        joystick.povDown().onTrue(new ZeroHoodSequence(m_hood));
+        joystick.povRight().onTrue(new MoveHoodToPosition(1, 0.1, m_hood));
+        joystick.povLeft().onTrue(new MoveHoodToPosition(2, 0.1, m_hood));
 
     }
 

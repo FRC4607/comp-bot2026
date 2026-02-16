@@ -182,7 +182,7 @@ public class Calibrations {
         public static final double kS = 0;
 
         /** Proportional Gain */
-        public static final double kP = 0;
+        public static final double kP = 10;
 
         /** Integral Gain */
         public static final double kI = 0;
