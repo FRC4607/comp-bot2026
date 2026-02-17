@@ -163,16 +163,16 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
-        public static final double kEncoder1Offset = 0;
+        public static final double kEncoder1Offset = -0.57;
 
         /** Discontinuity point of the first encoder. */
-        public static final double kEncoder1Discontinuity = 0;
+        public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
-        public static final double kEncoder2Offset = 0;
+        public static final double kEncoder2Offset = -0.69;
 
         /** Discontinuity point of the second encoder. */
-        public static final double kEncoder2Discontinuity = 0;
+        public static final double kEncoder2Discontinuity = 1;
 
     }
 

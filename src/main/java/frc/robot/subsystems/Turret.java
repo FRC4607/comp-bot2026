@@ -15,6 +15,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.TurretCalibrations;
 import frc.robot.Constants.TurretConstants;
@@ -89,7 +90,7 @@ public class Turret extends SubsystemBase {
 
     m_encoderConfig2.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder2Offset;
     m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder2Discontinuity;
-    m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+    m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 
     m_encoder2.getConfigurator().apply(m_encoderConfig2);
   }
@@ -97,30 +98,43 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putNumber("Turret Encoder Position", getPosition());
+    SmartDashboard.putNumber("Encoder 1", m_encoder1.getAbsolutePosition().getValueAsDouble());
+    SmartDashboard.putNumber("Encoder 2", m_encoder2.getAbsolutePosition().getValueAsDouble());
   }
 
+  /** Updates the position to drive towards.
+   * 
+   * @param newSetpoint The new setpoint, in mechanism rotations.
+   */
   public void updateSetpoint(double newSetpoint) {
-
-    m_motor.setControl(m_request.withPosition(newSetpoint));
-
+    m_motor.setControl(m_request.withPosition(newSetpoint % 1));
   }
 
-  public void runOpenLoop(double dutyCycle) {
-    m_motor.set(dutyCycle);
+  /**
+   * Runs the turret motor in open loop.
+   * 
+   * @param speed The speed to drive the motor at.
+   */
+  public void runOpenLoop(double speed) {
+    m_motor.set(speed);
   }
 
   public double getPosition() {
-    m_position = (m_encoder2.getAbsolutePosition().getValueAsDouble()) - (m_encoder1.getAbsolutePosition().getValueAsDouble());
+    m_position = (m_encoder1.getAbsolutePosition().getValueAsDouble()) - (m_encoder2.getAbsolutePosition().getValueAsDouble());
 
     if (m_position >= 0) {
-      return m_position;
+      return m_position * 2.35;
     } else {
-      return m_position + 1;
+      return (m_position + 1) * 2.35;
     }
   }
 
   public void resetsetPosition() {
-    m_motor.setPosition(getPosition());
+    if (0 < getPosition() && getPosition() < 1) {
+      m_motor.setPosition(getPosition());
+    }
   }
   
 }
