@@ -47,6 +47,9 @@ public class Constants {
         /** CAN ID of the second encoder. */
         public static final int kEncoder2CANID = 50;
 
+        /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
+        public static final double kRotorToMechanism = 10.2;
+
         /** Gear ratio of # of sensor rotations to one mechanism rotation. */
         public static final double kEncoder1ToMechanism = 6.375;
 

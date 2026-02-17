@@ -10,6 +10,7 @@ import frc.robot.Calibrations.DrivetrainCalibrations;
 import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
+import frc.robot.Commands.MoveTurretToPosition;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
@@ -31,6 +32,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -75,7 +77,7 @@ public class RobotContainer {
     private final IntakeWheels m_IntakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();
     public final Chamber m_chamber = new Chamber();
-    public final Turret m_Turret = new Turret();
+    public final Turret m_turret = new Turret();
 
     public RobotContainer() {
         configureBindings();
@@ -124,6 +126,11 @@ public class RobotContainer {
 
         joystick.a().onTrue(new SetFlywheelVelocity(50, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
+
+        joystick.povDown().onTrue(new MoveTurretToPosition(0, 0.05, m_turret));
+        joystick.povLeft().onTrue(new MoveTurretToPosition(0.33, 0.05, m_turret));
+        joystick.povUp().onTrue(new MoveTurretToPosition(0.66, 0.05, m_turret));
+        joystick.povRight().onTrue(new MoveTurretToPosition(0.99, 0.05, m_turret));
 
     }
 

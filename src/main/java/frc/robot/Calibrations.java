@@ -130,25 +130,28 @@ public class Calibrations {
     public class TurretCalibrations {
 
         /** Gravity feedforward. */
-        public static final double kG = 0;
+        public static final double kG = 8;
 
         /** Static feedforward. */
-        public static final double kS = 0;
+        public static final double kS = 15;
 
         /** Proportional gain. */
-        public static final double kP = 0;
+        public static final double kP = 2200;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 0;
+        public static final double kD = 100;
+
+        /** Offset of the gravity feedforward. */
+        public static final double kGravityOffset = -0.26;
 
         /** Max speed of the mechanism. */
-        public static final double kMaxSpeed = 0;
+        public static final double kMaxSpeed = 10;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 0;
+        public static final double kMaxAcceleration = 40;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 0;
@@ -163,13 +166,13 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
-        public static final double kEncoder1Offset = -0.57;
+        public static final double kEncoder1Offset = -0.425;
 
         /** Discontinuity point of the first encoder. */
         public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
-        public static final double kEncoder2Offset = -0.69;
+        public static final double kEncoder2Offset = -0.303;
 
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;

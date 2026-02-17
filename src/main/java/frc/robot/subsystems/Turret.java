@@ -51,13 +51,14 @@ public class Turret extends SubsystemBase {
     m_encoderConfig1 = new CANcoderConfiguration();
     m_encoderConfig2 = new CANcoderConfiguration();
 
-    m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    m_talonFXConfig.Feedback.FeedbackRemoteSensorID = TurretConstants.kEncoder1CANID;
-    m_talonFXConfig.Feedback.SensorToMechanismRatio = TurretConstants.kEncoder1ToMechanism;
-    m_talonFXConfig.Feedback.RotorToSensorRatio = TurretConstants.kEncoder1ToRotor;
+    m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    m_talonFXConfig.Feedback.SensorToMechanismRatio = TurretConstants.kRotorToMechanism;
+
+    m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
     m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+    m_talonFXConfig.Slot0.GravityArmPositionOffset = TurretCalibrations.kGravityOffset;
 
     m_talonFXConfig.Slot0.kG = TurretCalibrations.kG;
     m_talonFXConfig.Slot0.kS = TurretCalibrations.kS;
@@ -68,9 +69,6 @@ public class Turret extends SubsystemBase {
     m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = TurretCalibrations.kMaxSpeed;
     m_talonFXConfig.MotionMagic.MotionMagicAcceleration = TurretCalibrations.kMaxAcceleration;
     m_talonFXConfig.MotionMagic.MotionMagicJerk = TurretCalibrations.kMaxJerk;
-
-    m_talonFXConfig.TorqueCurrent.PeakForwardTorqueCurrent = TurretCalibrations.kMaxAmperage;
-    m_talonFXConfig.TorqueCurrent.PeakReverseTorqueCurrent = TurretCalibrations.kMaxAmperage;
 
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = TurretCalibrations.kForwardSoftLimit;
@@ -84,13 +82,14 @@ public class Turret extends SubsystemBase {
 
     m_encoderConfig1.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder1Offset;
     m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder1Discontinuity;
-    m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+    m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+  
 
     m_encoder1.getConfigurator().apply(m_encoderConfig1);
 
     m_encoderConfig2.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder2Offset;
     m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder2Discontinuity;
-    m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+    m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
     m_encoder2.getConfigurator().apply(m_encoderConfig2);
   }
@@ -100,6 +99,7 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
 
     SmartDashboard.putNumber("Turret Encoder Position", getPosition());
+    SmartDashboard.putNumber("Motor Position", m_motor.getPosition().getValueAsDouble());
     SmartDashboard.putNumber("Encoder 1", m_encoder1.getAbsolutePosition().getValueAsDouble());
     SmartDashboard.putNumber("Encoder 2", m_encoder2.getAbsolutePosition().getValueAsDouble());
   }
@@ -109,7 +109,7 @@ public class Turret extends SubsystemBase {
    * @param newSetpoint The new setpoint, in mechanism rotations.
    */
   public void updateSetpoint(double newSetpoint) {
-    m_motor.setControl(m_request.withPosition(newSetpoint % 1));
+    m_motor.setControl(m_request.withPosition((newSetpoint + 1) % 1));
   }
 
   /**
@@ -122,7 +122,7 @@ public class Turret extends SubsystemBase {
   }
 
   public double getPosition() {
-    m_position = (m_encoder1.getAbsolutePosition().getValueAsDouble()) - (m_encoder2.getAbsolutePosition().getValueAsDouble());
+    m_position = (m_encoder2.getAbsolutePosition().getValueAsDouble()) - (m_encoder1.getAbsolutePosition().getValueAsDouble());
 
     if (m_position >= 0) {
       return m_position * 2.35;
@@ -132,7 +132,9 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetsetPosition() {
-    if (0 < getPosition() && getPosition() < 1) {
+    if (getPosition() > 2) {
+      m_motor.setPosition(getPosition() - 2.35);
+    } else {
       m_motor.setPosition(getPosition());
     }
   }
