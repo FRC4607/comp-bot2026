@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.HubShot;
 import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
@@ -114,24 +115,24 @@ public class RobotContainer {
         // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
-        // reset the field-centric heading on left bumper press
+        // reset the field-centric heading on start press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold));
+        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(5, 0.1, m_IntakeWheels)));
+        // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
 
-        joystick.x().onTrue(new MoveIntakeToPosition(80, 50, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
+        joystick.x().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
-        joystick.a().onTrue(new SetFlywheelVelocity(50, 2, m_flywheel).andThen(new SetIndexerVelocity(90, 90, m_indexer).alongWith(new SetChamberVelocity(60,90, m_chamber))))
+        joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
-        joystick.povDown().onTrue(new MoveTurretToPosition(0, 0.05, m_turret));
-        joystick.povLeft().onTrue(new MoveTurretToPosition(0.33, 0.05, m_turret));
-        joystick.povUp().onTrue(new MoveTurretToPosition(0.66, 0.05, m_turret));
-        joystick.povRight().onTrue(new MoveTurretToPosition(0.99, 0.05, m_turret));
-
+        // joystick.povDown().onTrue(new MoveTurretToPosition(0, 0.05, m_turret));
+        // joystick.povLeft().onTrue(new MoveTurretToPosition(0.33, 0.05, m_turret));
+        // joystick.povUp().onTrue(new MoveTurretToPosition(0.66, 0.05, m_turret));
+        // joystick.povRight().onTrue(new MoveTurretToPosition(0.99, 0.05, m_turret));
     }
 
     public Command getAutonomousCommand() {

@@ -28,7 +28,7 @@ public class Calibrations {
         public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 500;
+        public static final double kP = 700;
 
         /** Integral gain. */
         public static final double kI = 0;
@@ -46,7 +46,7 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = -0.039;
+        public static final double kEncoderOffset = -0.318604;
 
         /** Wrap-around point of the encoder. */
         public static final double kEncoderDiscontinuityPoint = 1;
@@ -288,5 +288,39 @@ public class Calibrations {
 
         /** Reverse software limit - mechanism will not power backwards past this point. */
         public static final double kInnerReverseSoftLimit = 0;
+    }
+
+    /** Calibrations for a shot where the robot's left (Opposite Climber) side is against the Hub. */
+    public class HubShotCalibrations {
+
+        /** Flywheel Velocity */
+        public static final double kFlywheelVelocity = 45;
+
+        /** Flywheel Velocity Tolerance */
+        public static final double kFlywheelVelocityTolerance = 1;
+
+        /** Hood Angle */
+        public static final double kHoodAngle = 0.65;
+
+        /** Hood Angle Tolerance */
+        public static final double kHoodAngleTolerance = 0.1;
+
+        /** Turret Angle */
+        public static final double kTurretAngle = 0.25;
+
+        /** Turret Angle Tolerance */
+        public static final double kTurretAngleTolerance = 0.05;
+
+        /** Chamber Velocity */
+        public static final double kChamberVelocity = 60;
+
+        /** Chamber Velocity Tolerance */
+        public static final double kChamberVelocityTolerance = 90;
+
+        /** Indexer Velocity */
+        public static final double kIndexerVelocity = 90;
+
+        /** Indexer Velocity Tolerance */
+        public static final double kIndexerVelocityTolerance = 90;
     }
 }

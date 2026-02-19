@@ -41,6 +41,6 @@ public class MoveHoodToPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_hood.getPosition()) < m_tolerance;
+    return Math.abs(m_hood.getPosition()- m_setpoint) < m_tolerance;
   }
 }
