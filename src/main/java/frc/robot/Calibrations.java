@@ -245,7 +245,7 @@ public class Calibrations {
         public static final double kOuterkD = 5;
 
         /** Max speed. */
-        public static final double kOuterCruiseVelocity = 80;
+        public static final double kOuterCruiseVelocity = 80; // 80;
 
         /** Max acceleration. */
         public static final double kOuterAcceleration = 400;
@@ -275,7 +275,7 @@ public class Calibrations {
         public static final double kInnerkD = 5;
 
         /** Max speed. */
-        public static final double kInnerCruiseVelocity = 80;
+        public static final double kInnerCruiseVelocity = 80; // 80;
 
         /** Max acceleration. */
         public static final double kInnerAcceleration = 400;
@@ -322,5 +322,44 @@ public class Calibrations {
 
         /** Indexer Velocity Tolerance */
         public static final double kIndexerVelocityTolerance = 90;
+    }
+
+    public class ClimbSequenceCalibrations {
+
+        /** Outer climber prep position */
+        public static final double kOuterPrep = 30;
+
+        /** Outer climber prep position tolerance */
+        public static final double kOuterPrepTolerance = 1;
+
+        /** Inner climber prep position */
+        public static final double kInnerPrep = 30;
+
+        /** Inner climber prep position tolerance */
+        public static final double kInnerPrepTolerance = 1;
+
+        /** Outer climber l1 position */
+        public static final double kOuterPosition = 95;
+
+        /** Outer climber l1 position tolerance */
+        public static final double kOuterPositionTolerance = 1;
+
+        /** Inner Climber l1 handoff position */
+        public static final double kInnerHandoffPosition = 100;
+
+        /** Inner Climber l1 handoff tolerance */
+        public static final double kInnerHandoffPositionTolerance = 1;
+
+        /** Inner Climber position to allow outer hooks to reach next bar */
+        public static final double kInnerTraversalPosition = 130;
+
+        /** Inner Climber traversal position tolerance */
+        public static final double kInnerTraversalPositionTolerance = 1;
+
+        /** Outer Climber position to allow inner hook to reset */
+        public static final double kOuterTraversalPosition = 50;
+
+        /** Outer Climber traversal position tolerance */
+        public static final double kOuterTraversalPositionTolerance = 1;
     }
 }

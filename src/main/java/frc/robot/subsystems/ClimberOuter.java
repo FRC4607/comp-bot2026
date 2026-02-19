@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ClimberCalibrations;
@@ -50,6 +51,8 @@ public class ClimberOuter extends SubsystemBase {
     m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = ClimberCalibrations.kOuterCruiseVelocity;
     m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kOuterAcceleration;
     m_talonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kOuterJerk;
+
+    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kOuterForwardSoftLimit;

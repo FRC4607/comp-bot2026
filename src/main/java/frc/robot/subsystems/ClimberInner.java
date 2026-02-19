@@ -52,7 +52,7 @@ public class ClimberInner extends SubsystemBase {
     m_talonFXConfig.MotionMagic.MotionMagicAcceleration = ClimberCalibrations.kInnerAcceleration;
     m_talonFXConfig.MotionMagic.MotionMagicJerk = ClimberCalibrations.kInnerJerk;
 
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kInnerForwardSoftLimit;

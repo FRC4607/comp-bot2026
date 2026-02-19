@@ -95,5 +95,10 @@ public class Constants {
 
         /** CAN ID of the second inner chain motor. */
         public static final int kInnerMotor2CANID = 56;
+
+        /** Inches of chain travel per motor revolution. */
+        public static final double kClimbersInchesPerRevolution = 0.19864;
+
+        // 5.625 inches per revolution of outer sprocket
     }
 }

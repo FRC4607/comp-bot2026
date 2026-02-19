@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.Calibrations.DrivetrainCalibrations;
+import frc.robot.Commands.ClimbSequence;
 import frc.robot.Commands.HubShot;
 import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
@@ -60,7 +61,7 @@ public class RobotContainer {
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDeadband(MaxSpeed * 0.15).withRotationalDeadband(MaxAngularRate * 0.15) // Add a 15% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -129,10 +130,9 @@ public class RobotContainer {
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
-        // joystick.povDown().onTrue(new MoveTurretToPosition(0, 0.05, m_turret));
-        // joystick.povLeft().onTrue(new MoveTurretToPosition(0.33, 0.05, m_turret));
-        // joystick.povUp().onTrue(new MoveTurretToPosition(0.66, 0.05, m_turret));
-        // joystick.povRight().onTrue(new MoveTurretToPosition(0.99, 0.05, m_turret));
+        joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
+
+        joystick.povDown().onTrue(new MoveInnerClimberToPosition(10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
     }
 
     public Command getAutonomousCommand() {
