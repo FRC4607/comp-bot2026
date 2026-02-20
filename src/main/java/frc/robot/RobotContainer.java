@@ -16,6 +16,7 @@ import frc.robot.Commands.MoveTurretToPosition;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
+import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.ZeroClimbersSequence;
 import frc.robot.Commands.ZeroHood;
 import frc.robot.Commands.ZeroHoodSequence;
@@ -124,15 +125,17 @@ public class RobotContainer {
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold).alongWith(new SetIntakeWheelsVelocity(5, 0.1, m_IntakeWheels)));
         // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
 
-        joystick.x().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
-            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+        // joystick.x().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
+        //     .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber))));
 
-        joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
+        // joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
 
-        joystick.povDown().onTrue(new MoveInnerClimberToPosition(10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
+        // joystick.povDown().onTrue(new MoveInnerClimberToPosition(10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
+
+        joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
     }
 
     public Command getAutonomousCommand() {
