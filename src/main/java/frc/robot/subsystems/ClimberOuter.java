@@ -66,25 +66,53 @@ public class ClimberOuter extends SubsystemBase {
     m_motor2.setControl(new Follower(ClimberConstants.kOuterMotor1CANID, MotorAlignmentValue.Aligned));
   }
 
+  /**
+   * Updates the setpoint of the mechanism, in motor rotations.
+   * 
+   * @param newSetpoint The setpoint to drive to in motor rotations (5 motor rot ~ 1 inch)
+   */
   public void updateSetpoint(double newSetpoint) {
+    // TODO: Convert to inches
     m_motor1.setControl(m_request
       .withPosition(newSetpoint));
   }
 
+  /**
+   * Runs the motors in open loop control.
+   * 
+   * @param amperage The power to run at, in amps
+   */
   public void runOpenLoop(double amperage) {
     m_motor1.setControl(m_openLoopRequest
       .withOutput(amperage));
   }
 
+  /**
+   * Gets the position of the mechanism, in motor rotations.
+   * 
+   * @return The current position of the mechanism in motor rotations (5 motor rot ~ 1 inch)
+   */
   public double getPosition() {
     return m_motor1.getPosition().getValueAsDouble();
   }
 
+  /**
+   * Resets the position of the mechanism to the specified value, in motor rotations.
+   * 
+   * @param position The updated position of the mechanism in motor rotations (5 motor rot ~ 1 inch)
+   */
   public void setPosition(double position) {
+    // TODO: Convert to inches
     m_motor1.setPosition(position);
   }
 
+  /** 
+   * Gets the velocity of the mechanism, in motor rotations per second.
+   * 
+   * @return The current velocity of the mechanism in motor rotations per second (5 motor rot ~ 1 inch)
+   */
   public double getVelocity() {
+    // TODO: Convert to inches/second
     return m_motor1.getVelocity().getValueAsDouble();
   }
 

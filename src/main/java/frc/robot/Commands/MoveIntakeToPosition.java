@@ -14,7 +14,13 @@ public class MoveIntakeToPosition extends Command {
   private final double m_tolerance;
   private final IntakeManifold m_intakeManifold;
 
-  /** Creates a new MoveIntakeToPosition. */
+  /** 
+   * A command to set the setpoint of the intake manifold.
+   * 
+   * @param setpoint The setpoint to drive towards (degrees)
+   * @param tolerance Tolerance for error (degrees)
+   * @param intakeManifold Intake manifold to use.
+   */
   public MoveIntakeToPosition(double setpoint, double tolerance, IntakeManifold intakeManifold) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;

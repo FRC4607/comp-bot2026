@@ -13,7 +13,13 @@ import frc.robot.subsystems.ClimberOuter;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ClimbSequence extends SequentialCommandGroup {
-  /** Creates a new ClimbSequence. */
+  
+  /** 
+   * A command sequence to climb the tower.
+   * 
+   * @param climberOuter The outer climber
+   * @param climberInner The inner climber
+  */
   public ClimbSequence(ClimberOuter climberOuter, ClimberInner climberInner) {
     super(
       // Prep Climbers

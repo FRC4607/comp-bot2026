@@ -4,8 +4,6 @@
 
 package frc.robot.Commands;
 
-import java.util.function.ToLongBiFunction;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
 
@@ -15,7 +13,13 @@ public class SetFlywheelVelocity extends Command {
   private double m_tolerance;
   private Flywheel m_flywheel;
 
-  /** Creates a new SetFlywheelVelocity. */
+  /** 
+   * A command to set the closed loop setpoint of the flywheel, in rotations per second.
+   * 
+   * @param setpoint The desired speed of the flywheel (rot/s)
+   * @param tolerance The tolerance for error (rot/s)
+   * @param flywheel The flywheel to use
+   */
   public SetFlywheelVelocity(double setpoint, double tolerance, Flywheel flywheel) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;

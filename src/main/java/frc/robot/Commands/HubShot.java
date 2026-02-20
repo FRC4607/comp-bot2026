@@ -17,7 +17,16 @@ import frc.robot.subsystems.Turret;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class HubShot extends SequentialCommandGroup {
-  /** Creates a new HubShot. */
+  
+  /** 
+   * A Command sequence that will shoot into the Hub when the robot is touching the hub with the climbers directly opposite of the hub wall.
+   * 
+   * @param flywheel The flywheel to use
+   * @param hood The hood to use
+   * @param turret The turret to use
+   * @param indexer The indexer to use
+   * @param chamber The chamber to use
+   */
   public HubShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
     super(
       new ParallelCommandGroup(

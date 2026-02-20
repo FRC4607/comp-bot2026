@@ -13,8 +13,15 @@ public class MoveHoodToPosition extends Command {
   private double m_tolerance;
   private Hood m_hood;
 
+  // TODO: Convert to degrees once converted in the hood subsystem
 
-  /** Creates a new MoveHoodToPosition. */
+  /** 
+   * A command to set the closed loop setpoint of the hood, in motor rotations.
+   * 
+   * @param setpoint The position to drive to (motor rotations)
+   * @param tolerance The tolerance for error (motor rotations)
+   * @param hood The hood to use.
+   */
   public MoveHoodToPosition(double setpoint, double tolerance, Hood hood) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;

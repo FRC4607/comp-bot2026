@@ -14,7 +14,15 @@ public class MoveInnerClimberToPosition extends Command {
   private double m_tolerance;
   private ClimberInner m_climberInner;
 
-  /** Creates a new MoveInnerClimberToPosition. */
+  // TODO: Convert to inches once done in the Climber Subsystem.
+
+  /** 
+   * A command to set the setpoint of the inner climber, in motor rotations.
+   * 
+   * @param setpoint Position to drive towards (motor rotations)
+   * @param tolerance Tolerance for error (motor rotations)
+   * @param climberInner The climberInner to use.
+   */
   public MoveInnerClimberToPosition(double setpoint, double tolerance, ClimberInner climberInner) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;
