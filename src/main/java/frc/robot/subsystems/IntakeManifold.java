@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.IntakeManifoldCalibrations;
 import frc.robot.Constants.IntakeManifoldConstants;
 
+/**
+ * The IntakeManifold subsystem controls the extendable intake arm position.
+ * It uses a TalonFX motor with absolute CANcoder feedback and motion magic control
+ * for smooth and repeatable positioning.
+ */
 public class IntakeManifold extends SubsystemBase {
   /** Creates a new IntakeManifold. */
 
@@ -30,6 +35,9 @@ public class IntakeManifold extends SubsystemBase {
 
   private final DynamicMotionMagicTorqueCurrentFOC m_request;
 
+  /**
+   * Creates a new IntakeManifold subsystem and configures the motor and encoder.
+   */
   public IntakeManifold() {
 
     m_motor1 = new TalonFX(IntakeManifoldConstants.kMotor1CANID, "kachow");

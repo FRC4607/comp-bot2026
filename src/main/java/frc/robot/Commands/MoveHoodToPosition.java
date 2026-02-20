@@ -8,13 +8,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hood;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * Command to move the hood to a specific angle and wait until it reaches the target.
+ * The command finishes when the hood position is within the specified tolerance.
+ */
 public class MoveHoodToPosition extends Command {
   private double m_setpoint;
   private double m_tolerance;
   private Hood m_hood;
 
 
-  /** Creates a new MoveHoodToPosition. */
+  /**
+   * Creates a new MoveHoodToPosition command.
+   *
+   * @param setpoint the target hood angle in rotations
+   * @param tolerance the position tolerance for command completion
+   * @param hood the hood subsystem to control
+   */
   public MoveHoodToPosition(double setpoint, double tolerance, Hood hood) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;
@@ -24,7 +34,6 @@ public class MoveHoodToPosition extends Command {
     addRequirements(m_hood);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_hood.updateSetpoint(m_setpoint);

@@ -8,13 +8,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeManifold;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * Command to move the intake manifold to a specific position and wait until it reaches the target.
+ * The command finishes when the intake position is within the specified tolerance.
+ */
 public class MoveIntakeToPosition extends Command {
 
   private final double m_setpoint;
   private final double m_tolerance;
   private final IntakeManifold m_intakeManifold;
 
-  /** Creates a new MoveIntakeToPosition. */
+  /**
+   * Creates a new MoveIntakeToPosition command.
+   *
+   * @param setpoint the target intake angle in degrees
+   * @param tolerance the position tolerance for command completion
+   * @param intakeManifold the intake manifold subsystem to control
+   */
   public MoveIntakeToPosition(double setpoint, double tolerance, IntakeManifold intakeManifold) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;
@@ -24,7 +34,6 @@ public class MoveIntakeToPosition extends Command {
     addRequirements(m_intakeManifold);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_intakeManifold.updateSetpoint(m_setpoint);

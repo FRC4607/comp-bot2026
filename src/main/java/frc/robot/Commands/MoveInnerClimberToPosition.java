@@ -8,13 +8,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberInner;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * Command to move the inner climber to a specific position and wait until it reaches the target.
+ * The command finishes when the climber position is within the specified tolerance.
+ */
 public class MoveInnerClimberToPosition extends Command {
 
   private double m_setpoint;
   private double m_tolerance;
   private ClimberInner m_climberInner;
 
-  /** Creates a new MoveInnerClimberToPosition. */
+  /**
+   * Creates a new MoveInnerClimberToPosition command.
+   *
+   * @param setpoint the target position in rotations
+   * @param tolerance the position tolerance for command completion
+   * @param climberInner the inner climber subsystem to control
+   */
   public MoveInnerClimberToPosition(double setpoint, double tolerance, ClimberInner climberInner) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;
@@ -24,21 +34,17 @@ public class MoveInnerClimberToPosition extends Command {
     addRequirements(climberInner);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_climberInner.updateSetpoint(m_setpoint);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return Math.abs(m_setpoint - m_climberInner.getPosition()) < m_tolerance;

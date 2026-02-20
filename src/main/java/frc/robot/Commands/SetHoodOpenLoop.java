@@ -10,11 +10,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hood;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * Command to run the hood in open-loop mode with a variable duty cycle from a supplier.
+ * This command does not finish on its own; it must be interrupted or cancelled.
+ */
 public class SetHoodOpenLoop extends Command {
   private DoubleSupplier m_dutyCycle;
   private Hood m_hood;
 
-  /** Creates a new SetHoodOpenLoop. */
+  /**
+   * Creates a new SetHoodOpenLoop command.
+   *
+   * @param dutyCycle a supplier providing the duty cycle value from -1.0 to 1.0
+   * @param hood the hood subsystem to control
+   */
   public SetHoodOpenLoop(DoubleSupplier dutyCycle, Hood hood) {
     m_dutyCycle = dutyCycle;
     m_hood = hood;
@@ -23,21 +32,17 @@ public class SetHoodOpenLoop extends Command {
     addRequirements(m_hood);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_hood.runOpenLoop(m_dutyCycle.getAsDouble());
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

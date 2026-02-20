@@ -20,6 +20,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.TurretCalibrations;
 import frc.robot.Constants.TurretConstants;
 
+/**
+ * The Turret subsystem controls the horizontal rotation for aiming.
+ * It uses a TalonFX motor with dual CANcoder feedback for robust position sensing.
+ * Motion magic control ensures smooth and repeatable positioning.
+ */
 public class Turret extends SubsystemBase {
 
   private final TalonFX m_motor;
@@ -34,9 +39,12 @@ public class Turret extends SubsystemBase {
   private final CANcoderConfiguration m_encoderConfig1;
   private final CANcoderConfiguration m_encoderConfig2;
 
+  /** Calculated turret position from dual encoders */
   private double m_position;
 
-  /** Creates a new turret. */
+  /**
+   * Creates a new Turret subsystem and configures the motor and encoders.
+   */
   public Turret() {
 
     m_motor = new TalonFX(TurretConstants.kMotorCANID, "kachow");
@@ -104,9 +112,10 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Encoder 2", m_encoder2.getAbsolutePosition().getValueAsDouble());
   }
 
-  /** Updates the position to drive towards.
-   * 
-   * @param newSetpoint The new setpoint, in mechanism rotations.
+  /**
+   * Updates the turret position setpoint.
+   *
+   * @param newSetpoint the new setpoint in mechanism rotations
    */
   public void updateSetpoint(double newSetpoint) {
     m_motor.setControl(m_request.withPosition((newSetpoint + 1) % 1));

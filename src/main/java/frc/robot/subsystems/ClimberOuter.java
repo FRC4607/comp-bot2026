@@ -18,6 +18,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ClimberCalibrations;
 import frc.robot.Constants.ClimberConstants;
 
+/**
+ * The ClimberOuter subsystem controls the outer chain of the climbing mechanism.
+ * It uses two TalonFX motors in a leader-follower configuration with motion magic
+ * control for positioning and open-loop torque control for assisted climbing.
+ */
 public class ClimberOuter extends SubsystemBase {
 
   private final TalonFX m_motor1;
@@ -28,7 +33,9 @@ public class ClimberOuter extends SubsystemBase {
   private final MotionMagicTorqueCurrentFOC m_request;
   private final TorqueCurrentFOC m_openLoopRequest;
 
-  /** Creates a new Climber. */
+  /**
+   * Creates a new Climber subsystem and configures the motors.
+   */
   public ClimberOuter() {
 
     m_motor1 = new TalonFX(ClimberConstants.kOuterMotor1CANID, "kachow");
@@ -66,24 +73,49 @@ public class ClimberOuter extends SubsystemBase {
     m_motor2.setControl(new Follower(ClimberConstants.kOuterMotor1CANID, MotorAlignmentValue.Aligned));
   }
 
+  /**
+   * Updates the climber position setpoint.
+   *
+   * @param newSetpoint the position in rotations
+   */
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request
       .withPosition(newSetpoint));
   }
 
+  /**
+   * Runs the climber in open-loop torque mode.
+   *
+   * @param amperage the target amperage output
+   */
   public void runOpenLoop(double amperage) {
     m_motor1.setControl(m_openLoopRequest
       .withOutput(amperage));
   }
 
+  /**
+   * Gets the current position of the climber.
+   *
+   * @return the position in rotations
+   */
   public double getPosition() {
     return m_motor1.getPosition().getValueAsDouble();
   }
 
+  /**
+   * Sets the climber position directly (typically for initialization).
+   *
+   * @param position the position in rotations
+   */
   public void setPosition(double position) {
     m_motor1.setPosition(position);
   }
 
+  /**
+   * Gets the current velocity of the climber.
+   *
+   * @return the velocity in rotations per second
+   */
   public double getVelocity() {
     return m_motor1.getVelocity().getValueAsDouble();
   }

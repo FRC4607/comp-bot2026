@@ -18,6 +18,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.IntakeWheelCalibrations;
 import frc.robot.Constants.IntakeWheelConstants;
 
+/**
+ * The IntakeWheels subsystem controls the spinning wheels that pull game pieces
+ * into the robot. It uses a single TalonFX motor with velocity control.
+ */
 public class IntakeWheels extends SubsystemBase {
 
   private final TalonFX m_motor1;
@@ -26,7 +30,9 @@ public class IntakeWheels extends SubsystemBase {
 
   private final VelocityTorqueCurrentFOC m_request;
 
-  /** Creates a new IntakeWheels. */
+  /**
+   * Creates a new IntakeWheels subsystem and configures the motor.
+   */
   public IntakeWheels() {
 
     m_motor1 = new TalonFX(IntakeWheelConstants.kMotor1CANID, "kachow");
@@ -49,14 +55,29 @@ public class IntakeWheels extends SubsystemBase {
     m_motor1.getConfigurator().apply(m_talonFXConfig);
   }
 
+  /**
+   * Updates the intake wheel velocity setpoint.
+   *
+   * @param newSetpoint the velocity in rotations per second
+   */
   public void updateSetpoint(double newSetpoint) {
     m_motor1.setControl(m_request.withVelocity(newSetpoint));
   }
 
+  /**
+   * Sets open-loop amperage output for the intake wheels.
+   *
+   * @param amperage the target amperage
+   */
   public void setOpenLoop(double amperage) {
     m_motor1.set(amperage);
   }
 
+  /**
+   * Gets the current velocity of the intake wheels.
+   *
+   * @return the velocity in rotations per second
+   */
   public double getVelocity() {
     return m_motor1.getVelocity().getValueAsDouble();
   }

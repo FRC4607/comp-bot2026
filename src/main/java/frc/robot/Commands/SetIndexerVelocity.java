@@ -10,12 +10,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/**
+ * Command to set the indexer to a specific velocity and wait until it reaches the target.
+ * The command finishes when the indexer velocity is within the specified tolerance.
+ */
 public class SetIndexerVelocity extends Command {
   private double m_velocity;
   private double m_tolerance;
   private Indexer m_indexer;
 
-  /** Creates a new SetIndexerVelocity. */
+  /**
+   * Creates a new SetIndexerVelocity command.
+   *
+   * @param velocity the target velocity in rotations per second
+   * @param tolerance the velocity tolerance for command completion
+   * @param indexer the indexer subsystem to control
+   */
   public SetIndexerVelocity(double velocity, double tolerance, Indexer indexer) {
     m_velocity = velocity;
     m_tolerance = tolerance;
@@ -26,21 +36,17 @@ public class SetIndexerVelocity extends Command {
 
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_indexer.updateSetpoint(m_velocity);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return Math.abs(m_indexer.getVelocity()-m_velocity) < m_tolerance;

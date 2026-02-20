@@ -1,10 +1,24 @@
 package frc.robot;
 
+/**
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical
+ * or boolean constants. This should not be used for any other purpose. All string values
+ * should be placed in {@link Calibrations} for tuning purposes.
+ * 
+ * <p>It is advised to statically import this class or one of its inner classes whenever
+ * the constants are accessed.
+ */
 public class Constants {
+    /**
+     * Drivetrain constants for swerve drive configuration.
+     */
     public class DrivetrainConstants {
         
     }
 
+    /**
+     * Constants for the intake manifold subsystem (extendable arm).
+     */
     public class IntakeManifoldConstants {
 
         /** CAN ID of the first motor. */
@@ -20,22 +34,35 @@ public class Constants {
         public static final double kRotorToSensorRatio = 5;
     }
 
+    /**
+     * Constants for the intake wheels subsystem.
+     */
     public class IntakeWheelConstants {
+        /** CAN ID of the intake wheel motor. */
         public static final int kMotor1CANID = 45;
     }
 
+    /**
+     * Constants for the indexer subsystem (staging mechanism).
+     */
     public class IndexerConstants {
 
         /** CAN ID of the motor. */
         public static final int kMotor1CANID = 26;
     }
 
+    /**
+     * Constants for the chamber subsystem (pre-shot queue).
+     */
     public class ChamberConstants {
 
         /** CAN ID of the first motor. */
         public static final int kMotor1CANID = 55;
     }
 
+    /**
+     * Constants for the turret subsystem (horizontal aiming rotation).
+     */
     public class TurretConstants {
 
         /** CAN ID of the motor. */
@@ -67,12 +94,18 @@ public class Constants {
         
     }
 
+    /**
+     * Constants for the hood subsystem (angle adjustment).
+     */
     public class HoodConstants {
 
         /** CAN ID of the motor */
         public static final int kMotorCANID = 52;
     }
 
+    /**
+     * Constants for the flywheel subsystem (shooting mechanism).
+     */
     public class FlywheelConstants {
 
         /** CAN ID of the first motor. */
@@ -82,6 +115,9 @@ public class Constants {
         public static final int kMotor2CANID = 51;
     }
 
+    /**
+     * Constants for the climber subsystems (inner and outer climb mechanisms).
+     */
     public class ClimberConstants {
 
         /** CAN ID of the first outer chain motor. */

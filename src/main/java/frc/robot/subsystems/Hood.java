@@ -24,6 +24,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.HoodCalibrations;
 import frc.robot.Constants.HoodConstants;
 
+/**
+ * The Hood subsystem controls the angle of the shot trajectory.
+ * It uses a TalonFXS motor with motion magic control for smooth angle adjustments.
+ */
 public class Hood extends SubsystemBase {
   
   private final TalonFXS m_motor;
@@ -33,7 +37,9 @@ public class Hood extends SubsystemBase {
   private final MotionMagicVoltage m_request;
 
 
-  /** Creates a new hood. */
+  /**
+   * Creates a new Hood subsystem and configures the motor.
+   */
   public Hood() {
 
     m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
@@ -71,10 +77,20 @@ public class Hood extends SubsystemBase {
 
   }
 
+  /**
+   * Gets the current velocity of the hood.
+   *
+   * @return the velocity in rotations per second
+   */
   public double getVelocity() {
     return m_motor.getVelocity().getValueAsDouble();
   }
 
+  /**
+   * Gets the current position of the hood.
+   *
+   * @return the position in rotations
+   */
   public double getPosition() {
     return m_motor.getPosition().getValueAsDouble();
   }

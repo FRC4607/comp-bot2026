@@ -1,6 +1,17 @@
 package frc.robot;
 
+/**
+ * The Calibrations class stores all tunable constants for various subsystems.
+ * These values are used for PID gains, motor speeds, limits, and offsets that
+ * may need adjustment during testing and competition.
+ * 
+ * <p>This class is distinct from {@link Constants} which holds hardware-based IDs
+ * and static configuration values that typically don't change.
+ */
 public class Calibrations {
+    /**
+     * Drivetrain calibration constants for swerve drive control.
+     */
     public class DrivetrainCalibrations {
 
         

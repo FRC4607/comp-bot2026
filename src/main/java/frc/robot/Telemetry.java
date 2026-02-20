@@ -20,7 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 
+/**
+ * Telemetry class for logging robot state to NetworkTables and SignalLogger.
+ * Publishes swerve drive state information including pose, speeds, module states,
+ * and visualizations via SmartDashboard and Field2d.
+ */
 public class Telemetry {
+    /** Maximum speed of the robot used for scaling telemetry visualizations */
     private final double MaxSpeed;
 
     /**
