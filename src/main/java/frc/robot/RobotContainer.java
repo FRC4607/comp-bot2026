@@ -122,12 +122,12 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold)
-            .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels)));
+        // joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold)
+        //     .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels)));
         // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
 
         joystick.x().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).andThen(new SetIntakeWheelsVelocity(30, 80, m_IntakeWheels)))
-            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0, m_IntakeWheels));
+            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels).alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold)));
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerVelocity(0, 90, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
