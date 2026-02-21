@@ -68,7 +68,7 @@ public class Hood extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
+    SmartDashboard.putNumber("Voltage", m_motor.getAnalogVoltage().getValueAsDouble());
   }
 
   public double getVelocity() {

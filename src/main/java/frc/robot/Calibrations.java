@@ -56,16 +56,16 @@ public class Calibrations {
     public class IntakeWheelCalibrations {
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 99999;
+        public static final double kMaxAcceleration = 100;
 
         /** Static feedforward. */
-        public static final double kS = 10;
+        public static final double kS = 24;
 
         /** Velocity feedforward. */
-        public static final double kV = 0.2;
+        public static final double kV = 0.3;
 
         /** Proportional gain. */
-        public static final double kP = 20;
+        public static final double kP = 8;
 
         /** Integral gain. */
         public static final double kI = 0;
@@ -136,13 +136,14 @@ public class Calibrations {
         public static final double kS = 15;
 
         /** Proportional gain. */
-        public static final double kP = 2200;
+        public static final double kP = 1900
+        ;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 100;
+        public static final double kD = 75;
 
         /** Offset of the gravity feedforward. */
         public static final double kGravityOffset = -0.26;
@@ -324,6 +325,49 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
+    /** Calibrations for a shot where the robot's intake is facing the neutral zone and the robot is against the depot-side wall. */
+    public class DepotTrenchShotCalibrations {
+
+        /** Flywheel Velocity */
+        public static final double kFlywheelVelocity = 56;
+
+        /** Flywheel Velocity Tolerance */
+        public static final double kFlywheelVelocityTolerance = 1;
+
+        /** Hood Angle */
+        public static final double kHoodAngle = 2.2;
+
+        /** Hood Angle Tolerance */
+        public static final double kHoodAngleTolerance = 0.1;
+
+        /** Turret Angle */
+        public static final double kTurretAngle = 0.785;
+
+        /** Turret Angle Tolerance */
+        public static final double kTurretAngleTolerance = 0.05;
+
+        /** Chamber Velocity */
+        public static final double kChamberVelocity = 60;
+
+        /** Chamber Velocity Tolerance */
+        public static final double kChamberVelocityTolerance = 90;
+
+        /** Indexer Velocity */
+        public static final double kIndexerVelocity = 90;
+
+        /** Indexer Velocity Tolerance */
+        public static final double kIndexerVelocityTolerance = 90;
+    }
+
+    public class ChinUpCalibrations {
+
+        /** Position to go to to get off the ground. */
+        public static final double kOuterChinUpPosition = 60;
+
+        /** Tolerance for error in the chinup position. */
+        public static final double kOuterChinUpTolerance = 1;
+    }
+
     public class ClimbSequenceCalibrations {
 
         /** Outer climber prep position */
@@ -351,7 +395,7 @@ public class Calibrations {
         public static final double kInnerHandoffPositionTolerance = 1;
 
         /** Inner Climber position to allow outer hooks to reach next bar */
-        public static final double kInnerTraversalPosition = 130;
+        public static final double kInnerTraversalPosition = 120;
 
         /** Inner Climber traversal position tolerance */
         public static final double kInnerTraversalPositionTolerance = 1;
@@ -362,4 +406,6 @@ public class Calibrations {
         /** Outer Climber traversal position tolerance */
         public static final double kOuterTraversalPositionTolerance = 1;
     }
+
+
 }

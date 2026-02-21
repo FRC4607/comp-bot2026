@@ -34,6 +34,7 @@ public class MoveIntakeToPosition extends Command {
   @Override
   public void initialize() {
     m_intakeManifold.updateSetpoint(m_setpoint);
+    System.out.println("New Intake Arm Setpoint: " + m_setpoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +43,13 @@ public class MoveIntakeToPosition extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted) {
+      System.out.println("Intake arm interrupted");
+    } else {
+      System.out.println("Intake Arm finished moving to position");
+    }
+  }
 
   // Returns true when the command should end.
   @Override
