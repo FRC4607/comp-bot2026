@@ -313,13 +313,13 @@ public class Calibrations {
         public static final double kTurretAngleTolerance = 0.05;
 
         /** Chamber Velocity */
-        public static final double kChamberVelocity = 60;
+        public static final double kChamberVelocity = 100;//60;
 
         /** Chamber Velocity Tolerance */
         public static final double kChamberVelocityTolerance = 90;
 
         /** Indexer Velocity */
-        public static final double kIndexerVelocity = 90;
+        public static final double kIndexerVelocity = 150;//90;
 
         /** Indexer Velocity Tolerance */
         public static final double kIndexerVelocityTolerance = 90;
@@ -347,13 +347,13 @@ public class Calibrations {
         public static final double kTurretAngleTolerance = 0.05;
 
         /** Chamber Velocity */
-        public static final double kChamberVelocity = 60;
+        public static final double kChamberVelocity = 100;//60;
 
         /** Chamber Velocity Tolerance */
         public static final double kChamberVelocityTolerance = 90;
 
         /** Indexer Velocity */
-        public static final double kIndexerVelocity = 90;
+        public static final double kIndexerVelocity = 150;//90;
 
         /** Indexer Velocity Tolerance */
         public static final double kIndexerVelocityTolerance = 90;

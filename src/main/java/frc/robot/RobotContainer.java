@@ -129,12 +129,13 @@ public class RobotContainer {
             .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_IntakeWheels)));
         // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
 
-        joystick.rightBumper().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).
-                                        andThen(new SetIntakeWheelsVelocity(50, 80, m_IntakeWheels)).
-                                                alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)))
+        joystick.rightBumper().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold)
+                                        .andThen(new SetIntakeWheelsVelocity(50, 80, m_IntakeWheels)
+                                                    .alongWith(new SetIndexerOpenLoop(()->60.0, m_indexer))))
                             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels)
-                                    .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
-                                    .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
+                                    .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold)
+                                    ));
+
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
