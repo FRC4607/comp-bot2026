@@ -16,6 +16,8 @@ import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.MoveTurretToPosition;
+import frc.robot.Commands.OutpostShot;
+import frc.robot.Commands.OutpostTrenchShot;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetOuterClimberAmperage;
@@ -95,9 +97,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed).withDeadband(0.1 * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed).withDeadband(0.1 * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate).withDeadband(0.1 * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed).withDeadband(0.12 * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed).withDeadband(0.12 * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate).withDeadband(0.12 * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -130,7 +132,7 @@ public class RobotContainer {
         // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
 
         joystick.rightBumper().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).
-                                        andThen(new SetIntakeWheelsVelocity(50, 80, m_IntakeWheels)).
+                                        alongWith(new SetIntakeWheelsVelocity(50, 80, m_IntakeWheels)).
                                                 alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)))
                             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels)
                                     .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
@@ -139,7 +141,13 @@ public class RobotContainer {
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
+        joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+
         joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+
+        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));

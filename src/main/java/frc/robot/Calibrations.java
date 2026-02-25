@@ -359,6 +359,72 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
+    public class OutpostTrenchShotCalibrations {
+
+        /** Flywheel Velocity */
+        public static final double kFlywheelVelocity = 58;
+
+        /** Flywheel Velocity Tolerance */
+        public static final double kFlywheelVelocityTolerance = 1;
+
+        /** Hood Angle */
+        public static final double kHoodAngle = 2.3;
+
+        /** Hood Angle Tolerance */
+        public static final double kHoodAngleTolerance = 0.1;
+
+        /** Turret Angle */
+        public static final double kTurretAngle = 0.23;
+
+        /** Turret Angle Tolerance */
+        public static final double kTurretAngleTolerance = 0.05;
+
+        /** Chamber Velocity */
+        public static final double kChamberVelocity = 60;
+
+        /** Chamber Velocity Tolerance */
+        public static final double kChamberVelocityTolerance = 90;
+
+        /** Indexer Velocity */
+        public static final double kIndexerVelocity = 90;
+
+        /** Indexer Velocity Tolerance */
+        public static final double kIndexerVelocityTolerance = 90;
+    }
+
+    public class OutpostShotCalibrations {
+
+        /** Flywheel Velocity */
+        public static final double kFlywheelVelocity = 80;
+
+        /** Flywheel Velocity Tolerance */
+        public static final double kFlywheelVelocityTolerance = 1;
+
+        /** Hood Angle */
+        public static final double kHoodAngle = 2.3;
+
+        /** Hood Angle Tolerance */
+        public static final double kHoodAngleTolerance = 0.1;
+
+        /** Turret Angle */
+        public static final double kTurretAngle = 0.875;
+
+        /** Turret Angle Tolerance */
+        public static final double kTurretAngleTolerance = 0.05;
+
+        /** Chamber Velocity */
+        public static final double kChamberVelocity = 60;
+
+        /** Chamber Velocity Tolerance */
+        public static final double kChamberVelocityTolerance = 90;
+
+        /** Indexer Velocity */
+        public static final double kIndexerVelocity = 90;
+
+        /** Indexer Velocity Tolerance */
+        public static final double kIndexerVelocityTolerance = 90;
+    }
+
     public class ChinUpCalibrations {
 
         /** Position to go to to get off the ground. */
