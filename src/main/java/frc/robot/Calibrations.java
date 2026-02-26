@@ -38,7 +38,7 @@ public class Calibrations {
         public static final double kD = 60;
 
         /** Max amperage of the mechanism. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
 
         /** Forward soft limit of the mechanism - mechanism will not power forwards past this point. */
         public static final double kForwardSoftLimit = 0.19;
@@ -47,7 +47,7 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = -0.318604;
+        public static final double kEncoderOffset = -0.408369140625;
 
         /** Wrap-around point of the encoder. */
         public static final double kEncoderDiscontinuityPoint = 1;

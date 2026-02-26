@@ -68,7 +68,7 @@ public class RobotContainer {
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.15).withRotationalDeadband(MaxAngularRate * 0.15) // Add a 15% deadband
-            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+            .withDriveRequestType(DriveRequestType.Velocity); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
@@ -82,7 +82,7 @@ public class RobotContainer {
     public final Flywheel m_flywheel = new Flywheel();
     public final Hood m_hood = new Hood();
     public final IntakeManifold m_intakeManifold = new IntakeManifold();
-    public final IntakeWheels m_IntakeWheels = new IntakeWheels();
+    public final IntakeWheels m_intakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();
     public final Chamber m_chamber = new Chamber();
     public final Turret m_turret = new Turret();
@@ -119,8 +119,8 @@ public class RobotContainer {
         // Note that each routine should be run exactly once in a single log.
         // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
         // reset the field-centric heading on start press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
@@ -128,37 +128,51 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
 
         joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold)
-            .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_IntakeWheels)));
-        // joystick.back().onTrue(new MoveInnerClimberToPosition(0, 0.1, m_climberInner).alongWith(new MoveOuterClimberToPosition(0, 0.1, m_climberOuter)));
+            .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
-        joystick.rightBumper().onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold).
-                                        alongWith(new SetIntakeWheelsVelocity(50, 80, m_IntakeWheels)).
-                                                alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)))
-                            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_IntakeWheels)
-                                    .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
-                                    .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
+        joystick.rightBumper()
+            .onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold)
+                .alongWith(new SetIntakeWheelsVelocity(50, 80, m_intakeWheels))
+                .alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)))
+            .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
+                .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
+                .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
-        joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        // joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        // joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        // joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel).alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer).alongWith(new SetChamberVelocity(0, 90, m_chamber).alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        // joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
 
-        joystick.povRight().onTrue(new MoveOuterClimberToPosition(ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter));
+        joystick.povRight().onTrue(new MoveOuterClimberToPosition(
+            ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter));
 
-        joystick.povDown().onTrue(new MoveInnerClimberToPosition(10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
+        joystick.povDown().onTrue(new MoveInnerClimberToPosition(
+            10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
 
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
-        joystick.back().onTrue(new ZeroHoodSequence(m_hood));
+        // joystick.back().onTrue(new ZeroHoodSequence(m_hood));
     }
 
     public Command getAutonomousCommand() {

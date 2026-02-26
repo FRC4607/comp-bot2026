@@ -59,6 +59,8 @@ public class IntakeManifold extends SubsystemBase {
     m_talonFXConfig.Slot0.kP = IntakeManifoldCalibrations.kP;
     m_talonFXConfig.Slot0.kI = IntakeManifoldCalibrations.kI;
     m_talonFXConfig.Slot0.kD = IntakeManifoldCalibrations.kD;
+
+    m_talonFXConfig.CurrentLimits.StatorCurrentLimit = IntakeManifoldCalibrations.kMaxAmperage;
     
     m_motor1.getConfigurator().apply(m_talonFXConfig);
     
