@@ -12,34 +12,44 @@ import frc.robot.subsystems.ClimberOuter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+/** The ClimbSequence sequential command group. */
 public class ClimbSequence extends SequentialCommandGroup {
-  
-  /** 
-   * A command sequence to climb the tower.
-   * 
-   * @param climberOuter The outer climber
-   * @param climberInner The inner climber
-  */
-  public ClimbSequence(ClimberOuter climberOuter, ClimberInner climberInner) {
-    super(
-      // Prep Climbers
-      new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPrep, ClimbSequenceCalibrations.kOuterPrepTolerance, climberOuter),
-      new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerPrep, ClimbSequenceCalibrations.kInnerPrepTolerance, climberInner),
 
-      // l1 pull-up
-      new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPosition, ClimbSequenceCalibrations.kOuterPositionTolerance, climberOuter),
+    /**
+     * A command sequence to climb the tower.
+     *
+     * @param climberOuter The outer climber
+     * @param climberInner The inner climber
+     */
+    public ClimbSequence(ClimberOuter climberOuter, ClimberInner climberInner) {
+        super(
+            // Prep Climbers
+            new MoveOuterClimberToPosition(
+                ClimbSequenceCalibrations.kOuterPrep,
+                ClimbSequenceCalibrations.kOuterPrepTolerance, climberOuter),
+            new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerPrep,
+                ClimbSequenceCalibrations.kInnerPrepTolerance, climberInner),
 
-      // l1 handoff
-      new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerHandoffPosition, ClimbSequenceCalibrations.kInnerHandoffPositionTolerance, climberInner),
+            // l1 pull-up
+            new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPosition,
+                ClimbSequenceCalibrations.kOuterPositionTolerance, climberOuter),
 
-      // l2 prep
-      new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPrep, ClimbSequenceCalibrations.kOuterPrepTolerance, climberOuter),
-      new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerTraversalPosition, ClimbSequenceCalibrations.kInnerTraversalPositionTolerance, climberInner),
+            // l1 handoff
+            new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerHandoffPosition,
+                ClimbSequenceCalibrations.kInnerHandoffPositionTolerance, climberInner),
 
-      // l2 chin-up
-      new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterTraversalPosition, ClimbSequenceCalibrations.kOuterTraversalPositionTolerance, climberOuter)
-    );
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+            // l2 prep
+            new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPrep,
+                ClimbSequenceCalibrations.kOuterPrepTolerance, climberOuter),
+            new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerTraversalPosition,
+                ClimbSequenceCalibrations.kInnerTraversalPositionTolerance, climberInner),
+
+            // l2 chin-up
+            new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterTraversalPosition,
+                ClimbSequenceCalibrations.kOuterTraversalPositionTolerance, climberOuter)
+        );
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

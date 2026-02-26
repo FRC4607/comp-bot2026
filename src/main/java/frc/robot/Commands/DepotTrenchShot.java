@@ -11,34 +11,48 @@ import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Turret;;
+import frc.robot.subsystems.Turret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+/** The DepotTrenchShot sequential command group. */
 public class DepotTrenchShot extends SequentialCommandGroup {
-  /** 
-   * A command sequence to score from the depot-side trench.
-   * 
-   * @param flywheel The flywheel to use
-   * @param hood The hood to use
-   * @param turret The turret to use
-   * @param indexer The indexer to use
-   * @param chamber The chamber to use
-   */
-  public DepotTrenchShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
-    super(
-      new ParallelCommandGroup(
-        new SetFlywheelVelocity(DepotTrenchShotCalibrations.kFlywheelVelocity, DepotTrenchShotCalibrations.kFlywheelVelocityTolerance, flywheel),
-        new MoveHoodToPosition(DepotTrenchShotCalibrations.kHoodAngle, DepotTrenchShotCalibrations.kHoodAngleTolerance, hood),
-        new MoveTurretToPosition(DepotTrenchShotCalibrations.kTurretAngle, DepotTrenchShotCalibrations.kTurretAngleTolerance, turret)
-        ),
-      new ParallelCommandGroup(
-        new SetIndexerOpenLoop(() -> DepotTrenchShotCalibrations.kIndexerVelocity, indexer),
-        new SetChamberVelocity(DepotTrenchShotCalibrations.kChamberVelocity, DepotTrenchShotCalibrations.kChamberVelocityTolerance, chamber)
-      )
-    );
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+    /**
+     * A command sequence to score from the depot-side trench.
+     *
+     * @param flywheel The flywheel to use
+     * @param hood     The hood to use
+     * @param turret   The turret to use
+     * @param indexer  The indexer to use
+     * @param chamber  The chamber to use
+     */
+    public DepotTrenchShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
+        super(
+            new ParallelCommandGroup(
+                new SetFlywheelVelocity(
+                    DepotTrenchShotCalibrations.kFlywheelVelocity,
+                    DepotTrenchShotCalibrations.kFlywheelVelocityTolerance,
+                    flywheel),
+                new MoveHoodToPosition(
+                    DepotTrenchShotCalibrations.kHoodAngle,
+                    DepotTrenchShotCalibrations.kHoodAngleTolerance, 
+                    hood),
+                new MoveTurretToPosition(
+                    DepotTrenchShotCalibrations.kTurretAngle,
+                    DepotTrenchShotCalibrations.kTurretAngleTolerance, 
+                    turret)),
+            new ParallelCommandGroup(
+                new SetIndexerOpenLoop(
+                    () -> DepotTrenchShotCalibrations.kIndexerVelocity,
+                    indexer),
+                new SetChamberVelocity(
+                    DepotTrenchShotCalibrations.kChamberVelocity,
+                    DepotTrenchShotCalibrations.kChamberVelocityTolerance,
+                    chamber))
+        );
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

@@ -16,30 +16,45 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+/** HubShot sequential command group. */
 public class HubShot extends SequentialCommandGroup {
-  
-  /** 
-   * A Command sequence that will shoot into the Hub when the robot is touching the hub with the climbers directly opposite of the hub wall.
-   * 
-   * @param flywheel The flywheel to use
-   * @param hood The hood to use
-   * @param turret The turret to use
-   * @param indexer The indexer to use
-   * @param chamber The chamber to use
-   */
-  public HubShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
-    super(
-      new ParallelCommandGroup(
-        new SetFlywheelVelocity(HubShotCalibrations.kFlywheelVelocity, HubShotCalibrations.kFlywheelVelocityTolerance, flywheel),
-        new MoveHoodToPosition(HubShotCalibrations.kHoodAngle, HubShotCalibrations.kHoodAngleTolerance, hood),
-        new MoveTurretToPosition(HubShotCalibrations.kTurretAngle, HubShotCalibrations.kTurretAngleTolerance, turret)
-        ),
-      new ParallelCommandGroup(
-        new SetIndexerOpenLoop(() -> HubShotCalibrations.kIndexerVelocity, indexer),
-        new SetChamberVelocity(HubShotCalibrations.kChamberVelocity, HubShotCalibrations.kChamberVelocityTolerance, chamber)
-      )
-    );
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+
+    /**
+     * A Command sequence that will shoot into the Hub when the robot is
+     * touching the hub with the climbers directly opposite of the hub wall.
+     *
+     * @param flywheel The flywheel to use
+     * @param hood     The hood to use
+     * @param turret   The turret to use
+     * @param indexer  The indexer to use
+     * @param chamber  The chamber to use
+     */
+    public HubShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
+        super(
+            new ParallelCommandGroup(
+                new SetFlywheelVelocity(
+                    HubShotCalibrations.kFlywheelVelocity,
+                    HubShotCalibrations.kFlywheelVelocityTolerance, 
+                    flywheel),
+                new MoveHoodToPosition(
+                    HubShotCalibrations.kHoodAngle, 
+                    HubShotCalibrations.kHoodAngleTolerance,
+                    hood),
+                new MoveTurretToPosition(
+                    HubShotCalibrations.kTurretAngle,
+                    HubShotCalibrations.kTurretAngleTolerance, 
+                    turret)),
+            new ParallelCommandGroup(
+                new SetIndexerOpenLoop(
+                    () -> HubShotCalibrations.kIndexerVelocity, 
+                    indexer),
+                new SetChamberVelocity(
+                    HubShotCalibrations.kChamberVelocity,
+                    HubShotCalibrations.kChamberVelocityTolerance, 
+                    chamber))
+        );
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

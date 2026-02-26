@@ -12,17 +12,23 @@ import frc.robot.subsystems.ClimberOuter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+/** ZeroClimbersSequence sequential command group. */
 public class ZeroClimbersSequence extends SequentialCommandGroup {
-  /** Creates a new ZeroClimbersSequence. */
-  public ZeroClimbersSequence(ClimberInner climberInner, ClimberOuter climberOuter) {
-    super(
-      new ParallelCommandGroup(
-        new SetInnerClimberAmperage(() -> 2, climberInner),
-        new SetOuterClimberAmperage(() -> 2, climberOuter)
-      ).withTimeout(1),
-      new ZeroClimbers(climberInner, climberOuter)
-    );
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+
+    /** 
+     * A command sequence for zeroing the climber.
+     *
+     * @param climberInner The climberInner to use
+     * @param climberOuter the climberOuter to use
+     */
+    public ZeroClimbersSequence(ClimberInner climberInner, ClimberOuter climberOuter) {
+        super(
+            new ParallelCommandGroup(
+                new SetInnerClimberAmperage(() -> 2, climberInner),
+                new SetOuterClimberAmperage(() -> 2, climberOuter)).withTimeout(1),
+            new ZeroClimbers(climberInner, climberOuter));
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

@@ -6,7 +6,6 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Calibrations.HubShotCalibrations;
 import frc.robot.Calibrations.OutpostShotCalibrations;
 import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.Flywheel;
@@ -17,30 +16,46 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+/** OutpostShot sequential command group. */
 public class OutpostShot extends SequentialCommandGroup {
-  
-  /** 
-   * A Command sequence that will score when the robot is touching the outpost corner with the intake facing the tower.
-   * 
-   * @param flywheel The flywheel to use
-   * @param hood The hood to use
-   * @param turret The turret to use
-   * @param indexer The indexer to use
-   * @param chamber The chamber to use
-   */
-  public OutpostShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
-    super(
-      new ParallelCommandGroup(
-        new SetFlywheelVelocity(OutpostShotCalibrations.kFlywheelVelocity, OutpostShotCalibrations.kFlywheelVelocityTolerance, flywheel),
-        new MoveHoodToPosition(OutpostShotCalibrations.kHoodAngle, OutpostShotCalibrations.kHoodAngleTolerance, hood),
-        new MoveTurretToPosition(OutpostShotCalibrations.kTurretAngle, OutpostShotCalibrations.kTurretAngleTolerance, turret)
-        ),
-      new ParallelCommandGroup(
-        new SetIndexerOpenLoop(() -> OutpostShotCalibrations.kIndexerVelocity, indexer),
-        new SetChamberVelocity(OutpostShotCalibrations.kChamberVelocity, OutpostShotCalibrations.kChamberVelocityTolerance, chamber)
-      )
-    );
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+
+    /**
+     * A Command sequence that will score when the robot is touching the outpost
+     * corner with the intake facing the tower.
+     *
+     * @param flywheel The flywheel to use
+     * @param hood     The hood to use
+     * @param turret   The turret to use
+     * @param indexer  The indexer to use
+     * @param chamber  The chamber to use
+     */
+    public OutpostShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
+        super(
+            // Spin up flywheel, move hood, move turret
+            new ParallelCommandGroup(
+                new SetFlywheelVelocity(
+                    OutpostShotCalibrations.kFlywheelVelocity,
+                    OutpostShotCalibrations.kFlywheelVelocityTolerance, 
+                    flywheel),
+                new MoveHoodToPosition(
+                    OutpostShotCalibrations.kHoodAngle,
+                    OutpostShotCalibrations.kHoodAngleTolerance, 
+                    hood),
+                new MoveTurretToPosition(
+                    OutpostShotCalibrations.kTurretAngle,
+                    OutpostShotCalibrations.kTurretAngleTolerance, 
+                    turret)),
+            // Once turret, flywheel and hood are prepped, run indexer and chamber.
+            new ParallelCommandGroup(
+                new SetIndexerOpenLoop(
+                    () -> OutpostShotCalibrations.kIndexerVelocity, 
+                    indexer),
+                new SetChamberVelocity(
+                    OutpostShotCalibrations.kChamberVelocity,
+                    OutpostShotCalibrations.kChamberVelocityTolerance, 
+                    chamber)));
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

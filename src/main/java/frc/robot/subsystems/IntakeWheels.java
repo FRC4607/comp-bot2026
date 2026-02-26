@@ -53,8 +53,8 @@ public class IntakeWheels extends SubsystemBase {
     m_motor1.setControl(m_request.withVelocity(newSetpoint));
   }
 
-  public void setOpenLoop(double amperage) {
-    m_motor1.set(amperage);
+  public void setOpenLoop(double dutyCycle) {
+    m_motor1.set(dutyCycle);
   }
 
   public double getVelocity() {
