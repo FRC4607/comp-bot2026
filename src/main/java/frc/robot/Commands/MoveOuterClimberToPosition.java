@@ -12,7 +12,16 @@ public class MoveOuterClimberToPosition extends Command {
   private double m_setpoint;
   private double m_tolerance;
   private ClimberOuter m_climberOuter;
-  /** Creates a new MoveOuterClimber. */
+
+  // TODO: Convert to inches once done in the Climber Subsystem.
+
+  /**
+   * A command to set the setpoint of the outer climber, in motor rotations.
+   * 
+   * @param setpoint Position to drive towards (motor rotations)
+   * @param tolerance Tolerance for error (motor rotations)
+   * @param climberInner The climberInner to use.
+   */
   public MoveOuterClimberToPosition(double setpoint, double tolerance, ClimberOuter climberOuter) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;

@@ -13,7 +13,13 @@ public class MoveTurretToPosition extends Command {
   private double m_tolerance;
   private Turret m_turret;
 
-  /** Creates a new MoveTurretToPosition. */
+  /**
+   * A command that sets the setpoint of the turret, in mechanism rotations
+   * 
+   * @param setpoint The position to drive towards (rotations)
+   * @param tolerance The tolerance for error (rotations)
+   * @param turret The turret to use
+   */
   public MoveTurretToPosition(double setpoint, double tolerance, Turret turret) {
     m_setpoint = setpoint;
     m_tolerance = tolerance;

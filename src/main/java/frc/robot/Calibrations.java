@@ -1,13 +1,14 @@
 package frc.robot;
 
+/** A class where all non-permanent values on the robot are stored. */
 public class Calibrations {
-    public class DrivetrainCalibrations {
 
-        
+    /** Calibrations for the drivetrain. */
+    public class DrivetrainCalibrations {
          
     }
 
-    /* Calibrations for the extendable part of the intake */
+    /** Calibrations for the extendable part of the intake. */
     public class IntakeManifoldCalibrations {
 
         /** Max Velocity of the mechanism. */
@@ -39,10 +40,10 @@ public class Calibrations {
         /** Max amperage of the mechanism. */
         public static final double kMaxAmperage = 40;
 
-        /** Forward soft limit of the mechanism - mechanism will not power forwards past this point */
+        /** Forward soft limit of the mechanism - mechanism will not power forwards past this point. */
         public static final double kForwardSoftLimit = 0.19;
 
-        /** Reverse soft limit of the mechanism - mechanism will not power backwards past this point */
+        /** Reverse soft limit of the mechanism - mechanism will not power backwards past this point. */
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
@@ -53,6 +54,7 @@ public class Calibrations {
 
     }
 
+    /** Calibrations for the intake. */
     public class IntakeWheelCalibrations {
 
         /** Max acceleration of the mechanism. */
@@ -77,6 +79,7 @@ public class Calibrations {
         public static final double kMaxAmperage = 80;
     }
 
+    /** Calibrations for the spindexer. */
     public class IndexerCalibrations {
 
         /** Max acceleration of the Indexer. */
@@ -102,6 +105,7 @@ public class Calibrations {
         
     }
 
+    /** Calibrations for the chamber. */
     public class ChamberCalibrations {
 
         /** Max acceleration of the Indexer. */
@@ -127,6 +131,7 @@ public class Calibrations {
         
     }
 
+    /** Calibrations for the turret. */
     public class TurretCalibrations {
 
         /** Gravity feedforward. */
@@ -160,10 +165,10 @@ public class Calibrations {
         /** Max amperage of the motor. */
         public static final double kMaxAmperage = 40;
         
-        /** Forward software limit - mechanism will not power forwards past this point */
+        /** Forward software limit - mechanism will not power forwards past this point. */
         public static final double kForwardSoftLimit = 0;
 
-        /** Reverse software limit - mechanism will not power backwards past this point */
+        /** Reverse software limit - mechanism will not power backwards past this point. */
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
@@ -180,18 +185,19 @@ public class Calibrations {
 
     }
 
+    /** Calibrations for the Hood. */
     public class HoodCalibrations {
 
-        /** Static Feedforward */
+        /** Static Feedforward. */
         public static final double kS = 0;
 
-        /** Proportional Gain */
+        /** Proportional Gain. */
         public static final double kP = 8;
 
-        /** Integral Gain */
+        /** Integral Gain. */
         public static final double kI = 0;
 
-        /** Derivative Gain */
+        /** Derivative Gain. */
         public static final double kD = 0;
 
         /** Maximum velocity of the mechanism. */
@@ -204,6 +210,7 @@ public class Calibrations {
         public static final double kMaxAmperage = 40;
     }
 
+    /** Calibrations for the flywheel. */
     public class FlywheelCalibrations {
 
         /** Static Feedforward. */
@@ -228,6 +235,7 @@ public class Calibrations {
         public static final double kMaxAmperage = 40;
     }
 
+    /** Calibrations for the climber. */
     public class ClimberCalibrations {
 
         /** Gravity feedforward. */
@@ -257,7 +265,7 @@ public class Calibrations {
         /** Forward software limit switch - mechanism will not power forwards past this point. */
         public static final double kOuterForwardSoftLimit = 0;
 
-        /** Reverse software limit switch - mechanism will not power backwards past this point */
+        /** Reverse software limit switch - mechanism will not power backwards past this point. */
         public static final double kOuterReverseSoftLimit = 0;
 
         /** Gravity feedforward. */
@@ -294,137 +302,149 @@ public class Calibrations {
     /** Calibrations for a shot where the robot's left (Opposite Climber) side is against the Hub. */
     public class HubShotCalibrations {
 
-        /** Flywheel Velocity */
+        /** Flywheel Velocity. */
         public static final double kFlywheelVelocity = 45;
 
-        /** Flywheel Velocity Tolerance */
+        /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle */
+        /** Hood Angle. */
         public static final double kHoodAngle = 0.65;
 
-        /** Hood Angle Tolerance */
+        /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
-        /** Turret Angle */
+        /** Turret Angle. */
         public static final double kTurretAngle = 0.25;
 
-        /** Turret Angle Tolerance */
+        /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 0.05;
 
-        /** Chamber Velocity */
+        /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
 
-        /** Chamber Velocity Tolerance */
+        /** Chamber Velocity Tolerance. */
         public static final double kChamberVelocityTolerance = 90;
 
-        /** Indexer Velocity */
+        /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
-        /** Indexer Velocity Tolerance */
+        /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** Calibrations for a shot where the robot's intake is facing the neutral zone and the robot is against the depot-side wall. */
+    /** 
+     * Calibrations for a shot where the the robot is under the trench and the intake
+     * is facing the neutral zone and the robot is against the depot-side wall.
+     */
     public class DepotTrenchShotCalibrations {
 
-        /** Flywheel Velocity */
+        /** Flywheel Velocity. */
         public static final double kFlywheelVelocity = 56;
 
-        /** Flywheel Velocity Tolerance */
+        /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle */
+        /** Hood Angle. */
         public static final double kHoodAngle = 2.2;
 
-        /** Hood Angle Tolerance */
+        /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
-        /** Turret Angle */
+        /** Turret Angle. */
         public static final double kTurretAngle = 0.785;
 
-        /** Turret Angle Tolerance */
+        /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 0.05;
 
-        /** Chamber Velocity */
+        /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
 
-        /** Chamber Velocity Tolerance */
+        /** Chamber Velocity Tolerance. */
         public static final double kChamberVelocityTolerance = 90;
 
-        /** Indexer Velocity */
+        /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
-        /** Indexer Velocity Tolerance */
+        /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
     }
 
+    /** 
+     * Calibrations for a shot where the the robot is under the trench and the intake
+     * is facing the neutral zone and the robot is against the outpost-side wall.
+     */
     public class OutpostTrenchShotCalibrations {
 
-        /** Flywheel Velocity */
+        /** Flywheel Velocity. */
         public static final double kFlywheelVelocity = 58;
 
-        /** Flywheel Velocity Tolerance */
+        /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle */
+        /** Hood Angle. */
         public static final double kHoodAngle = 2.3;
 
-        /** Hood Angle Tolerance */
+        /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
-        /** Turret Angle */
+        /** Turret Angle. */
         public static final double kTurretAngle = 0.23;
 
-        /** Turret Angle Tolerance */
+        /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 0.05;
 
-        /** Chamber Velocity */
+        /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
 
-        /** Chamber Velocity Tolerance */
+        /** Chamber Velocity Tolerance. */
         public static final double kChamberVelocityTolerance = 90;
 
-        /** Indexer Velocity */
+        /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
-        /** Indexer Velocity Tolerance */
+        /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
     }
 
+    /** 
+     * Calibrations for a shot where the the robot is in the 
+     * outpost corner and the intake is facing the tower.
+     */
     public class OutpostShotCalibrations {
 
-        /** Flywheel Velocity */
+        /** Flywheel Velocity. */
         public static final double kFlywheelVelocity = 80;
 
-        /** Flywheel Velocity Tolerance */
+        /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle */
+        /** Hood Angle. */
         public static final double kHoodAngle = 2.3;
 
-        /** Hood Angle Tolerance */
+        /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
-        /** Turret Angle */
+        /** Turret Angle. */
         public static final double kTurretAngle = 0.875;
 
-        /** Turret Angle Tolerance */
+        /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 0.05;
 
-        /** Chamber Velocity */
+        /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
 
-        /** Chamber Velocity Tolerance */
+        /** Chamber Velocity Tolerance. */
         public static final double kChamberVelocityTolerance = 90;
 
-        /** Indexer Velocity */
+        /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
-        /** Indexer Velocity Tolerance */
+        /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
     }
 
+    /** Calibrations for an L1 Climb. */
     public class ChinUpCalibrations {
 
         /** Position to go to to get off the ground. */
@@ -434,42 +454,43 @@ public class Calibrations {
         public static final double kOuterChinUpTolerance = 1;
     }
 
+    /** Calibrations for an L3 Climb. */
     public class ClimbSequenceCalibrations {
 
-        /** Outer climber prep position */
+        /** Outer climber prep position. */
         public static final double kOuterPrep = 30;
 
-        /** Outer climber prep position tolerance */
+        /** Outer climber prep position tolerance. */
         public static final double kOuterPrepTolerance = 1;
 
-        /** Inner climber prep position */
+        /** Inner climber prep position. */
         public static final double kInnerPrep = 30;
 
-        /** Inner climber prep position tolerance */
+        /** Inner climber prep position tolerance. */
         public static final double kInnerPrepTolerance = 1;
 
-        /** Outer climber l1 position */
+        /** Outer climber l1 position. */
         public static final double kOuterPosition = 95;
 
-        /** Outer climber l1 position tolerance */
+        /** Outer climber l1 position tolerance. */
         public static final double kOuterPositionTolerance = 1;
 
-        /** Inner Climber l1 handoff position */
+        /** Inner Climber l1 handoff position. */
         public static final double kInnerHandoffPosition = 100;
 
-        /** Inner Climber l1 handoff tolerance */
+        /** Inner Climber l1 handoff tolerance. */
         public static final double kInnerHandoffPositionTolerance = 1;
 
-        /** Inner Climber position to allow outer hooks to reach next bar */
+        /** Inner Climber position to allow outer hooks to reach next bar. */
         public static final double kInnerTraversalPosition = 120;
 
-        /** Inner Climber traversal position tolerance */
+        /** Inner Climber traversal position tolerance. */
         public static final double kInnerTraversalPositionTolerance = 1;
 
-        /** Outer Climber position to allow inner hook to reset */
+        /** Outer Climber position to allow inner hook to reset. */
         public static final double kOuterTraversalPosition = 50;
 
-        /** Outer Climber traversal position tolerance */
+        /** Outer Climber traversal position tolerance. */
         public static final double kOuterTraversalPositionTolerance = 1;
     }
 

@@ -14,7 +14,12 @@ public class RunTurretOpenLoop extends Command {
   private DoubleSupplier m_dutyCycle;
   private Turret m_turret;
 
-  /** Creates a new RunTurretOpenLoop. */
+  /**
+   * A command that runs the turret in open loop control
+   * 
+   * @param dutyCycle The power to run at (-1, 1)
+   * @param turret The turret to use
+   */
   public RunTurretOpenLoop(DoubleSupplier dutyCycle, Turret turret) {
     m_dutyCycle = dutyCycle;
     m_turret = turret;

@@ -15,7 +15,12 @@ public class RunFlywheelOpenLoop extends Command {
   private DoubleSupplier m_dutyCycle;
   private Flywheel m_flywheel;
 
-  /** Creates a new RunFlywheelOpenLoop. */
+  /**
+   * A command that runs the flywheel in open loop control.
+   * 
+   * @param dutyCycle The power to run at (-1, 1)
+   * @param flywheel The flywheel to use
+   */
   public RunFlywheelOpenLoop(DoubleSupplier dutyCycle, Flywheel flywheel) {
     m_dutyCycle = dutyCycle;
     m_flywheel = flywheel;
