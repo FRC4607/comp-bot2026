@@ -11,62 +11,62 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.FlywheelCalibrations;
 import frc.robot.Constants.FlywheelConstants;
 
+/** Flywheel subsystem. */
 public class Flywheel extends SubsystemBase {
-  /** Creates a new Flywheel. */
-  private final TalonFX m_motor1;
-  private final TalonFX m_motor2;
-  
-  private TalonFXConfiguration m_talonFXConfig;
+    /** Creates a new Flywheel. */
+    private final TalonFX m_motor1;
+    private final TalonFX m_motor2;
 
-  private VelocityTorqueCurrentFOC m_request;
+    private TalonFXConfiguration m_talonFXConfig;
 
-  /** Creates a new IntakeWheels. */
-  public Flywheel() {
+    private VelocityTorqueCurrentFOC m_request;
 
-    m_motor1 = new TalonFX(FlywheelConstants.kMotor1CANID, "kachow");
-    m_motor2 = new TalonFX(FlywheelConstants.kMotor2CANID, "kachow");
+    /** Creates and configures the flywheel subsystem. */
+    public Flywheel() {
 
-    m_talonFXConfig = new TalonFXConfiguration();
+        m_motor1 = new TalonFX(FlywheelConstants.kMotor1CANID, "kachow");
+        m_motor2 = new TalonFX(FlywheelConstants.kMotor2CANID, "kachow");
 
-    m_request = new VelocityTorqueCurrentFOC(0);
+        m_talonFXConfig = new TalonFXConfiguration();
 
-    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_request = new VelocityTorqueCurrentFOC(0);
 
-    m_talonFXConfig.Slot0.kS = FlywheelCalibrations.kS;
-    m_talonFXConfig.Slot0.kV = FlywheelCalibrations.kV;
-    m_talonFXConfig.Slot0.kP = FlywheelCalibrations.kP;
-    m_talonFXConfig.Slot0.kI = FlywheelCalibrations.kI;
-    m_talonFXConfig.Slot0.kD = FlywheelCalibrations.kD;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-    m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        // Gains
+        m_talonFXConfig.Slot0.kS = FlywheelCalibrations.kS;
+        m_talonFXConfig.Slot0.kV = FlywheelCalibrations.kV;
+        m_talonFXConfig.Slot0.kP = FlywheelCalibrations.kP;
+        m_talonFXConfig.Slot0.kI = FlywheelCalibrations.kI;
+        m_talonFXConfig.Slot0.kD = FlywheelCalibrations.kD;
 
-    m_motor1.getConfigurator().apply(m_talonFXConfig);
-    m_motor2.getConfigurator().apply(m_talonFXConfig);
+        m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
-    m_motor2.setControl(new Follower(FlywheelConstants.kMotor1CANID, MotorAlignmentValue.Opposed));
-  }
+        m_motor1.getConfigurator().apply(m_talonFXConfig);
+        m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-  public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request
-      .withVelocity(newSetpoint)
-    );
-  }
+        m_motor2.setControl(new Follower(FlywheelConstants.kMotor1CANID, MotorAlignmentValue.Opposed));
+    }
 
-  public void runOpenLoop(double dutyCycle) {
-    m_motor1.set(dutyCycle);
-  }
+    public void updateSetpoint(double newSetpoint) {
+        m_motor1.setControl(m_request
+                .withVelocity(newSetpoint));
+    }
 
-  public double getVelocity() {
-    return m_motor1.getVelocity().getValueAsDouble();
-  }
+    public void runOpenLoop(double dutyCycle) {
+        m_motor1.set(dutyCycle);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    public double getVelocity() {
+        return m_motor1.getVelocity().getValueAsDouble();
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

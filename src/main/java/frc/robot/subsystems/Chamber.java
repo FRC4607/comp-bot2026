@@ -9,57 +9,60 @@ import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ChamberCalibrations;
 import frc.robot.Constants.ChamberConstants;
 
+/** Chamber subsystem. */
 public class Chamber extends SubsystemBase {
 
-  private final TalonFX m_motor1;
-  
-  private final TalonFXConfiguration m_talonFXConfig;
+    private final TalonFX m_motor1;
 
-  private final VelocityTorqueCurrentFOC m_request;
+    private final TalonFXConfiguration m_talonFXConfig;
 
-  /** Creates a new Chamber. */
-  public Chamber() {
+    private final VelocityTorqueCurrentFOC m_request;
 
-    m_motor1 = new TalonFX(ChamberConstants.kMotor1CANID, "kachow");
+    /** Creates and configures settings for the Chamber. */
+    public Chamber() {
 
-    m_talonFXConfig = new TalonFXConfiguration();
+        // Chamber Motor
+        m_motor1 = new TalonFX(ChamberConstants.kMotor1CANID, "kachow");
 
-    m_request = new VelocityTorqueCurrentFOC(0).withAcceleration(ChamberCalibrations.kMaxAcceleration);
+        m_talonFXConfig = new TalonFXConfiguration();
 
-    m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
+        m_request = new VelocityTorqueCurrentFOC(0).withAcceleration(ChamberCalibrations.kMaxAcceleration);
 
-    m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        // Feedback settings
+        m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+        m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
 
-    m_talonFXConfig.Slot0.kS = ChamberCalibrations.kS;
-    m_talonFXConfig.Slot0.kV = ChamberCalibrations.kV;
-    m_talonFXConfig.Slot0.kP = ChamberCalibrations.kP;
-    m_talonFXConfig.Slot0.kI = ChamberCalibrations.kI;
-    m_talonFXConfig.Slot0.kD = ChamberCalibrations.kD;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-    m_motor1.getConfigurator().apply(m_talonFXConfig); 
-  }
+        // Gains
+        m_talonFXConfig.Slot0.kS = ChamberCalibrations.kS;
+        m_talonFXConfig.Slot0.kV = ChamberCalibrations.kV;
+        m_talonFXConfig.Slot0.kP = ChamberCalibrations.kP;
+        m_talonFXConfig.Slot0.kI = ChamberCalibrations.kI;
+        m_talonFXConfig.Slot0.kD = ChamberCalibrations.kD;
 
-  public void updateSetpoint(double newSetpoint) {
-    m_motor1.setControl(m_request.withVelocity(newSetpoint));
-  }
+        m_motor1.getConfigurator().apply(m_talonFXConfig);
+    }
 
-  public void runOpenLoop(double dutyCycle) {
-    m_motor1.set(dutyCycle);
-  }
+    public void updateSetpoint(double newSetpoint) {
+        m_motor1.setControl(m_request.withVelocity(newSetpoint));
+    }
 
-  public double getVelocity() {
-    return m_motor1.getVelocity().getValueAsDouble();
+    public void runOpenLoop(double dutyCycle) {
+        m_motor1.set(dutyCycle);
+    }
 
-  }
+    public double getVelocity() {
+        return m_motor1.getVelocity().getValueAsDouble();
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

@@ -4,91 +4,90 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
-import com.ctre.phoenix6.controls.DynamicMotionMagicTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFXS;
-import com.ctre.phoenix6.signals.AdvancedHallSupportValue;
-import com.ctre.phoenix6.signals.BrushedMotorWiringValue;
 import com.ctre.phoenix6.signals.ExternalFeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.HoodCalibrations;
 import frc.robot.Constants.HoodConstants;
 
+/** Hood subsystem. */
 public class Hood extends SubsystemBase {
-  
-  private final TalonFXS m_motor;
-  
-  private final TalonFXSConfiguration m_talonFXSConfig;
-  
-  private final MotionMagicVoltage m_request;
 
+    private final TalonFXS m_motor;
 
-  /** Creates a new hood. */
-  public Hood() {
+    private final TalonFXSConfiguration m_talonFXSConfig;
 
-    m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
+    private final MotionMagicVoltage m_request;
 
-    m_talonFXSConfig = new TalonFXSConfiguration();
+    /** Creates and configures the hood subsystem. */
+    public Hood() {
 
-    m_request = new MotionMagicVoltage(0);
+        m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
 
-    m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
+        m_talonFXSConfig = new TalonFXSConfiguration();
 
-    m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
-    
-    m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
-    m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
-    m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
-    m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
-    
-    m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = HoodCalibrations.kMaxSpeed;
-    m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = HoodCalibrations.kMaxAcceleration;
-    
-    m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        m_request = new MotionMagicVoltage(0);
 
-    m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
+        // Select the motor type to use
+        m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
 
-    // m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
+        m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
-    m_motor.getConfigurator().apply(m_talonFXSConfig);
+        // Gains
+        m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
+        m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
+        m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
+        m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
 
-  }
+        // Motion Magic settings
+        m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = HoodCalibrations.kMaxSpeed;
+        m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = HoodCalibrations.kMaxAcceleration;
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Voltage", m_motor.getAnalogVoltage().getValueAsDouble());
-  }
+        m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
-  public double getVelocity() {
-    return m_motor.getVelocity().getValueAsDouble();
-  }
+        // Use the minion motor encoder as a feedback source
+        m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
 
-  public double getPosition() {
-    return m_motor.getPosition().getValueAsDouble();
-  }
+        // m_talonFXSConfig.CurrentLimits.StatorCurrentLimit =
+        // HoodCalibrations.kMaxAmperage;
 
-  public void updateSetpoint(double newSetpoint) {
-    m_motor.setControl(m_request.withPosition(newSetpoint));
-    System.out.println("set" + newSetpoint);
-  }
+        m_motor.getConfigurator().apply(m_talonFXSConfig);
 
-  public void runOpenLoop(double dutyCycle) {
-    m_motor.set(dutyCycle);
-  }
+    }
 
-  public void resetPosition(double newPosition) {
-    m_motor.setPosition(newPosition);
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        SmartDashboard.putNumber("Voltage", m_motor.getAnalogVoltage().getValueAsDouble());
+    }
+
+    // TODO: Update all position related methods to use degrees instead of motor rotations.
+    public double getVelocity() {
+        return m_motor.getVelocity().getValueAsDouble();
+    }
+
+    public double getPosition() {
+        return m_motor.getPosition().getValueAsDouble();
+    }
+
+    public void updateSetpoint(double newSetpoint) {
+        m_motor.setControl(m_request.withPosition(newSetpoint));
+        System.out.println("set" + newSetpoint);
+    }
+
+    public void runOpenLoop(double dutyCycle) {
+        m_motor.set(dutyCycle);
+    }
+
+    public void resetPosition(double newPosition) {
+        m_motor.setPosition(newPosition);
+    }
 }
