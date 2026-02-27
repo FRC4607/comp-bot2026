@@ -38,8 +38,10 @@ import frc.robot.Commands.SetFlywheelVelocity;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -87,7 +89,14 @@ public class RobotContainer {
     public final Chamber m_chamber = new Chamber();
     public final Turret m_turret = new Turret();
 
+    /* Path follower */
+    private final SendableChooser<Command> autoChooser;
+
     public RobotContainer() {
+
+        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+        SmartDashboard.putData("Auto Mode", autoChooser);
+
         configureBindings();
     }
 
@@ -176,6 +185,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        return  autoChooser.getSelected();
     }
 }
