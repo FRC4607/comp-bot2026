@@ -5,7 +5,7 @@ public class Constants {
         
     }
 
-    public class IntakeManifoldConstants {
+    public class IntakeArmConstants {
 
         /** CAN ID of the first motor. */
         public static final int kMotor1CANID = 48;

@@ -9,7 +9,7 @@ public class Calibrations {
     }
 
     /** Calibrations for the extendable part of the intake. */
-    public class IntakeManifoldCalibrations {
+    public class IntakeArmCalibrations {
 
         /** Max Velocity of the mechanism. */
         public static final double kMaxVelocity = 0.1;
@@ -46,7 +46,7 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = -0.34;
+        public static final double kEncoderOffset = 0.6;
 
         /** Wrap-around point of the encoder. */
         public static final double kEncoderDiscontinuityPoint = 0.5;

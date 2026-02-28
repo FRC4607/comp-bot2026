@@ -59,7 +59,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IntakeManifold;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeWheels;
 import frc.robot.subsystems.Turret;
 
@@ -83,7 +83,7 @@ public class RobotContainer {
     public final ClimberOuter m_climberOuter = new ClimberOuter();
     public final Flywheel m_flywheel = new Flywheel();
     public final Hood m_hood = new Hood();
-    public final IntakeManifold m_intakeManifold = new IntakeManifold();
+    public final IntakeArm m_intakeArm = new IntakeArm();
     public final IntakeWheels m_intakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();
     public final Chamber m_chamber = new Chamber();
@@ -137,15 +137,15 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeManifold)
+        joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeArm)
             .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
         joystick.rightBumper()
-            .onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold)
+            .onTrue(new MoveIntakeToPosition(72, 20, m_intakeArm)
                 .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 40.0), 80, m_intakeWheels))
                 /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
-                .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
+                .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
