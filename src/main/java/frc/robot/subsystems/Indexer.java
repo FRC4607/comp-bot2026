@@ -47,14 +47,29 @@ public class Indexer extends SubsystemBase {
         m_motor1.getConfigurator().apply(m_talonFXConfig);
     }
 
+    /**
+     * Sets the velocity setpoint of the mechanism, in motor rotations per second.
+     *
+     * @param newSetpoint The new setpoint (-90, 90)
+     */
     public void updateSetpoint(double newSetpoint) {
         m_motor1.setControl(m_request.withVelocity(newSetpoint));
     }
 
+    /**
+     * Runs the indexer in open loop control.
+     *
+     * @param dutyCycle The power to run at (-1, 1)
+     */
     public void runOpenLoop(double dutyCycle) {
         m_motor1.set(dutyCycle);
     }
 
+    /**
+     * Gets the velocity of the indexer, in motor rotations per second.
+     *
+     * @return The current velocity of the indexer
+     */
     public double getVelocity() {
         return m_motor1.getVelocity().getValueAsDouble();
 

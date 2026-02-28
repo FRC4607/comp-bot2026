@@ -62,32 +62,57 @@ public class Hood extends SubsystemBase {
         m_motor.getConfigurator().apply(m_talonFXSConfig);
 
     }
-
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Voltage", m_motor.getAnalogVoltage().getValueAsDouble());
-    }
-
+    
     // TODO: Update all position related methods to use degrees instead of motor rotations.
+    /**
+     * Gets the velocity of the hood, in motor rotations per second.
+     *
+     * @return the current velocity of the hood
+     */
     public double getVelocity() {
         return m_motor.getVelocity().getValueAsDouble();
     }
 
+    /**
+     * Gets the position of the hood, in motor rotations.
+     *
+     * @return The current position of the hood
+     */
     public double getPosition() {
         return m_motor.getPosition().getValueAsDouble();
     }
 
+    /**
+     * Sets the setpoint of the hood, in motor rotation. 
+     *
+     * @param newSetpoint The position to drive towards (0, 2.2)
+     */
     public void updateSetpoint(double newSetpoint) {
         m_motor.setControl(m_request.withPosition(newSetpoint));
         System.out.println("set" + newSetpoint);
     }
 
+    /**
+     * Runs the hood in open loop.
+     *
+     * @param dutyCycle The power to run at (-1, 1)
+     */
     public void runOpenLoop(double dutyCycle) {
         m_motor.set(dutyCycle);
     }
 
+    /**
+     * Resets the position of the hood.
+     *
+     * @param newPosition The updated position of the hood.
+     */
     public void resetPosition(double newPosition) {
         m_motor.setPosition(newPosition);
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        SmartDashboard.putNumber("Voltage", m_motor.getAnalogVoltage().getValueAsDouble());
     }
 }
