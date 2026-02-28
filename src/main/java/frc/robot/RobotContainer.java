@@ -96,6 +96,7 @@ public class RobotContainer {
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
+        SmartDashboard.putNumber("Intake Speed", 40.0);
 
         configureBindings();
     }
@@ -141,17 +142,17 @@ public class RobotContainer {
 
         joystick.rightBumper()
             .onTrue(new MoveIntakeToPosition(72, 20, m_intakeManifold)
-                .alongWith(new SetIntakeWheelsVelocity(50, 80, m_intakeWheels))
-                .alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)))
+                .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 40.0), 80, m_intakeWheels))
+                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeManifold))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
-        // joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                /* .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)) */ )));
 
         // joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)

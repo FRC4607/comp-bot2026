@@ -12,10 +12,9 @@ public class Calibrations {
     public class IntakeManifoldCalibrations {
 
         /** Max Velocity of the mechanism. */
-        public static final double kMaxVelocity = 20;
-
+        public static final double kMaxVelocity = 0.1;
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 40;
+        public static final double kMaxAcceleration = 5;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 9999;
@@ -23,19 +22,19 @@ public class Calibrations {
         public static final double kGravityOffset = 0.25;
 
         /** Gravity feedforward. */
-        public static final double kG = 15;
+        public static final double kG = 10;
 
         /** Static feedforward. */
-        public static final double kS = 10;
+        public static final double kS = 7;
 
         /** Proportional gain. */
-        public static final double kP = 700;
+        public static final double kP = 150;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 60;
+        public static final double kD = 10;
 
         /** Max amperage of the mechanism. */
         public static final double kMaxAmperage = 80;
@@ -47,10 +46,10 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = -0.408369140625;
+        public static final double kEncoderOffset = -0.34;
 
         /** Wrap-around point of the encoder. */
-        public static final double kEncoderDiscontinuityPoint = 1;
+        public static final double kEncoderDiscontinuityPoint = 0.5;
 
     }
 

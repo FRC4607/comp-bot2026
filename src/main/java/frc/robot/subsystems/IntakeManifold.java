@@ -51,7 +51,7 @@ public class IntakeManifold extends SubsystemBase {
         m_talonFXConfig.Feedback.SensorToMechanismRatio = IntakeManifoldConstants.kSensorToMechanismRatio;
         m_talonFXConfig.Feedback.RotorToSensorRatio = IntakeManifoldConstants.kRotorToSensorRatio;
 
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
         m_talonFXConfig.Slot0.GravityArmPositionOffset = IntakeManifoldCalibrations.kGravityOffset;

@@ -37,10 +37,10 @@ public class HubShot extends SequentialCommandGroup {
                     HubShotCalibrations.kFlywheelVelocity,
                     HubShotCalibrations.kFlywheelVelocityTolerance, 
                     flywheel),
-                new MoveHoodToPosition(
-                    HubShotCalibrations.kHoodAngle, 
-                    HubShotCalibrations.kHoodAngleTolerance,
-                    hood),
+                // new MoveHoodToPosition(
+                //     HubShotCalibrations.kHoodAngle, 
+                //     HubShotCalibrations.kHoodAngleTolerance,
+                //     hood),
                 new MoveTurretToPosition(
                     HubShotCalibrations.kTurretAngle,
                     HubShotCalibrations.kTurretAngleTolerance, 

@@ -17,7 +17,7 @@ public class Constants {
         public static final double kSensorToMechanismRatio = 3;
 
         /** How many motor rotations equal one sensor rotation. */
-        public static final double kRotorToSensorRatio = 5;
+        public static final double kRotorToSensorRatio = 23;
     }
 
     public class IntakeWheelConstants {

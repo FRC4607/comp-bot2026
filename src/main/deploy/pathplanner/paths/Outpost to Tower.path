@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.39648888888888945,
+        "y": 0.4685333333333336
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.3964888888888893,
+        "y": 0.46853333333333325
+      },
+      "isLocked": false,
+      "linkedName": "Outpost"
+    },
+    {
+      "anchor": {
+        "x": 1.5560777777777783,
+        "y": 3.3626333333333323
+      },
+      "prevControl": {
+        "x": 2.6571999999999996,
+        "y": 3.352888888888889
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tower Outpost Side"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -89.33380002981687
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}
