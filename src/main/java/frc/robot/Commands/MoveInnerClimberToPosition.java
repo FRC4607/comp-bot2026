@@ -12,21 +12,19 @@ import frc.robot.subsystems.ClimberInner;
 /** MoveInnerClimberToPosition Command. */
 public class MoveInnerClimberToPosition extends Command {
 
-    private double m_setpoint;
+    private double m_inches;
     private double m_tolerance;
     private ClimberInner m_climberInner;
 
-    // TODO: Convert to inches once done in the Climber Subsystem.
-
     /**
-     * A command to set the setpoint of the inner climber, in motor rotations.
+     * A command to set the setpoint of the inner climber, in inches.
      *
-     * @param setpoint     Position to drive towards (motor rotations)
-     * @param tolerance    Tolerance for error (motor rotations)
+     * @param inches     Position to drive towards (inches)
+     * @param tolerance    Tolerance for error (inches)
      * @param climberInner The climberInner to use.
      */
-    public MoveInnerClimberToPosition(double setpoint, double tolerance, ClimberInner climberInner) {
-        m_setpoint = setpoint;
+    public MoveInnerClimberToPosition(double inches, double tolerance, ClimberInner climberInner) {
+        m_inches = inches;
         m_tolerance = tolerance;
         m_climberInner = climberInner;
 
@@ -37,7 +35,7 @@ public class MoveInnerClimberToPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_climberInner.updateSetpoint(m_setpoint);
+        m_climberInner.updateSetpoint(m_inches);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -53,6 +51,6 @@ public class MoveInnerClimberToPosition extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_setpoint - m_climberInner.getPosition()) < m_tolerance;
+        return Math.abs(m_inches - m_climberInner.getPosition()) < m_tolerance;
     }
 }

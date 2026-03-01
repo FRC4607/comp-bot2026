@@ -65,20 +65,17 @@ public class ClimberInner extends SubsystemBase {
         m_motor1.getConfigurator().apply(m_talonFXConfig);
         m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-        // TODO: Swap follower motor
-        m_motor1.setControl(new Follower(ClimberConstants.kInnerMotor2CANID, MotorAlignmentValue.Aligned));
+        m_motor2.setControl(new Follower(ClimberConstants.kInnerMotor2CANID, MotorAlignmentValue.Aligned));
     }
 
     /**
      * Updates the setpoint of the mechanism, in motor rotations.
      *
-     * @param newSetpoint The setpoint to drive to in motor rotations (5 motor rot ~
-     *                    1 inch)
+     * @param newSetpoint The setpoint to drive to in inches (0, ?)
      */
     public void updateSetpoint(double newSetpoint) {
-        // TODO: Convert to inches, edit Javadoc.
-        m_motor2.setControl(m_request
-                .withPosition(newSetpoint));
+        m_motor1.setControl(m_request
+                .withPosition(newSetpoint * (1 / ClimberConstants.kClimbersInchesPerRevolution)));
     }
 
     /**
@@ -87,42 +84,35 @@ public class ClimberInner extends SubsystemBase {
      * @param amperage The power to run at, in amps
      */
     public void runOpenLoop(double amperage) {
-        m_motor2.setControl(m_openLoopRequest
+        m_motor1.setControl(m_openLoopRequest
                 .withOutput(amperage));
     }
 
     /**
-     * Gets the position of the mechanism, in motor rotations.
+     * Gets the position of the mechanism, in inches.
      *
-     * @return The current position of the mechanism in motor rotations (5 motor rot
-     *         ~ 1 inch)
+     * @return The current position of the mechanism in inches.
      */
     public double getPosition() {
-        // TODO: Convert to Inches
-        return m_motor1.getPosition().getValueAsDouble();
+        return m_motor1.getPosition().getValueAsDouble() / ClimberConstants.kClimbersInchesPerRevolution;
     }
 
     /**
-     * Resets the position of the mechanism to the specified value, in motor
-     * rotations.
+     * Resets the position of the mechanism to the specified value, in inches.
      *
-     * @param position The updated position of the mechanism in motor rotations (5
-     *                 motor rot ~ 1 inch)
+     * @param position The updated position of the mechanism in inches
      */
     public void setPosition(double position) {
-        // TODO: Convert to Inches
-        m_motor1.setPosition(position);
+        m_motor1.setPosition(position * (1 / ClimberConstants.kClimbersInchesPerRevolution));
     }
 
     /**
-     * Gets the velocity of the mechanism, in motor rotations per second.
+     * Gets the velocity of the mechanism, in inches per second.
      *
-     * @return The current velocity of the mechanism in motor rotations per second
-     *         (5 motor rot ~ 1 inch)
+     * @return The current velocity of the mechanism in inches per second.
      */
     public double getVelocity() {
-        // TODO: Convert to inches/second
-        return m_motor1.getVelocity().getValueAsDouble();
+        return m_motor1.getVelocity().getValueAsDouble() * ClimberConstants.kClimbersInchesPerRevolution;
     }
 
     @Override
