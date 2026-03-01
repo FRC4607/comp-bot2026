@@ -109,16 +109,16 @@ public class Turret extends SubsystemBase {
      * @param newSetpoint The new setpoint, in mechanism rotations.
      */
     public void updateSetpoint(double newSetpoint) {
-        m_motor.setControl(m_request.withPosition((newSetpoint + 1) % 1));
+        m_motor.setControl(m_request.withPosition(((newSetpoint / 360) + 1) % 1));
     }
 
     /**
      * Runs the turret motor in open loop.
      *
-     * @param speed The speed to drive the motor at.
+     * @param dutyCycle The power to drive the motor at.
      */
-    public void runOpenLoop(double speed) {
-        m_motor.set(speed);
+    public void runOpenLoop(double dutyCycle) {
+        m_motor.set(dutyCycle);
     }
 
     /**
@@ -133,9 +133,9 @@ public class Turret extends SubsystemBase {
                 - (m_encoder1.getAbsolutePosition().getValueAsDouble());
 
         if (m_position >= 0) {
-            return m_position * 2.35;
+            return (m_position * 2.35) * 360;
         } else {
-            return (m_position + 1) * 2.35;
+            return ((m_position + 1) * 2.35) * 360;
         }
     }
 
@@ -143,10 +143,10 @@ public class Turret extends SubsystemBase {
      * Resets the position of the turret to match what the encoders say.
      */
     public void resetsetPosition() {
-        if (getPosition() > 2) {
-            m_motor.setPosition(getPosition() - 2.35);
+        if ((getPosition() / 360) > 2) {
+            m_motor.setPosition((getPosition() / 360) - 2.35);
         } else {
-            m_motor.setPosition(getPosition());
+            m_motor.setPosition(getPosition() / 360);
         }
     }
 

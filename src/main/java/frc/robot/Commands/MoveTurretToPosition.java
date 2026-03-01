@@ -11,19 +11,19 @@ import frc.robot.subsystems.Turret;
 
 /** MoveTurretToPosition command. */
 public class MoveTurretToPosition extends Command {
-    private double m_setpoint;
+    private double m_degrees;
     private double m_tolerance;
     private Turret m_turret;
 
     /**
-     * A command that sets the setpoint of the turret, in mechanism rotations.
+     * A command that sets the setpoint of the turret, in degrees.
      *
-     * @param setpoint  The position to drive towards (rotations)
-     * @param tolerance The tolerance for error (rotations)
+     * @param degrees  The position to drive towards, in degrees. (0, 360)
+     * @param tolerance The tolerance for error, in degrees.
      * @param turret    The turret to use
      */
-    public MoveTurretToPosition(double setpoint, double tolerance, Turret turret) {
-        m_setpoint = setpoint;
+    public MoveTurretToPosition(double degrees, double tolerance, Turret turret) {
+        m_degrees = degrees;
         m_tolerance = tolerance;
         m_turret = turret;
 
@@ -34,7 +34,7 @@ public class MoveTurretToPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_turret.updateSetpoint(m_setpoint);
+        m_turret.updateSetpoint(m_degrees);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -50,6 +50,6 @@ public class MoveTurretToPosition extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_turret.getPosition() - m_setpoint) < m_tolerance;
+        return Math.abs(m_turret.getPosition() - m_degrees) < m_tolerance;
     }
 }

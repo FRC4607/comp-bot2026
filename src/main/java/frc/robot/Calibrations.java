@@ -314,10 +314,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 0.25;
+        public static final double kTurretAngle = 90;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 0.05;
+        public static final double kTurretAngleTolerance =  1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -351,10 +351,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 0.785;
+        public static final double kTurretAngle = 282.6;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 0.05;
+        public static final double kTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -388,10 +388,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 0.23;
+        public static final double kTurretAngle = 82.8;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 0.05;
+        public static final double kTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -425,10 +425,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 0.875;
+        public static final double kTurretAngle = 315;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 0.05;
+        public static final double kTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
