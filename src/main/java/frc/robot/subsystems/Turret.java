@@ -140,6 +140,15 @@ public class Turret extends SubsystemBase {
     }
 
     /**
+     * Gets the target position of the mechanism, in degrees.
+     *
+     * @return The setpoint in degrees.
+     */
+    public double getSetpoint() {
+        return m_motor.getClosedLoopReference().getValueAsDouble() * 360;
+    }
+
+    /**
      * Resets the position of the turret to match what the encoders say.
      */
     public void resetsetPosition() {

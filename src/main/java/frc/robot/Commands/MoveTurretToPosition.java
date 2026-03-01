@@ -4,6 +4,8 @@
 
 package frc.robot.Commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Turret;
 
@@ -11,18 +13,18 @@ import frc.robot.subsystems.Turret;
 
 /** MoveTurretToPosition command. */
 public class MoveTurretToPosition extends Command {
-    private double m_degrees;
+    private DoubleSupplier m_degrees;
     private double m_tolerance;
     private Turret m_turret;
 
     /**
      * A command that sets the setpoint of the turret, in degrees.
      *
-     * @param degrees  The position to drive towards, in degrees. (0, 360)
-     * @param tolerance The tolerance for error, in degrees.
+     * @param degrees  The position to drive towards, in degrees.
+     * @param tolerance The tolerance for error, in degrees. If set to 0, the command will not end.
      * @param turret    The turret to use
      */
-    public MoveTurretToPosition(double degrees, double tolerance, Turret turret) {
+    public MoveTurretToPosition(DoubleSupplier degrees, double tolerance, Turret turret) {
         m_degrees = degrees;
         m_tolerance = tolerance;
         m_turret = turret;
@@ -34,12 +36,15 @@ public class MoveTurretToPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_turret.updateSetpoint(m_degrees);
+        m_turret.updateSetpoint(m_degrees.getAsDouble());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (m_degrees.getAsDouble() != m_turret.getSetpoint()) {
+            m_turret.updateSetpoint(m_degrees.getAsDouble());
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -50,6 +55,10 @@ public class MoveTurretToPosition extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_turret.getPosition() - m_degrees) < m_tolerance;
+        if (m_tolerance == 0) {
+            return false;
+        } else {
+            return Math.abs(m_turret.getPosition() - m_degrees.getAsDouble()) < m_tolerance;
+        }
     }
 }

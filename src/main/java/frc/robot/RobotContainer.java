@@ -148,6 +148,11 @@ public class RobotContainer {
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
+        joystick.y().onTrue(new MoveTurretToPosition(
+            () -> drivetrain.getState().Pose.getRotation().getDegrees(),
+            0,
+            m_turret));
+
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
