@@ -42,9 +42,11 @@ public class Constants {
         public static final int kMotorCANID = 32;
 
         /** CAN ID of the first encoder. */
+        // TODO: Conflict with flywheel kMotor2CANID
         public static final int kEncoder1CANID = 51;
 
         /** CAN ID of the second encoder. */
+        // TODO: Conflict with flywheel kMotor1CANID
         public static final int kEncoder2CANID = 50;
 
         /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
@@ -76,9 +78,11 @@ public class Constants {
     public class FlywheelConstants {
 
         /** CAN ID of the first motor. */
+        // TODO: Conflict with Turret kEncoder2CANID
         public static final int kMotor1CANID = 50;
 
         /** CAN ID of the second motor. */
+        // TODO: Conflict with Turret kEncoder1CANID
         public static final int kMotor2CANID = 51;
     }
 
