@@ -56,7 +56,7 @@ public class Turret extends SubsystemBase {
 
         m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
         m_talonFXConfig.Slot0.GravityArmPositionOffset = TurretCalibrations.kGravityOffset;
 
@@ -82,13 +82,13 @@ public class Turret extends SubsystemBase {
 
         m_encoderConfig1.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder1Offset;
         m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder1Discontinuity;
-        m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
         m_encoder1.getConfigurator().apply(m_encoderConfig1);
 
         m_encoderConfig2.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder2Offset;
         m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder2Discontinuity;
-        m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+        m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         m_encoder2.getConfigurator().apply(m_encoderConfig2);
     }

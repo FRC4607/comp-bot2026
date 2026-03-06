@@ -134,29 +134,28 @@ public class Calibrations {
     public class TurretCalibrations {
 
         /** Gravity feedforward. */
-        public static final double kG = 8;
+        public static final double kG = 0; // 8;
 
         /** Static feedforward. */
-        public static final double kS = 15;
+        public static final double kS = 10; // 15;
 
         /** Proportional gain. */
-        public static final double kP = 1900
-        ;
+        public static final double kP = 5500; // 1900;
 
         /** Integral gain. */
-        public static final double kI = 0;
+        public static final double kI = 0; // 0;
 
         /** Derivative gain. */
-        public static final double kD = 75;
+        public static final double kD = 120; // 75;
 
         /** Offset of the gravity feedforward. */
-        public static final double kGravityOffset = -0.26;
+        public static final double kGravityOffset = 0; // -0.26;
 
         /** Max speed of the mechanism. */
-        public static final double kMaxSpeed = 10;
+        public static final double kMaxSpeed = 10; // 10;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 40;
+        public static final double kMaxAcceleration = 30; // 40;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 0;
@@ -171,13 +170,13 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
-        public static final double kEncoder1Offset = -0.425;
+        public static final double kEncoder1Offset = 0.095;
 
         /** Discontinuity point of the first encoder. */
         public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
-        public static final double kEncoder2Offset = -0.303;
+        public static final double kEncoder2Offset = -0.445;
 
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;
@@ -213,13 +212,13 @@ public class Calibrations {
     public class FlywheelCalibrations {
 
         /** Static Feedforward. */
-        public static final double kS = 0;
+        public static final double kS = 0.9;
 
         /** Velocity Feedforward. */
-        public static final double kV = 0;
+        public static final double kV = 0.05;
 
         /** Proportional Gain. */
-        public static final double kP = 12.5;
+        public static final double kP = 14;
 
         /** Integral Gain. */
         public static final double kI = 0;
@@ -314,7 +313,7 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 90;
+        public static final double kTurretAngle = 270;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance =  1;

@@ -42,10 +42,10 @@ public class Constants {
         public static final int kMotorCANID = 32;
 
         /** CAN ID of the first encoder. */
-        public static final int kEncoder1CANID = 51;
+        public static final int kEncoder1CANID = 50;
 
         /** CAN ID of the second encoder. */
-        public static final int kEncoder2CANID = 50;
+        public static final int kEncoder2CANID = 51;
 
         /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
         public static final double kRotorToMechanism = 10.2;
@@ -56,14 +56,8 @@ public class Constants {
         /** Gear ratio of # of motor rotor rotations to one sensor rotation. */
         public static final double kEncoder1ToRotor = 1.6;
 
-        /** Offset for the first encoder. */
-        public static final double kEncoder1Offset = 0.521973;
-
         /** Gear ratio of # of sensor rotations to one mechanism rotation. */
         public static final double kEncoder2ToMechanism = 6.8;
-
-        /** Offset for the second encoder. */
-        public static final double kEncoder2Offset = 0.450928;
         
     }
 

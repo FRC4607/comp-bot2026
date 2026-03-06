@@ -40,7 +40,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                     DepotTrenchShotCalibrations.kHoodAngleTolerance, 
                     hood),
                 new MoveTurretToPosition(
-                    DepotTrenchShotCalibrations.kTurretAngle,
+                    () -> DepotTrenchShotCalibrations.kTurretAngle,
                     DepotTrenchShotCalibrations.kTurretAngleTolerance, 
                     turret)),
             new ParallelCommandGroup(

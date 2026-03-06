@@ -148,16 +148,16 @@ public class RobotContainer {
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
-        joystick.y().onTrue(new MoveTurretToPosition(
-            () -> drivetrain.getState().Pose.getRotation().getDegrees(),
-            0,
-            m_turret));
+        // joystick.y().onTrue(new MoveTurretToPosition(
+        //     () -> drivetrain.getState().Pose.getRotation().getDegrees(),
+        //     0,
+        //     m_turret));
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)
-                /* .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)) */ )));
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         // joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
@@ -187,7 +187,9 @@ public class RobotContainer {
 
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
-        // joystick.back().onTrue(new ZeroHoodSequence(m_hood));
+        joystick.back().onTrue(new ZeroHoodSequence(m_hood));
+
+        SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
     }
 
     public Command getAutonomousCommand() {

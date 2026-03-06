@@ -30,7 +30,7 @@ public class ZeroHood extends Command {
     @Override
     public void initialize() {
         m_isHoodAtVelocity = false;
-        m_hood.runOpenLoop(-0.8);
+        m_hood.runOpenLoop(-0.2);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

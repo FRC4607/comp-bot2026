@@ -37,22 +37,22 @@ public class HubShot extends SequentialCommandGroup {
                     HubShotCalibrations.kFlywheelVelocity,
                     HubShotCalibrations.kFlywheelVelocityTolerance, 
                     flywheel),
-                // new MoveHoodToPosition(
-                //     HubShotCalibrations.kHoodAngle, 
-                //     HubShotCalibrations.kHoodAngleTolerance,
-                //     hood),
+                new MoveHoodToPosition(
+                    HubShotCalibrations.kHoodAngle, 
+                    HubShotCalibrations.kHoodAngleTolerance,
+                    hood),
                 new MoveTurretToPosition(
                     () -> HubShotCalibrations.kTurretAngle,
                     HubShotCalibrations.kTurretAngleTolerance, 
                     turret)),
             new ParallelCommandGroup(
-                new SetIndexerOpenLoop(
+                /* new SetIndexerOpenLoop(
                     () -> HubShotCalibrations.kIndexerVelocity, 
                     indexer),
                 new SetChamberVelocity(
                     HubShotCalibrations.kChamberVelocity,
                     HubShotCalibrations.kChamberVelocityTolerance, 
-                    chamber))
+                    chamber) */ )
         );
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
