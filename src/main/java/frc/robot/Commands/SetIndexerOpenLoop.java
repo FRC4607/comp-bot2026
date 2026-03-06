@@ -26,7 +26,7 @@ public class SetIndexerOpenLoop extends Command {
         m_indexer = indexer;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements();
+        addRequirements(m_indexer);
     }
 
     // Called when the command is initially scheduled.

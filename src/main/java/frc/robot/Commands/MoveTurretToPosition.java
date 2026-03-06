@@ -42,7 +42,8 @@ public class MoveTurretToPosition extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (m_degrees.getAsDouble() != m_turret.getSetpoint()) {
+        // Update the setpoint if the target has changed by more than 0.01 degrees
+        if (Math.abs(m_degrees.getAsDouble() - m_turret.getSetpoint()) > 0.01) {
             m_turret.updateSetpoint(m_degrees.getAsDouble());
         }
     }

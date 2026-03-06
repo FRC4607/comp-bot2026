@@ -65,7 +65,7 @@ public class ClimberInner extends SubsystemBase {
         m_motor1.getConfigurator().apply(m_talonFXConfig);
         m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-        m_motor2.setControl(new Follower(ClimberConstants.kInnerMotor2CANID, MotorAlignmentValue.Aligned));
+        m_motor2.setControl(new Follower(ClimberConstants.kInnerMotor1CANID, MotorAlignmentValue.Aligned));
     }
 
     /**

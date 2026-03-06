@@ -48,11 +48,11 @@ public class ZeroClimbers extends Command {
     public void execute() {
 
         // Make sure the climbers start moving before zeroing.
-        if ((m_climberInner.getVelocity() < -1) & !m_isInnerAtVelocity) {
+        if ((m_climberInner.getVelocity() < -1) && !m_isInnerAtVelocity) {
             m_isInnerAtVelocity = true;
         }
 
-        if ((m_climberOuter.getVelocity() < -1) & !m_isOuterAtVelocity) {
+        if ((m_climberOuter.getVelocity() < -1) && !m_isOuterAtVelocity) {
             m_isOuterAtVelocity = true;
         }
     }

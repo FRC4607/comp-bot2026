@@ -141,9 +141,10 @@ public class RobotContainer {
             .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
         joystick.rightBumper()
-            .onTrue(new MoveIntakeToPosition(72, 20, m_intakeArm)
+            .onTrue(Commands.defer(() -> new MoveIntakeToPosition(72, 20, m_intakeArm)
                 .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 40.0), 80, m_intakeWheels))
-                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */)
+                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */,
+                java.util.Set.of(m_intakeArm, m_intakeWheels)))
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
