@@ -1,0 +1,83 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.4162339514969581,
+        "y": 7.146747503572717
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.429172610556348,
+        "y": 6.3963052781740375
+      },
+      "isLocked": false,
+      "linkedName": "Depot Collect Start"
+    },
+    {
+      "anchor": {
+        "x": 1.0761055634807417,
+        "y": 6.0081455064194005
+      },
+      "prevControl": {
+        "x": 1.0761055634807417,
+        "y": 7.444394942977034
+      },
+      "nextControl": {
+        "x": 1.0761055634807417,
+        "y": 5.02472229890137
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.4162339514969581,
+        "y": 4.973052781740371
+      },
+      "prevControl": {
+        "x": 1.2832206601968674,
+        "y": 4.973052781740371
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Depot Collect End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.11087420042643419,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.3304904051173017,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 0.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": false
+}

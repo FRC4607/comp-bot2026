@@ -14,38 +14,39 @@ import frc.robot.Commands.DepotTrenchShot;
 import frc.robot.Commands.HubShot;
 import frc.robot.Commands.MoveHoodToPosition;
 import frc.robot.Commands.MoveInnerClimberToPosition;
+import frc.robot.Commands.MoveIntakeToPosition;
 import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.MoveTurretToPosition;
 import frc.robot.Commands.OutpostShot;
 import frc.robot.Commands.OutpostTrenchShot;
 import frc.robot.Commands.RunFlywheelOpenLoop;
+import frc.robot.Commands.RunTurretOpenLoop;
+import frc.robot.Commands.SetHoodOpenLoop;
+import frc.robot.Commands.SetIndexerOpenLoop;
+import frc.robot.Commands.SetIndexerVelocity;
 import frc.robot.Commands.SetInnerClimberAmperage;
+import frc.robot.Commands.SetIntakeWheelsOpenLoop;
+import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.SetOuterClimberAmperage;
 import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.ZeroClimbersSequence;
 import frc.robot.Commands.ZeroHood;
 import frc.robot.Commands.ZeroHoodSequence;
-import frc.robot.Commands.SetHoodOpenLoop;
-import frc.robot.Commands.SetIndexerOpenLoop;
-import frc.robot.Commands.SetIndexerVelocity;
-import frc.robot.Commands.MoveIntakeToPosition;
-import frc.robot.Commands.SetIntakeWheelsOpenLoop;
-import frc.robot.Commands.SetIntakeWheelsVelocity;
-import frc.robot.Commands.RunTurretOpenLoop;
 import frc.robot.Commands.SetChamberOpenLoop;
 import frc.robot.Commands.SetChamberVelocity;
 import frc.robot.Commands.SetFlywheelVelocity;
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
-
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -94,11 +95,22 @@ public class RobotContainer {
 
     public RobotContainer() {
 
+        NamedCommands.registerCommand("Trench Outpost Shot", 
+            new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        NamedCommands.registerCommand("Stop Shooting", 
+            new ParallelDeadlineGroup(
+                new ZeroHoodSequence(m_hood),
+                new RunFlywheelOpenLoop(() -> 0, m_flywheel),
+                new SetIndexerOpenLoop(() -> 0, m_indexer),
+                new SetChamberOpenLoop(() -> 0, m_chamber)));
+        NamedCommands.registerCommand("Outpost Shot", 
+            new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        
+        configureBindings();
+        
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
         SmartDashboard.putNumber("Intake Speed", 40.0);
-
-        configureBindings();
     }
 
     private void configureBindings() {
@@ -160,11 +172,11 @@ public class RobotContainer {
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        // joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         // joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
@@ -172,11 +184,11 @@ public class RobotContainer {
         //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
         //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        // joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
 

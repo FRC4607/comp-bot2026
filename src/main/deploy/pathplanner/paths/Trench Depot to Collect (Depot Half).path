@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.427218259629101,
+        "y": 7.638416547788873
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.539942938659058,
+        "y": 7.0691155492154065
+      },
+      "isLocked": false,
+      "linkedName": "Trench Depot"
+    },
+    {
+      "anchor": {
+        "x": 8.295877318116975,
+        "y": 7.017360912981456
+      },
+      "prevControl": {
+        "x": 8.295877318116975,
+        "y": 8.196554836266868
+      },
+      "nextControl": {
+        "x": 8.295877318116975,
+        "y": 5.956390870185448
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.295877318116975,
+        "y": 4.675463623395149
+      },
+      "prevControl": {
+        "x": 8.295877318116975,
+        "y": 5.619985734664765
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Collect Depot Half End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.41364605543709915,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -92.24574256589509
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": false
+}

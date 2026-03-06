@@ -5,15 +5,45 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Trench Outpost Shot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Shooting"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Trench Outpost to Outpost"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Outpost to Tower"
+            "name": "Outpost Shot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Shooting"
           }
         }
       ]

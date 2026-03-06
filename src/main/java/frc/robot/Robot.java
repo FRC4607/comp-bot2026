@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
-        m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
+        // m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
     }
 
     @Override

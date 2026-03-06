@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Trench Depot to Collect (Depot Half)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Collect Depot Half to Trench Depot"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "RED AUTOS",
+  "choreoAuto": false
+}

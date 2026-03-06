@@ -1,0 +1,70 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5991440798858774,
+        "y": 3.82151212553495
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.5344507845925355,
+        "y": 5.930513552074857
+      },
+      "isLocked": false,
+      "linkedName": "Hub"
+    },
+    {
+      "anchor": {
+        "x": 0.8561483594855457,
+        "y": 7.599600570619792
+      },
+      "prevControl": {
+        "x": 3.055758453978882,
+        "y": 7.599600570619792
+      },
+      "nextControl": {
+        "x": 0.5714978601988125,
+        "y": 7.599600570619792
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.4162339514969581,
+        "y": 7.146747503572717
+      },
+      "prevControl": {
+        "x": 0.4162339514969581,
+        "y": 7.448803540652471
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Depot Collect Start"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

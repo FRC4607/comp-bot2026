@@ -39,15 +39,16 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
                 new MoveHoodToPosition(
                     OutpostTrenchShotCalibrations.kHoodAngle,
                     OutpostTrenchShotCalibrations.kHoodAngleTolerance, 
-                    hood),
+                    hood).withTimeout(0.25),
                 new MoveTurretToPosition(
                     () -> OutpostTrenchShotCalibrations.kTurretAngle,
                     OutpostTrenchShotCalibrations.kTurretAngleTolerance, 
                     turret)),
             // Once turret, flywheel and hood are prepped, run indexer and chamber.
             new ParallelCommandGroup(
-                new SetIndexerOpenLoop(
-                    () -> OutpostTrenchShotCalibrations.kIndexerVelocity, 
+                new SetIndexerVelocity(
+                    OutpostTrenchShotCalibrations.kIndexerVelocity, 
+                    OutpostTrenchShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
                 new SetChamberVelocity(
                     OutpostTrenchShotCalibrations.kChamberVelocity,
@@ -56,4 +57,7 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }
+    
 }
+
+

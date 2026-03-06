@@ -3,32 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.440156918687589,
-        "y": 0.4685333333333336
+        "x": 0.4162339514969581,
+        "y": 4.973052781740371
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5046902520209233,
-        "y": 0.8388222222222205
+        "x": 3.418002853067047,
+        "y": 4.973052781740371
       },
       "isLocked": false,
-      "linkedName": "Trench Outpost"
+      "linkedName": "Depot Collect End"
     },
     {
       "anchor": {
-        "x": 0.346,
-        "y": 0.619
+        "x": 3.5991440798858774,
+        "y": 3.82151212553495
       },
       "prevControl": {
-        "x": 1.6517572135515988,
-        "y": 0.9600492077361724
+        "x": 3.5991440798858774,
+        "y": 4.6366476462196875
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Outpost"
+      "linkedName": "Hub"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.09594882729211526,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 0.6908315565031924,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "RED PATHS",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

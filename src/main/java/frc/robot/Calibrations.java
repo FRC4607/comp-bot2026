@@ -170,13 +170,13 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
-        public static final double kEncoder1Offset = 0.095;
+        public static final double kEncoder1Offset = 0.09;
 
         /** Discontinuity point of the first encoder. */
         public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
-        public static final double kEncoder2Offset = -0.445;
+        public static final double kEncoder2Offset = 0.5458;
 
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;
@@ -218,7 +218,7 @@ public class Calibrations {
         public static final double kV = 0.05;
 
         /** Proportional Gain. */
-        public static final double kP = 14;
+        public static final double kP = 13;
 
         /** Integral Gain. */
         public static final double kI = 0;
@@ -325,7 +325,7 @@ public class Calibrations {
         public static final double kChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
-        public static final double kIndexerVelocity = 90;
+        public static final double kIndexerVelocity = 30;
 
         /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
@@ -381,13 +381,13 @@ public class Calibrations {
         public static final double kFlywheelVelocityTolerance = 1;
 
         /** Hood Angle. */
-        public static final double kHoodAngle = 2.3;
+        public static final double kHoodAngle = 2.25;
 
         /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 82.8;
+        public static final double kTurretAngle = 277.2;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 1;
@@ -412,19 +412,19 @@ public class Calibrations {
     public class OutpostShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 80;
+        public static final double kFlywheelVelocity = 73;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
         /** Hood Angle. */
-        public static final double kHoodAngle = 2.3;
+        public static final double kHoodAngle = 2.25;
 
         /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 315;
+        public static final double kTurretAngle = 48;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 1;

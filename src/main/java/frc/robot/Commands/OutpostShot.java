@@ -41,15 +41,16 @@ public class OutpostShot extends SequentialCommandGroup {
                 new MoveHoodToPosition(
                     OutpostShotCalibrations.kHoodAngle,
                     OutpostShotCalibrations.kHoodAngleTolerance, 
-                    hood),
+                    hood).withTimeout(0.25),
                 new MoveTurretToPosition(
                     () -> OutpostShotCalibrations.kTurretAngle,
                     OutpostShotCalibrations.kTurretAngleTolerance, 
                     turret)),
             // Once turret, flywheel and hood are prepped, run indexer and chamber.
             new ParallelCommandGroup(
-                new SetIndexerOpenLoop(
-                    () -> OutpostShotCalibrations.kIndexerVelocity, 
+                new SetIndexerVelocity(
+                    OutpostShotCalibrations.kIndexerVelocity, 
+                    OutpostShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
                 new SetChamberVelocity(
                     OutpostShotCalibrations.kChamberVelocity,
