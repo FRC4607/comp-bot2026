@@ -12,9 +12,9 @@ public class Calibrations {
     public class IntakeArmCalibrations {
 
         /** Max Velocity of the mechanism. */
-        public static final double kMaxVelocity = 0.1;
+        public static final double kMaxVelocity = 0.5;
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 5;
+        public static final double kMaxAcceleration = 3;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 9999;
@@ -22,7 +22,7 @@ public class Calibrations {
         public static final double kGravityOffset = 0.25;
 
         /** Gravity feedforward. */
-        public static final double kG = 10;
+        public static final double kG = 13;
 
         /** Static feedforward. */
         public static final double kS = 7;
@@ -34,7 +34,7 @@ public class Calibrations {
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 10;
+        public static final double kD = 90;
 
         /** Max amperage of the mechanism. */
         public static final double kMaxAmperage = 80;
