@@ -19,6 +19,7 @@ import frc.robot.Commands.MoveOuterClimberToPosition;
 import frc.robot.Commands.MoveTurretToPosition;
 import frc.robot.Commands.OutpostShot;
 import frc.robot.Commands.OutpostTrenchShot;
+import frc.robot.Commands.PassWithGyro;
 import frc.robot.Commands.RunFlywheelOpenLoop;
 import frc.robot.Commands.RunTurretOpenLoop;
 import frc.robot.Commands.SetHoodOpenLoop;
@@ -161,10 +162,11 @@ public class RobotContainer {
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
 
-        // joystick.y().onTrue(new MoveTurretToPosition(
-        //     () -> drivetrain.getState().Pose.getRotation().getDegrees(),
-        //     0,
-        //     m_turret));
+        joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
@@ -178,11 +180,11 @@ public class RobotContainer {
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        // joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
-        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
@@ -202,6 +204,7 @@ public class RobotContainer {
 
         joystick.back().onTrue(new ZeroHoodSequence(m_hood));
 
+        // SmartDashboard Commands
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
     }
 

@@ -98,7 +98,7 @@ public class Turret extends SubsystemBase {
         // This method will be called once per scheduler run
 
         SmartDashboard.putNumber("Turret Encoder Position", getPosition());
-        SmartDashboard.putNumber("Motor Position", m_motor.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("Turret Motor Position", m_motor.getPosition().getValueAsDouble() * 360);
         SmartDashboard.putNumber("Encoder 1", m_encoder1.getAbsolutePosition().getValueAsDouble());
         SmartDashboard.putNumber("Encoder 2", m_encoder2.getAbsolutePosition().getValueAsDouble());
     }

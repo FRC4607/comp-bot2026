@@ -350,7 +350,7 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 282.6;
+        public static final double kTurretAngle = 77.4;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 1;
@@ -492,5 +492,39 @@ public class Calibrations {
         public static final double kOuterTraversalPositionTolerance = 0.25;
     }
 
+    public class PassWithGyroCalibrations {
 
+        /** Offset of the Turret when tracking. */
+        public static final double kTurretAngleOffset = 0;
+
+        /** Angle of the hood to shoot at. */
+        public static final double kHoodAngle = 2.25;
+
+        /** Hood angle tolerance. */
+        public static final double kHoodTolerance = 0.1;
+
+        /** Number of seconds to continue if hood does not make it to position. */
+        public static final double kHoodTimeout = 0.25;
+
+        /** Velocity to run the flywheel at. */
+        public static final double kFlywheelVelocity = 75;
+
+        /** Flywheel velocity tolerance. */
+        public static final double kFlywheelVelocityTolerance = 1.5;
+
+        /** Number of seconds to continue if flywheel does not make it to velocity. */
+        public static final double kFlywheelTimeout = 1;
+
+        /** Velocity to run the chamber at. */
+        public static final double kChamberVelocity = 90;
+
+        /** Chamber velocity tolerance. */
+        public static final double kChamberVelocityTolerance = 1;
+
+        /** Velocity to run the indexer at. */
+        public static final double kIndexerVelocity = 90;
+
+        /** Indexer velocity tolerance. */
+        public static final double kIndexerVelocityTolerance = 1;
+    }
 }
