@@ -46,7 +46,7 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0.02;
 
         /** Offset of the absolute encoder in rotations. */
-        public static final double kEncoderOffset = 0.6;
+        public static final double kEncoderOffset = 0.2313;
 
         /** Wrap-around point of the encoder. */
         public static final double kEncoderDiscontinuityPoint = 0.5;
