@@ -10,6 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Calibrations.IntakeWheelCalibrations;
 import frc.robot.Constants.IntakeWheelConstants;
 
@@ -41,6 +42,9 @@ public class IntakeWheels extends SubsystemBase {
         m_talonFXConfig.Slot0.kP = IntakeWheelCalibrations.kP;
         m_talonFXConfig.Slot0.kI = IntakeWheelCalibrations.kI;
         m_talonFXConfig.Slot0.kD = IntakeWheelCalibrations.kD;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = IntakeWheelCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
     }

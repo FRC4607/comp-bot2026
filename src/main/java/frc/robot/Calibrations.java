@@ -295,6 +295,9 @@ public class Calibrations {
 
         /** Reverse software limit - mechanism will not power backwards past this point. */
         public static final double kInnerReverseSoftLimit = 0;
+
+        /** Current limits for the motors. */
+        public static final double kMaxAmperage = 40;
     }
 
     /** Calibrations for a shot where the robot's left (Opposite Climber) side is against the Hub. */
@@ -350,7 +353,7 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 77.4;
+        public static final double kTurretAngle = 75;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 1;

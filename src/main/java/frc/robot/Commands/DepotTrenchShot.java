@@ -38,14 +38,15 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new MoveHoodToPosition(
                     DepotTrenchShotCalibrations.kHoodAngle,
                     DepotTrenchShotCalibrations.kHoodAngleTolerance, 
-                    hood),
+                    hood).withTimeout(0.25),
                 new MoveTurretToPosition(
                     () -> DepotTrenchShotCalibrations.kTurretAngle,
                     DepotTrenchShotCalibrations.kTurretAngleTolerance, 
                     turret)),
             new ParallelCommandGroup(
-                new SetIndexerOpenLoop(
-                    () -> DepotTrenchShotCalibrations.kIndexerVelocity,
+                new SetIndexerVelocity(
+                    DepotTrenchShotCalibrations.kIndexerVelocity,
+                    DepotTrenchShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
                 new SetChamberVelocity(
                     DepotTrenchShotCalibrations.kChamberVelocity,

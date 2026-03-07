@@ -15,6 +15,7 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ClimberCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.ClimberConstants;
 
 /** ClimberOuter subsystem. */
@@ -61,6 +62,9 @@ public class ClimberOuter extends SubsystemBase {
         m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = ClimberCalibrations.kOuterForwardSoftLimit;
         m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
         m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = ClimberCalibrations.kOuterReverseSoftLimit;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = ClimberCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
         m_motor2.getConfigurator().apply(m_talonFXConfig);

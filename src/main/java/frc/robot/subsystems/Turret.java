@@ -16,6 +16,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Calibrations.TurretCalibrations;
 import frc.robot.Constants.TurretConstants;
 
@@ -77,6 +78,9 @@ public class Turret extends SubsystemBase {
         m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = TurretCalibrations.kReverseSoftLimit;
 
         m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = TurretCalibrations.kMaxAmperage;
 
         m_motor.getConfigurator().apply(m_talonFXConfig);
 

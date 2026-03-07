@@ -11,6 +11,7 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.IndexerCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.IndexerConstants;
 
 /** Indexer subsystem. */
@@ -43,6 +44,9 @@ public class Indexer extends SubsystemBase {
         m_talonFXConfig.Slot0.kP = IndexerCalibrations.kP;
         m_talonFXConfig.Slot0.kI = IndexerCalibrations.kI;
         m_talonFXConfig.Slot0.kD = IndexerCalibrations.kD;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = IndexerCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
     }

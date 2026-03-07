@@ -15,6 +15,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.HoodCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.HoodConstants;
 
 /** Hood subsystem. */
@@ -56,8 +57,8 @@ public class Hood extends SubsystemBase {
         // Use the minion motor encoder as a feedback source
         m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
 
-        // m_talonFXSConfig.CurrentLimits.StatorCurrentLimit =
-        // HoodCalibrations.kMaxAmperage;
+        // Current limit
+        m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
 
         m_motor.getConfigurator().apply(m_talonFXSConfig);
 

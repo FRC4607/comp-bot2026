@@ -11,6 +11,7 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.ChamberCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.ChamberConstants;
 
 /** Chamber subsystem. */
@@ -44,6 +45,9 @@ public class Chamber extends SubsystemBase {
         m_talonFXConfig.Slot0.kP = ChamberCalibrations.kP;
         m_talonFXConfig.Slot0.kI = ChamberCalibrations.kI;
         m_talonFXConfig.Slot0.kD = ChamberCalibrations.kD;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = ChamberCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
     }

@@ -110,7 +110,7 @@ public class RobotContainer {
                 new SetChamberOpenLoop(() -> 0, m_chamber)));
         NamedCommands.registerCommand("Intake", 
             new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
-            .andThen(new SetIntakeWheelsVelocity(40, 1, m_intakeWheels).withTimeout(1)));
+            .andThen(new SetIntakeWheelsVelocity(90, 1, m_intakeWheels).withTimeout(1)));
         NamedCommands.registerCommand("Stop Intaking",
             new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
         NamedCommands.registerCommand("Raise Intake Arm",
@@ -120,7 +120,7 @@ public class RobotContainer {
         
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
-        SmartDashboard.putNumber("Intake Speed", 40.0);
+        SmartDashboard.putNumber("Intake Speed", 90.0);
     }
 
     private void configureBindings() {
@@ -164,12 +164,14 @@ public class RobotContainer {
 
         joystick.rightBumper()
             .onTrue(Commands.defer(() -> new MoveIntakeToPosition(72, 20, m_intakeArm)
-                .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 40.0), 80, m_intakeWheels))
+                .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 90.0), 80, m_intakeWheels))
                 /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */,
                 java.util.Set.of(m_intakeArm, m_intakeWheels)))
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
+
+        joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels));
 
         joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
@@ -201,11 +203,17 @@ public class RobotContainer {
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
+        // Climb
         joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
 
+        // Chin up
         joystick.povRight().onTrue(new MoveOuterClimberToPosition(
             ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter));
 
+        // Alignment Check
+        joystick.povLeft().onTrue(new MoveOuterClimberToPosition(11, 1, m_climberOuter));
+
+        // Reset Climbers
         joystick.povDown().onTrue(new MoveInnerClimberToPosition(
             10, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(10, 10, m_climberOuter)));
 
@@ -215,6 +223,7 @@ public class RobotContainer {
 
         // SmartDashboard Commands
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
+        SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_hood));
     }
 
     public Command getAutonomousCommand() {

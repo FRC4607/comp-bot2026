@@ -13,6 +13,7 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.FlywheelCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.FlywheelConstants;
 
 /** Flywheel subsystem. */
@@ -45,6 +46,9 @@ public class Flywheel extends SubsystemBase {
         m_talonFXConfig.Slot0.kD = FlywheelCalibrations.kD;
 
         m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+
+        // Current limit
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = FlywheelCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
         m_motor2.getConfigurator().apply(m_talonFXConfig);

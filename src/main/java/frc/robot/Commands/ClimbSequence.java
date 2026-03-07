@@ -24,13 +24,6 @@ public class ClimbSequence extends SequentialCommandGroup {
      */
     public ClimbSequence(ClimberOuter climberOuter, ClimberInner climberInner) {
         super(
-            // Prep Climbers
-            new MoveOuterClimberToPosition(
-                ClimbSequenceCalibrations.kOuterPrep,
-                ClimbSequenceCalibrations.kOuterPrepTolerance, climberOuter),
-            new MoveInnerClimberToPosition(ClimbSequenceCalibrations.kInnerPrep,
-                ClimbSequenceCalibrations.kInnerPrepTolerance, climberInner),
-
             // l1 pull-up
             new MoveOuterClimberToPosition(ClimbSequenceCalibrations.kOuterPosition,
                 ClimbSequenceCalibrations.kOuterPositionTolerance, climberOuter),
