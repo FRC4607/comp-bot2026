@@ -19,43 +19,43 @@ import frc.robot.subsystems.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PassWithGyro extends ParallelCommandGroup {
-  /** Creates a new PassWithGyro. */
-  public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
-    super(
-        new MoveTurretToPosition(
-            () -> drivetrain.getState().Pose.getRotation().getDegrees(),
-            0,
-            turret),
-        new SequentialCommandGroup(
-            new ParallelCommandGroup(
-                new MoveHoodToPosition(
-                        PassWithGyroCalibrations.kHoodAngle, 
-                        PassWithGyroCalibrations.kHoodTolerance, 
-                        hood)
-                    .withTimeout(
-                        PassWithGyroCalibrations.kHoodTimeout),
-                new SetFlywheelVelocity(
-                        PassWithGyroCalibrations.kFlywheelVelocity, 
-                        PassWithGyroCalibrations.kFlywheelVelocityTolerance, 
-                        flywheel)
-                    .withTimeout(
-                        PassWithGyroCalibrations.kFlywheelTimeout)
-            ),
-            new ParallelCommandGroup(
-                new SetChamberVelocity(
-                    PassWithGyroCalibrations.kChamberVelocity, 
-                    PassWithGyroCalibrations.kChamberVelocityTolerance, 
-                    chamber),
-                new SetIndexerVelocity(
-                    PassWithGyroCalibrations.kIndexerVelocity, 
-                    PassWithGyroCalibrations.kIndexerVelocityTolerance, 
-                    indexer)
-            )
-        )
-    );
 
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-  }
+/** PassWithGyro command group. */
+public class PassWithGyro extends ParallelCommandGroup {
+    
+    /** Creates a new PassWithGyro. */
+    public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood,
+            Flywheel flywheel) {
+        super(
+                new MoveTurretToPosition(
+                        () -> drivetrain.getState().Pose.getRotation().getDegrees(),
+                        0,
+                        turret),
+                new SequentialCommandGroup(
+                        new ParallelCommandGroup(
+                                new MoveHoodToPosition(
+                                        PassWithGyroCalibrations.kHoodAngle,
+                                        PassWithGyroCalibrations.kHoodTolerance,
+                                        hood)
+                                        .withTimeout(
+                                                PassWithGyroCalibrations.kHoodTimeout),
+                                new SetFlywheelVelocity(
+                                        PassWithGyroCalibrations.kFlywheelVelocity,
+                                        PassWithGyroCalibrations.kFlywheelVelocityTolerance,
+                                        flywheel)
+                                        .withTimeout(
+                                                PassWithGyroCalibrations.kFlywheelTimeout)),
+                        new ParallelCommandGroup(
+                                new SetChamberVelocity(
+                                        PassWithGyroCalibrations.kChamberVelocity,
+                                        PassWithGyroCalibrations.kChamberVelocityTolerance,
+                                        chamber),
+                                new SetIndexerVelocity(
+                                        PassWithGyroCalibrations.kIndexerVelocity,
+                                        PassWithGyroCalibrations.kIndexerVelocityTolerance,
+                                        indexer))));
+
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+    }
 }

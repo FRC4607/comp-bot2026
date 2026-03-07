@@ -4,8 +4,14 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.SignalLogger;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -26,6 +32,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         SmartDashboard.putNumber("Robot Rotation", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees());
+        SmartDashboard.putBoolean("Hub State", isHubActive());
     }
 
     @Override
@@ -35,6 +42,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        
     }
 
     @Override
@@ -92,4 +100,75 @@ public class Robot extends TimedRobot {
     @Override
     public void simulationPeriodic() {
     }
+
+    public boolean isHubActive() {
+        if (DriverStation.getAlliance().isEmpty()) {
+            return false;
+        }
+        
+        if (isAutonomousEnabled()) {
+            return true;
+        }
+
+        if (!isTeleopEnabled()) {
+            return false;
+        }
+
+        double m_matchTime = DriverStation.getMatchTime();
+        String m_gameData = DriverStation.getGameSpecificMessage();
+
+        if (m_gameData.isEmpty()) {
+            return true;
+        }
+
+        boolean m_redActiveFirst;
+        if (m_gameData.charAt(0) == 'B') {
+            m_redActiveFirst = true;
+        } else if (m_gameData.charAt(0) == 'A') {
+            m_redActiveFirst = false;
+        } else {
+            return true;
+        }
+
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+
+        if (m_matchTime > 130) {
+            return true;
+        } else if (m_matchTime > 105) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        } else if (m_matchTime > 80) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else if (m_matchTime > 55) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else if (m_matchTime > 30) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+    
 }
