@@ -98,14 +98,23 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("Trench Outpost Shot", 
             new OutpostTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        NamedCommands.registerCommand("Trench Depot Shot",
+            new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        NamedCommands.registerCommand("Outpost Shot", 
+            new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
         NamedCommands.registerCommand("Stop Shooting", 
             new ParallelDeadlineGroup(
                 new ZeroHoodSequence(m_hood),
                 new RunFlywheelOpenLoop(() -> 0, m_flywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
                 new SetChamberOpenLoop(() -> 0, m_chamber)));
-        NamedCommands.registerCommand("Outpost Shot", 
-            new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        NamedCommands.registerCommand("Intake", 
+            new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
+            .andThen(new SetIntakeWheelsVelocity(40, 1, m_intakeWheels).withTimeout(1)));
+        NamedCommands.registerCommand("Stop Intaking",
+            new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
+        NamedCommands.registerCommand("Raise Intake Arm",
+            new MoveIntakeToPosition(0, 5, m_intakeArm));
         
         configureBindings();
         
@@ -142,8 +151,8 @@ public class RobotContainer {
         // Note that each routine should be run exactly once in a single log.
         // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
         // reset the field-centric heading on start press
         joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
