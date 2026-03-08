@@ -100,7 +100,7 @@ public class Calibrations {
         public static final double kD = 0;
 
         /** Amperage limit of the motors. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
         
     }
 
@@ -126,7 +126,7 @@ public class Calibrations {
         public static final double kD = 0;
 
         /** Amperage limit of the motors. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
         
     }
 
@@ -161,7 +161,7 @@ public class Calibrations {
         public static final double kMaxJerk = 0;
 
         /** Max amperage of the motor. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
         
         /** Forward software limit - mechanism will not power forwards past this point. */
         public static final double kForwardSoftLimit = 0;
@@ -205,7 +205,7 @@ public class Calibrations {
         public static final double kMaxAcceleration = 9999;
 
         /** Max Stator Current of the mechanism. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
     }
 
     /** Calibrations for the flywheel. */
@@ -230,7 +230,7 @@ public class Calibrations {
         public static final double kMaxAcceleration = 0;
 
         /** Current limit of each motor. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
     }
 
     /** Calibrations for the climber. */
@@ -252,7 +252,7 @@ public class Calibrations {
         public static final double kOuterkD = 5;
 
         /** Max speed. */
-        public static final double kOuterCruiseVelocity = 80; // 80;
+        public static final double kOuterCruiseVelocity = 10; // 80;
 
         /** Max acceleration. */
         public static final double kOuterAcceleration = 400;
@@ -282,7 +282,7 @@ public class Calibrations {
         public static final double kInnerkD = 5;
 
         /** Max speed. */
-        public static final double kInnerCruiseVelocity = 80; // 80;
+        public static final double kInnerCruiseVelocity = 10; // 80;
 
         /** Max acceleration. */
         public static final double kInnerAcceleration = 400;
@@ -297,7 +297,7 @@ public class Calibrations {
         public static final double kInnerReverseSoftLimit = 0;
 
         /** Current limits for the motors. */
-        public static final double kMaxAmperage = 40;
+        public static final double kMaxAmperage = 80;
     }
 
     /** Calibrations for a shot where the robot's left (Opposite Climber) side is against the Hub. */
@@ -328,7 +328,7 @@ public class Calibrations {
         public static final double kChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
-        public static final double kIndexerVelocity = 30;
+        public static final double kIndexerVelocity = 90;
 
         /** Indexer Velocity Tolerance. */
         public static final double kIndexerVelocityTolerance = 90;
@@ -353,7 +353,7 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 75;
+        public static final double kTurretAngle = 80;
 
         /** Turret Angle Tolerance. */
         public static final double kTurretAngleTolerance = 1;
@@ -474,25 +474,25 @@ public class Calibrations {
         public static final double kOuterPosition = 19;
 
         /** Outer climber l1 position tolerance. */
-        public static final double kOuterPositionTolerance = 0.25;
+        public static final double kOuterPositionTolerance = 1;
 
         /** Inner Climber l1 handoff position. */
         public static final double kInnerHandoffPosition = 20;
 
         /** Inner Climber l1 handoff tolerance. */
-        public static final double kInnerHandoffPositionTolerance = 0.25;
+        public static final double kInnerHandoffPositionTolerance = 1;
 
         /** Inner Climber position to allow outer hooks to reach next bar. */
         public static final double kInnerTraversalPosition = 24;
 
         /** Inner Climber traversal position tolerance. */
-        public static final double kInnerTraversalPositionTolerance = 0.25;
+        public static final double kInnerTraversalPositionTolerance = 1;
 
         /** Outer Climber position to allow inner hook to reset. */
         public static final double kOuterTraversalPosition = 10;
 
         /** Outer Climber traversal position tolerance. */
-        public static final double kOuterTraversalPositionTolerance = 0.25;
+        public static final double kOuterTraversalPositionTolerance = 1;
     }
 
     public class PassWithGyroCalibrations {

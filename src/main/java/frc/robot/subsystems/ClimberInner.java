@@ -98,7 +98,7 @@ public class ClimberInner extends SubsystemBase {
      * @return The current position of the mechanism in inches.
      */
     public double getPosition() {
-        return m_motor1.getPosition().getValueAsDouble() / ClimberConstants.kClimbersInchesPerRevolution;
+        return m_motor1.getPosition().getValueAsDouble() * ClimberConstants.kClimbersInchesPerRevolution;
     }
 
     /**
