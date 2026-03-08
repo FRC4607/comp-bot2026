@@ -114,7 +114,7 @@ public class Hood extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Hood Potentiometer", m_motor.getAnalogVoltage().getValueAsDouble());
-        SmartDashboard.putNumber("Hood Position", getPosition());
+        // SmartDashboard.putNumber("Hood Potentiometer", m_motor.getAnalogVoltage().getValueAsDouble());
+        // SmartDashboard.putNumber("Hood Position", getPosition());
     }
 }

@@ -34,7 +34,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new SetFlywheelVelocity(
                     DepotTrenchShotCalibrations.kFlywheelVelocity,
                     DepotTrenchShotCalibrations.kFlywheelVelocityTolerance,
-                    flywheel),
+                    flywheel).withTimeout(0.25),
                 new MoveHoodToPosition(
                     DepotTrenchShotCalibrations.kHoodAngle,
                     DepotTrenchShotCalibrations.kHoodAngleTolerance, 
@@ -42,7 +42,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new MoveTurretToPosition(
                     () -> DepotTrenchShotCalibrations.kTurretAngle,
                     DepotTrenchShotCalibrations.kTurretAngleTolerance, 
-                    turret)),
+                    turret).withTimeout(0.25)),
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
                     DepotTrenchShotCalibrations.kIndexerVelocity,

@@ -26,8 +26,8 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
-        SmartDashboard.putNumber("Robot Rotation", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees());
-        SmartDashboard.putBoolean("Hub State", isHubActive());
+        // SmartDashboard.putNumber("Robot Rotation", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees());
+        // SmartDashboard.putBoolean("Hub State", isHubActive());
     }
 
     @Override
@@ -67,7 +67,13 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
-        // m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
+        m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
+        m_robotContainer.m_intakeWheels.updateSetpoint(10);
+        m_robotContainer.m_indexer.runOpenLoop(0);
+        m_robotContainer.m_chamber.runOpenLoop(0);
+        m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
+        m_robotContainer.m_hood.updateSetpoint(m_robotContainer.m_hood.getPosition());
+        m_robotContainer.m_flywheel.runOpenLoop(0);
     }
 
     @Override

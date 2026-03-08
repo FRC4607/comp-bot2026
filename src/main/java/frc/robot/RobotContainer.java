@@ -41,6 +41,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,6 +52,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
@@ -79,6 +81,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    public final Joystick m_operator = new Joystick(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final ClimberInner m_climberInner = new ClimberInner();
@@ -108,6 +111,9 @@ public class RobotContainer {
                 new RunFlywheelOpenLoop(() -> 0, m_flywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
                 new SetChamberOpenLoop(() -> 0, m_chamber)));
+        NamedCommands.registerCommand("Lower Intake Arm",
+            new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
+            .alongWith(new SetIntakeWheelsVelocity(5, 10, m_intakeWheels)));
         NamedCommands.registerCommand("Intake", 
             new MoveIntakeToPosition(130, 10, m_intakeArm).withTimeout(2)
             .andThen(new SetIntakeWheelsVelocity(90, 1, m_intakeWheels).withTimeout(1)));
@@ -115,6 +121,7 @@ public class RobotContainer {
             new SetIntakeWheelsVelocity(5, 10, m_intakeWheels));
         NamedCommands.registerCommand("Raise Intake Arm",
             new MoveIntakeToPosition(0, 5, m_intakeArm));
+
         
         configureBindings();
         
@@ -124,6 +131,9 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
+
+        Trigger operatorRedL = new Trigger(() -> m_operator.getRawButton(1));
+
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
@@ -175,6 +185,12 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
         joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        
+        operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)

@@ -23,9 +23,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Trench Outpost to Outpost"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Trench Outpost to Outpost"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Lower Intake Arm"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -37,13 +63,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 3.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Stop Shooting"
+            "name": "Raise Intake Arm"
           }
         }
       ]
