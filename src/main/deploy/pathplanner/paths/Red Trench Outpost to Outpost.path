@@ -12,7 +12,7 @@
         "y": 0.4315834522111266
       },
       "isLocked": false,
-      "linkedName": "Trench Outpost"
+      "linkedName": "Red Trench Outpost"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Outpost"
+      "linkedName": "Red Outpost"
     }
   ],
   "rotationTargets": [],

@@ -3,47 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4162339514969581,
-        "y": 4.973052781740371
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 3.418002853067047,
-        "y": 4.973052781740371
-      },
-      "isLocked": false,
-      "linkedName": "Depot Collect End"
-    },
-    {
-      "anchor": {
         "x": 3.5991440798858774,
         "y": 3.82151212553495
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.511033333337939,
+        "y": 2.7389888888869782
+      },
+      "isLocked": false,
+      "linkedName": "Red Hub"
+    },
+    {
+      "anchor": {
+        "x": 0.296,
+        "y": 0.769
+      },
       "prevControl": {
-        "x": 3.5991440798858774,
-        "y": 4.6366476462196875
+        "x": 1.1729999999999996,
+        "y": 1.5388111111111118
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hub"
+      "linkedName": "Red Outpost"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.09594882729211526,
-      "rotationDegrees": 90.0
-    },
-    {
-      "waypointRelativePos": 0.6908315565031924,
-      "rotationDegrees": -90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -51,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "RED PATHS",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": false
 }

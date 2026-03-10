@@ -7,18 +7,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Trench Outpost Shot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Stop Shooting"
           }
         },
@@ -29,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Trench Outpost to Outpost"
+                  "pathName": "Red Hub to Outpost"
                 }
               },
               {

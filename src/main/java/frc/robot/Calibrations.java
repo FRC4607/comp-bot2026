@@ -134,19 +134,19 @@ public class Calibrations {
     public class TurretCalibrations {
 
         /** Gravity feedforward. */
-        public static final double kG = 0; // 8;
+        public static final double kG = 0;
 
         /** Static feedforward. */
-        public static final double kS = 10; // 15;
+        public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 5500; // 1900;
+        public static final double kP = 3500;
 
         /** Integral gain. */
-        public static final double kI = 0; // 0;
+        public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 120; // 75;
+        public static final double kD = 125;
 
         /** Offset of the gravity feedforward. */
         public static final double kGravityOffset = 0; // -0.26;
@@ -465,7 +465,7 @@ public class Calibrations {
         public static final double kOuterPrepTolerance = 0.25;
 
         /** Inner climber prep position. */
-        public static final double kInnerPrep = 6;
+        public static final double kInnerPrep = 5;
 
         /** Inner climber prep position tolerance. */
         public static final double kInnerPrepTolerance = 0.25;
@@ -477,13 +477,13 @@ public class Calibrations {
         public static final double kOuterPositionTolerance = 1;
 
         /** Inner Climber l1 handoff position. */
-        public static final double kInnerHandoffPosition = 20;
+        public static final double kInnerHandoffPosition = 19;
 
         /** Inner Climber l1 handoff tolerance. */
         public static final double kInnerHandoffPositionTolerance = 1;
 
         /** Inner Climber position to allow outer hooks to reach next bar. */
-        public static final double kInnerTraversalPosition = 24;
+        public static final double kInnerTraversalPosition = 23;
 
         /** Inner Climber traversal position tolerance. */
         public static final double kInnerTraversalPositionTolerance = 1;

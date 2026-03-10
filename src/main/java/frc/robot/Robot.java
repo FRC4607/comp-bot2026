@@ -11,12 +11,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import java.time.LocalTime;
 import java.util.Optional;
 
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
     public final RobotContainer m_robotContainer;
+    private int m_loopCounter;
+    private double m_countDown;
 
     public Robot() {
         m_robotContainer = new RobotContainer();
@@ -26,8 +30,17 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
-        // SmartDashboard.putNumber("Robot Rotation", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees());
-        // SmartDashboard.putBoolean("Hub State", isHubActive());
+        m_loopCounter++;
+        if ((m_loopCounter % 50) == 0) {
+
+            SmartDashboard.putBoolean("Hub State", isHubActive());
+            SmartDashboard.putNumber("Time Until Switch", m_countDown);
+
+            SmartDashboard.putString("Remaining Match Time", 
+                LocalTime.of(0, 
+                (int) Math.abs(DriverStation.getMatchTime() / 60), 
+                (int) Math.abs(DriverStation.getMatchTime()) % 60).toString());
+        }
     }
 
     @Override
@@ -134,40 +147,50 @@ public class Robot extends TimedRobot {
         Optional<Alliance> alliance = DriverStation.getAlliance();
 
         if (m_matchTime > 130) {
+            m_countDown = m_matchTime - 130;
             return true;
         } else if (m_matchTime > 105) {
 
             if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 105;
                 return true;
             } else {
+                m_countDown = m_matchTime - 105;
                 return false;
             }
             
         } else if (m_matchTime > 80) {
 
             if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 80;
                 return false;
             } else {
+                m_countDown = m_matchTime - 80;
                 return true;
             }
 
         } else if (m_matchTime > 55) {
 
             if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 55;
                 return true;
             } else {
+                m_countDown = m_matchTime - 55;
                 return false;
             }
 
         } else if (m_matchTime > 30) {
 
             if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 30;
                 return false;
             } else {
+                m_countDown = m_matchTime - 30;
                 return true;
             }
 
         } else {
+            m_countDown = m_matchTime;
             return true;
         }
     }

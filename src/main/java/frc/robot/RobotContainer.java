@@ -105,6 +105,8 @@ public class RobotContainer {
             new DepotTrenchShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
         NamedCommands.registerCommand("Outpost Shot", 
             new OutpostShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
+        NamedCommands.registerCommand("Hub Shot", 
+            new HubShot(m_flywheel, m_hood, m_turret, m_indexer, m_chamber));
         NamedCommands.registerCommand("Stop Shooting", 
             new ParallelDeadlineGroup(
                 new ZeroHoodSequence(m_hood),
@@ -179,7 +181,7 @@ public class RobotContainer {
                 java.util.Set.of(m_intakeArm, m_intakeWheels)))
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
-                .alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)));
+                /*.alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)) */);
 
         joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
             .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
@@ -221,18 +223,18 @@ public class RobotContainer {
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         // Climb
-        // joystick.povUp().onTrue(new ClimbSequence(m_climberOuter, m_climberInner));
+        joystick.povUp().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
 
         // Chin up
-        joystick.povRight().onTrue(new MoveOuterClimberToPosition(
-            ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter));
+        joystick.povRight().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(
+            ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter)));
 
         // Alignment Check
-        joystick.povLeft().onTrue(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter));
+        joystick.povLeft().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
 
         // Reset Climbers
-        joystick.povDown().onTrue(new MoveInnerClimberToPosition(
-            2, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(2, 10, m_climberOuter)));
+        joystick.povDown().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveInnerClimberToPosition(
+            0.5, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
 
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 

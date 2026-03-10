@@ -51,6 +51,6 @@ public class MoveInnerClimberToPosition extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_inches - m_climberInner.getPosition()) < m_tolerance;
+        return false; // Math.abs(m_inches - m_climberInner.getPosition()) < m_tolerance;
     }
 }

@@ -7,18 +7,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Trench Depot Shot"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Stop Shooting"
           }
         },
@@ -27,28 +15,28 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue Trench Outpost to Outpost"
+                }
+              },
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
+                        "name": "Lower Intake Arm"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Trench Depot to Collect (Depot Half)"
                 }
               }
             ]
@@ -57,38 +45,25 @@
         {
           "type": "named",
           "data": {
-            "name": "Stop Intaking"
+            "name": "Outpost Shot"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Collect Depot Half to Trench Depot"
+            "waitTime": 3.0
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Trench Depot Shot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Raise Intake Arm"
-                }
-              }
-            ]
+            "name": "Raise Intake Arm"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "RED AUTOS",
+  "folder": "BLUE AUTOS",
   "choreoAuto": false
 }

@@ -1,0 +1,93 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.427,
+        "y": 7.638
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.539724679029956,
+        "y": 7.068699001426533
+      },
+      "isLocked": false,
+      "linkedName": "Red Trench Depot"
+    },
+    {
+      "anchor": {
+        "x": 8.295877318116975,
+        "y": 6.719771754636234
+      },
+      "prevControl": {
+        "x": 8.295877318116975,
+        "y": 7.898965677921645
+      },
+      "nextControl": {
+        "x": 8.295877318116975,
+        "y": 5.658801711840226
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.296,
+        "y": 4.675
+      },
+      "prevControl": {
+        "x": 8.296,
+        "y": 5.619522111269616
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red Depot Collect Half"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.41364605543709915,
+      "rotationDegrees": -115.0
+    },
+    {
+      "waypointRelativePos": 1.8081023454157898,
+      "rotationDegrees": -115.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.9182984469952655,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -91.77036980708417
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.28529644008395955
+  },
+  "useDefaultConstraints": false
+}

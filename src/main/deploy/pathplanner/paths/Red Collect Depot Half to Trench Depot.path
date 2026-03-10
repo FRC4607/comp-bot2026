@@ -4,15 +4,15 @@
     {
       "anchor": {
         "x": 8.296,
-        "y": 4.675463623395149
+        "y": 4.675
       },
       "prevControl": null,
       "nextControl": {
         "x": 8.296,
-        "y": 6.047205587514249
+        "y": 6.046741964119099
       },
       "isLocked": false,
-      "linkedName": "Collect Depot Half End"
+      "linkedName": "Red Depot Collect Half"
     },
     {
       "anchor": {
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 4.427218259629101,
-        "y": 7.638416547788873
+        "x": 4.427,
+        "y": 7.638
       },
       "prevControl": {
-        "x": 6.031611982881596,
-        "y": 7.043238231098431
+        "x": 6.031393723252496,
+        "y": 7.042821683309557
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Trench Depot"
+      "linkedName": "Red Trench Depot"
     }
   ],
   "rotationTargets": [
@@ -63,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.28529644008395955
   },
   "reversed": false,
   "folder": "RED PATHS",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -92.24574256589509
+    "rotation": -91.77036980708417
   },
   "useDefaultConstraints": false
 }
