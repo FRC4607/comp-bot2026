@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.296,
+        "y": 4.675463623395149
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.296,
+        "y": 6.047205587514249
+      },
+      "isLocked": false,
+      "linkedName": "Blue Depot Collect Half"
+    },
+    {
+      "anchor": {
+        "x": 8.296,
+        "y": 6.758587731811698
+      },
+      "prevControl": {
+        "x": 8.296,
+        "y": 6.002735996332006
+      },
+      "nextControl": {
+        "x": 8.296,
+        "y": 7.988854598258533
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.427218259629101,
+        "y": 7.638416547788873
+      },
+      "prevControl": {
+        "x": 6.031611982881596,
+        "y": 7.043238231098431
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue Trench Depot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.6503198294242833,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "BLUE PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -92.24574256589509
+  },
+  "useDefaultConstraints": false
+}

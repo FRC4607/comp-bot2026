@@ -4,70 +4,117 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.TorqueCurrentFOC;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFXS;
-import com.ctre.phoenix6.signals.BrushedMotorWiringValue;
 import com.ctre.phoenix6.signals.ExternalFeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.HoodCalibrations;
+import frc.robot.Calibrations.IntakeArmCalibrations;
 import frc.robot.Constants.HoodConstants;
 
+/** Hood subsystem. */
 public class Hood extends SubsystemBase {
-  
-  private TalonFXS m_motor;
-  
-  private TalonFXSConfiguration m_talonFXSConfig;
-  
-  private MotionMagicTorqueCurrentFOC m_request;
 
+    private final TalonFXS m_motor;
 
-  /** Creates a new hood. */
-  public Hood() {
+    private final TalonFXSConfiguration m_talonFXSConfig;
 
-    m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
+    private final MotionMagicVoltage m_request;
 
-    m_talonFXSConfig = new TalonFXSConfiguration();
+    /** Creates and configures the hood subsystem. */
+    public Hood() {
 
-    m_request = new MotionMagicTorqueCurrentFOC(0);
+        m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
 
-    m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
+        m_talonFXSConfig = new TalonFXSConfiguration();
 
-    m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        m_request = new MotionMagicVoltage(0);
 
-    m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
-    m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
-    m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
-    m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
+        // Select the motor type to use
+        m_talonFXSConfig.Commutation.MotorArrangement = MotorArrangementValue.Minion_JST;
 
+        m_talonFXSConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
-    m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
+        // Gains
+        m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
+        m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
+        m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
+        m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
 
-    m_motor.getConfigurator().apply(m_talonFXSConfig);
+        // Motion Magic settings
+        m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = HoodCalibrations.kMaxSpeed;
+        m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = HoodCalibrations.kMaxAcceleration;
 
-  }
+        m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+        // Use the minion motor encoder as a feedback source
+        m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
 
-  public void updateSetpoint(double newSetpoint) {
-    m_motor.setControl(m_request.withPosition(newSetpoint));
-  }
+        // Current limit
+        m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
 
-  public void runOpenLoop(double dutyCycle) {
-    m_motor.set(dutyCycle);
-  }
+        m_motor.getConfigurator().apply(m_talonFXSConfig);
 
-  public void resetPosition(double newPosition) {
-    m_motor.setPosition(newPosition);
-  }
+    }
+    
+    // TODO: Update all position related methods to use degrees instead of motor rotations.
+    /**
+     * Gets the velocity of the hood, in motor rotations per second.
+     *
+     * @return the current velocity of the hood
+     */
+    public double getVelocity() {
+        return m_motor.getVelocity().getValueAsDouble();
+    }
+
+    /**
+     * Gets the position of the hood, in motor rotations.
+     *
+     * @return The current position of the hood
+     */
+    public double getPosition() {
+        return m_motor.getPosition().getValueAsDouble();
+    }
+
+    /**
+     * Sets the setpoint of the hood, in motor rotation. 
+     *
+     * @param newSetpoint The position to drive towards (0, 2.2)
+     */
+    public void updateSetpoint(double newSetpoint) {
+        m_motor.setControl(m_request.withPosition(newSetpoint));
+        System.out.println("set" + newSetpoint);
+    }
+
+    /**
+     * Runs the hood in open loop.
+     *
+     * @param dutyCycle The power to run at (-1, 1)
+     */
+    public void runOpenLoop(double dutyCycle) {
+        m_motor.set(dutyCycle);
+    }
+
+    /**
+     * Resets the position of the hood.
+     *
+     * @param newPosition The updated position of the hood.
+     */
+    public void resetPosition(double newPosition) {
+        m_motor.setPosition(newPosition);
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        // SmartDashboard.putNumber("Hood Potentiometer", m_motor.getAnalogVoltage().getValueAsDouble());
+        // SmartDashboard.putNumber("Hood Position", getPosition());
+    }
 }

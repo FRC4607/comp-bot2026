@@ -4,72 +4,195 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import java.time.LocalTime;
+import java.util.Optional;
+
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+    private Command m_autonomousCommand;
 
-  private final RobotContainer m_robotContainer;
+    public final RobotContainer m_robotContainer;
+    private int m_loopCounter;
+    private double m_countDown;
 
-  public Robot() {
-    m_robotContainer = new RobotContainer();
-  }
-
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run(); 
-  }
-
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void disabledExit() {}
-
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    public Robot() {
+        m_robotContainer = new RobotContainer();
     }
-  }
 
-  @Override
-  public void autonomousPeriodic() {}
+    @Override
+    public void robotPeriodic() {
+        CommandScheduler.getInstance().run();
 
-  @Override
-  public void autonomousExit() {}
+        m_loopCounter++;
+        if ((m_loopCounter % 50) == 0) {
 
-  @Override
-  public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+            SmartDashboard.putBoolean("Hub State", isHubActive());
+            SmartDashboard.putNumber("Time Until Switch", m_countDown);
+
+            SmartDashboard.putString("Remaining Match Time", 
+                LocalTime.of(0, 
+                (int) Math.abs(DriverStation.getMatchTime() / 60), 
+                (int) Math.abs(DriverStation.getMatchTime()) % 60).toString());
+        }
     }
-  }
 
-  @Override
-  public void teleopPeriodic() {}
+    @Override
+    public void disabledInit() {
+        m_robotContainer.m_turret.resetsetPosition();
+    }
 
-  @Override
-  public void teleopExit() {}
+    @Override
+    public void disabledPeriodic() {
+        
+    }
 
-  @Override
-  public void testInit() {
-    CommandScheduler.getInstance().cancelAll();
-  }
+    @Override
+    public void disabledExit() {
+    }
 
-  @Override
-  public void testPeriodic() {}
+    @Override
+    public void autonomousInit() {
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-  @Override
-  public void testExit() {}
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.schedule();
+        }
+    }
 
-  @Override
-  public void simulationPeriodic() {}
+    @Override
+    public void autonomousPeriodic() {
+    }
+
+    @Override
+    public void autonomousExit() {
+    }
+
+    @Override
+    public void teleopInit() {
+        if (m_autonomousCommand != null) {
+            m_autonomousCommand.cancel();
+        }
+
+        m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
+        m_robotContainer.m_intakeWheels.updateSetpoint(10);
+        m_robotContainer.m_indexer.runOpenLoop(0);
+        m_robotContainer.m_chamber.runOpenLoop(0);
+        m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
+        m_robotContainer.m_hood.updateSetpoint(m_robotContainer.m_hood.getPosition());
+        m_robotContainer.m_flywheel.runOpenLoop(0);
+    }
+
+    @Override
+    public void teleopPeriodic() {
+    }
+
+    @Override
+    public void teleopExit() {
+        SignalLogger.stop();
+    }
+
+    @Override
+    public void testInit() {
+        CommandScheduler.getInstance().cancelAll();
+    }
+
+    @Override
+    public void testPeriodic() {
+    }
+
+    @Override
+    public void testExit() {
+    }
+
+    @Override
+    public void simulationPeriodic() {
+    }
+
+    public boolean isHubActive() {
+        if (DriverStation.getAlliance().isEmpty()) {
+            return false;
+        }
+        
+        if (isAutonomousEnabled()) {
+            return true;
+        }
+
+        if (!isTeleopEnabled()) {
+            return false;
+        }
+
+        double m_matchTime = DriverStation.getMatchTime();
+        String m_gameData = DriverStation.getGameSpecificMessage();
+
+        if (m_gameData.isEmpty()) {
+            return true;
+        }
+
+        boolean m_redActiveFirst;
+        if (m_gameData.charAt(0) == 'B') {
+            m_redActiveFirst = true;
+        } else if (m_gameData.charAt(0) == 'A') {
+            m_redActiveFirst = false;
+        } else {
+            return true;
+        }
+
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+
+        if (m_matchTime > 130) {
+            m_countDown = m_matchTime - 130;
+            return true;
+        } else if (m_matchTime > 105) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 105;
+                return true;
+            } else {
+                m_countDown = m_matchTime - 105;
+                return false;
+            }
+            
+        } else if (m_matchTime > 80) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 80;
+                return false;
+            } else {
+                m_countDown = m_matchTime - 80;
+                return true;
+            }
+
+        } else if (m_matchTime > 55) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 55;
+                return true;
+            } else {
+                m_countDown = m_matchTime - 55;
+                return false;
+            }
+
+        } else if (m_matchTime > 30) {
+
+            if (m_redActiveFirst && (alliance.get() == Alliance.Red)) {
+                m_countDown = m_matchTime - 30;
+                return false;
+            } else {
+                m_countDown = m_matchTime - 30;
+                return true;
+            }
+
+        } else {
+            m_countDown = m_matchTime;
+            return true;
+        }
+    }
+    
 }

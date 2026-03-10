@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.296,
+        "y": 4.675
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.296,
+        "y": 6.046741964119099
+      },
+      "isLocked": false,
+      "linkedName": "Red Depot Collect Half"
+    },
+    {
+      "anchor": {
+        "x": 8.296,
+        "y": 6.758587731811698
+      },
+      "prevControl": {
+        "x": 8.296,
+        "y": 6.002735996332006
+      },
+      "nextControl": {
+        "x": 8.296,
+        "y": 7.988854598258533
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.427,
+        "y": 7.638
+      },
+      "prevControl": {
+        "x": 6.031393723252496,
+        "y": 7.042821683309557
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red Trench Depot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.6503198294242833,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.28529644008395955
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -91.77036980708417
+  },
+  "useDefaultConstraints": false
+}

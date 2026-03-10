@@ -1,0 +1,93 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.27,
+        "y": 3.3723777777777775
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.27,
+        "y": 2.3686526979862688
+      },
+      "isLocked": false,
+      "linkedName": "Red Outpost Collect Half"
+    },
+    {
+      "anchor": {
+        "x": 8.27,
+        "y": 1.2480888888888888
+      },
+      "prevControl": {
+        "x": 8.264225057101878,
+        "y": 1.871782721885877
+      },
+      "nextControl": {
+        "x": 8.279744444444445,
+        "y": 0.1956888888888879
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.440156918687589,
+        "y": 0.4685333333333336
+      },
+      "prevControl": {
+        "x": 6.135966666666666,
+        "y": 0.8972888888888884
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red Trench Outpost"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8414937759335684,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.8605809128630781,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.8238213399503516,
+      "maxWaypointRelativePos": 1.3200992555831323,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": false
+}

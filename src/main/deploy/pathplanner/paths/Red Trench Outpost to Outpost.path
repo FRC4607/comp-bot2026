@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.440156918687589,
+        "y": 0.4685333333333336
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.366248216833095,
+        "y": 0.4315834522111266
+      },
+      "isLocked": false,
+      "linkedName": "Red Trench Outpost"
+    },
+    {
+      "anchor": {
+        "x": 0.296,
+        "y": 0.769
+      },
+      "prevControl": {
+        "x": 2.164707560627674,
+        "y": 1.2155777460770332
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red Outpost"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "RED PATHS",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": false
+}

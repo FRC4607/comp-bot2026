@@ -4,44 +4,51 @@
 
 package frc.robot.Commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
+import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+
+/** SetIndexerOpenLoop command. */
 public class SetIndexerOpenLoop extends Command {
-  private DoubleSupplier m_dutyCycle;
-  private Indexer m_indexer;
-  
-  /** Creates a new SetIndexerOpenLoop. */
-  public SetIndexerOpenLoop(DoubleSupplier dutyCycle, Indexer indexer) {
-    m_dutyCycle = dutyCycle;
-    m_indexer = indexer;
+    private DoubleSupplier m_dutyCycle;
+    private Indexer m_indexer;
 
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements();
-  }
+    /** 
+     * A command to set the power of the indexer in open loop.
+     *
+     * @param dutyCycle The power to run the motor at (-1, 1)
+     * @param indexer The indexer to use
+     */
+    public SetIndexerOpenLoop(DoubleSupplier dutyCycle, Indexer indexer) {
+        m_dutyCycle = dutyCycle;
+        m_indexer = indexer;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(m_indexer);
+    }
 
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_indexer.runOpenLoop(m_dutyCycle.getAsDouble());
-  }
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        m_indexer.runOpenLoop(m_dutyCycle.getAsDouble());
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
