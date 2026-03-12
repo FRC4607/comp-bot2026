@@ -87,6 +87,12 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
         m_robotContainer.m_hood.updateSetpoint(m_robotContainer.m_hood.getPosition());
         m_robotContainer.m_flywheel.runOpenLoop(0);
+
+        // FMS Data Logging for debugging and post-match analysis
+        SignalLogger.writeString("FMS/EventName", DriverStation.getEventName());
+        SignalLogger.writeInteger("FMS/MatchNumber", DriverStation.getMatchNumber());
+        SignalLogger.writeString("FMS/MatchType", DriverStation.getMatchType().toString());
+        SignalLogger.writeInteger("FMS/ReplayNumber", DriverStation.getReplayNumber());
     }
 
     @Override

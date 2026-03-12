@@ -241,6 +241,7 @@ public class RobotContainer {
         joystick.back().onTrue(new ZeroHoodSequence(m_hood));
 
         // SmartDashboard Commands
+        SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
         SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_hood));
     }
