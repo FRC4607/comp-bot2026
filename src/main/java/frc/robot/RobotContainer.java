@@ -112,7 +112,7 @@ public class RobotContainer {
                 new ZeroHoodSequence(m_hood),
                 new RunFlywheelOpenLoop(() -> 0, m_flywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
-                new SetChamberOpenLoop(() -> 0, m_chamber)));
+                new SetChamberOpenLoop(() -> 0, m_chamber)).withTimeout(0.5));
         NamedCommands.registerCommand("Lower Intake Arm",
             new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
             .alongWith(new SetIntakeWheelsVelocity(5, 10, m_intakeWheels)));
@@ -175,10 +175,9 @@ public class RobotContainer {
             .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
         joystick.rightBumper()
-            .onTrue(Commands.defer(() -> new MoveIntakeToPosition(130, 20, m_intakeArm)
-                .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 90.0), 80, m_intakeWheels))
-                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */,
-                java.util.Set.of(m_intakeArm, m_intakeWheels)))
+            .onTrue(new MoveIntakeToPosition(130, 20, m_intakeArm)
+                .alongWith(new SetIntakeWheelsVelocity(90, 80, m_intakeWheels))
+                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 /*.alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)) */);
