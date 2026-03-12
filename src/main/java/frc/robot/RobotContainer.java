@@ -223,18 +223,30 @@ public class RobotContainer {
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         // Climb
-        joystick.povUp().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
+        joystick.povUp().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
+            .andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
 
         // Chin up
-        joystick.povRight().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(
+        joystick.povRight().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
+            .andThen(new MoveOuterClimberToPosition(
             ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter)));
 
         // Alignment Check
-        joystick.povLeft().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
+        joystick.povLeft().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
+            .andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
 
         // Reset Climbers
-        joystick.povDown().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveInnerClimberToPosition(
-            0.5, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
+        joystick.povDown().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
+            .andThen(new MoveInnerClimberToPosition(0.5, 10, m_climberInner)
+            .alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
 
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
