@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.44,
+        "x": 4.27,
         "y": 7.638
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.552724679029957,
+        "x": 5.382724679029956,
         "y": 7.068699001426533
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red Trench Depot"
     },
     {
       "anchor": {
