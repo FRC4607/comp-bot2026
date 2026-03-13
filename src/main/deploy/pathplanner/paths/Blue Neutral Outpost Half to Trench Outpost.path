@@ -25,23 +25,23 @@
       },
       "nextControl": {
         "x": 8.279744444444445,
-        "y": 0.1956888888888879
+        "y": 0.19568888888888814
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.440156918687589,
+        "x": 4.27,
         "y": 0.4685333333333336
       },
       "prevControl": {
-        "x": 6.135966666666666,
+        "x": 5.965809747979076,
         "y": 0.8972888888888884
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Trench Outpost"
+      "linkedName": null
     }
   ],
   "rotationTargets": [

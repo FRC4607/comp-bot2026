@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.427,
+        "x": 4.27,
         "y": 7.638
       },
       "prevControl": {
-        "x": 6.0775,
+        "x": 5.9205,
         "y": 6.8414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Trench Depot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
