@@ -7,6 +7,18 @@
         {
           "type": "named",
           "data": {
+            "name": "Trench Depot Shot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Stop Shooting"
           }
         },
@@ -36,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Trench Outpost to Neutral Close"
+                  "pathName": "Red Trench Depot To Neutral Close"
                 }
               }
             ]
@@ -51,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Neutral Close to Trench Outpost"
+            "pathName": "Red Depot Trench Close To Trench Depot"
           }
         },
         {
@@ -67,7 +79,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Trench Outpost Shot"
+                  "name": "Trench Depot Shot"
                 }
               }
             ]

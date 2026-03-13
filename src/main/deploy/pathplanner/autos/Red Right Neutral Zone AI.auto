@@ -7,6 +7,18 @@
         {
           "type": "named",
           "data": {
+            "name": "Trench Outpost Shot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Stop Shooting"
           }
         },
@@ -36,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Trench Outpost to Neutral Close"
+                  "pathName": "Red Trench Outpost to Neutral Close"
                 }
               }
             ]
@@ -51,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Neutral Close to Trench Outpost"
+            "pathName": "Red Neutral Close to Trench Outpost"
           }
         },
         {
@@ -77,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BLUE AUTOS",
+  "folder": "RED AUTOS",
   "choreoAuto": false
 }

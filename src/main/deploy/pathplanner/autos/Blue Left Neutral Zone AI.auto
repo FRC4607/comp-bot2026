@@ -7,6 +7,18 @@
         {
           "type": "named",
           "data": {
+            "name": "Trench Depot Shot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Stop Shooting"
           }
         },
@@ -36,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Trench Depot To Neutral Close"
+                  "pathName": "Blue Trench Depot To Neutral Close"
                 }
               }
             ]
@@ -51,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Depot Trench Close To Trench Depot"
+            "pathName": "Blue Depot Trench Close To Trench Depot"
           }
         },
         {
@@ -77,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "RED AUTOS",
+  "folder": "BLUE AUTOS",
   "choreoAuto": false
 }
