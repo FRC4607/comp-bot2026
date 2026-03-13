@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
         m_loopCounter++;
         if ((m_loopCounter % 50) == 0) {
 
+            SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+
             SmartDashboard.putBoolean("Hub State", isHubActive());
             SmartDashboard.putNumber("Time Until Switch", m_countDown);
 
