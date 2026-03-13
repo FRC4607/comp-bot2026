@@ -122,7 +122,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Stop Intaking",
             new SetIntakeWheelsVelocity(5, 10, m_intakeWheels));
         NamedCommands.registerCommand("Raise Intake Arm",
-            new MoveIntakeToPosition(0, 5, m_intakeArm));
+            new MoveIntakeToPosition(0, 5, m_intakeArm).withTimeout(2));
 
         
         configureBindings();

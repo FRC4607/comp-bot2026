@@ -310,7 +310,7 @@ public class Calibrations {
         public static final double kFlywheelVelocityTolerance = 1;
 
         /** Hood Angle. */
-        public static final double kHoodAngle = 0.65;
+        public static final double kHoodAngle = 0.85;
 
         /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
@@ -378,7 +378,7 @@ public class Calibrations {
     public class OutpostTrenchShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 61;
+        public static final double kFlywheelVelocity = 64;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
@@ -415,7 +415,7 @@ public class Calibrations {
     public class OutpostShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 76;
+        public static final double kFlywheelVelocity = 79;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
