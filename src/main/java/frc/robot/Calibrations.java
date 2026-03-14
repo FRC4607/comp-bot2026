@@ -415,7 +415,7 @@ public class Calibrations {
     public class OutpostShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 79;
+        public static final double kFlywheelVelocity = 81;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
