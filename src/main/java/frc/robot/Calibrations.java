@@ -341,7 +341,7 @@ public class Calibrations {
     public class DepotTrenchShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 56;
+        public static final double kFlywheelVelocity = 59;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
