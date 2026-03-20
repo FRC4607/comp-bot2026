@@ -495,6 +495,7 @@ public class Calibrations {
         public static final double kOuterTraversalPositionTolerance = 1;
     }
 
+    /** Calibrations for a shot which uses the gyro to pass fuel towards the driver station. */
     public class PassWithGyroCalibrations {
 
         /** Offset of the Turret when tracking. */
