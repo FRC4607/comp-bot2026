@@ -3,61 +3,65 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.44,
-        "y": 7.638
+        "x": 4.27,
+        "y": 0.4685333333333336
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.552724679029957,
-        "y": 7.068699001426533
+        "x": 5.556266666666665,
+        "y": 1.101922222222222
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red Trench Outpost"
     },
     {
       "anchor": {
-        "x": 8.295877318116975,
-        "y": 6.719771754636234
+        "x": 8.27,
+        "y": 1.5209333333333337
       },
       "prevControl": {
-        "x": 8.295877318116975,
-        "y": 7.898965677921645
+        "x": 8.260255555555556,
+        "y": 0.0007999999999990237
       },
       "nextControl": {
-        "x": 8.295877318116975,
-        "y": 5.658801711840226
+        "x": 8.274938141969358,
+        "y": 2.291283480553279
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.296,
-        "y": 4.675
+        "x": 8.27,
+        "y": 3.3723777777777775
       },
       "prevControl": {
-        "x": 8.296,
-        "y": 5.619522111269616
+        "x": 8.27,
+        "y": 2.680247785259601
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Depot Collect Half"
+      "linkedName": "Red Outpost Collect Half"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.41364605543709915,
-      "rotationDegrees": -115.0
+      "waypointRelativePos": 0.17427385892115718,
+      "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.8081023454157898,
-      "rotationDegrees": -115.0
+      "waypointRelativePos": 0.6755186721991507,
+      "rotationDegrees": 115.0
+    },
+    {
+      "waypointRelativePos": 1.9336099585062194,
+      "rotationDegrees": 115.0
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.9182984469952655,
+      "minWaypointRelativePos": 0.8436724565756903,
       "maxWaypointRelativePos": 2.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -73,21 +77,21 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -91.77036980708417
+    "velocity": 0.0,
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "RED PATHS",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.28529644008395955
+    "rotation": 0.0
   },
   "useDefaultConstraints": false
 }

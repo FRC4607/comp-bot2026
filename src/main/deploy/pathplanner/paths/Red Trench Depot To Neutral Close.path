@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.427,
+        "x": 4.44,
         "y": 7.638
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.941077777777779,
+        "x": 5.95407777777778,
         "y": 6.782933333333333
       },
       "isLocked": false,
-      "linkedName": "Red Trench Depot"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -51,7 +51,11 @@
     },
     {
       "waypointRelativePos": 0.7352697095435625,
-      "rotationDegrees": -90.0
+      "rotationDegrees": -110.0
+    },
+    {
+      "waypointRelativePos": 1.8720682302771918,
+      "rotationDegrees": -110.0
     }
   ],
   "constraintZones": [

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.440156918687589,
+        "x": 4.44,
         "y": 0.4685333333333336
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.366248216833095,
+        "x": 3.3660912981455064,
         "y": 0.4315834522111266
       },
       "isLocked": false,
-      "linkedName": "Blue Trench Outpost"
+      "linkedName": null
     },
     {
       "anchor": {

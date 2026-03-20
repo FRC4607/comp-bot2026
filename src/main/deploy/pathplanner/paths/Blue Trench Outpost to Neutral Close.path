@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.440156918687589,
+        "x": 4.44,
         "y": 0.4685333333333336
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.726423585354254,
+        "x": 5.726266666666666,
         "y": 1.101922222222222
       },
       "isLocked": false,
-      "linkedName": "Blue Trench Outpost"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -51,7 +51,11 @@
     },
     {
       "waypointRelativePos": 0.6755186721991507,
-      "rotationDegrees": 90.0
+      "rotationDegrees": 110.0
+    },
+    {
+      "waypointRelativePos": 1.8976545842217547,
+      "rotationDegrees": 110.0
     }
   ],
   "constraintZones": [

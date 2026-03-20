@@ -31,8 +31,13 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         m_loopCounter++;
-        if ((m_loopCounter % 50) == 0) {
 
+        if ((m_loopCounter % 10) == 0) {
+            SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+        }
+
+        if ((m_loopCounter % 50) == 0) {
+            
             SmartDashboard.putBoolean("Hub State", isHubActive());
             SmartDashboard.putNumber("Time Until Switch", m_countDown);
 
@@ -85,8 +90,16 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_chamber.runOpenLoop(0);
         m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
-        m_robotContainer.m_hood.updateSetpoint(m_robotContainer.m_hood.getPosition());
+        m_robotContainer.m_hood.updateSetpoint(0);
         m_robotContainer.m_flywheel.runOpenLoop(0);
+        m_robotContainer.m_climberInner.updateSetpoint(m_robotContainer.m_climberInner.getPosition());
+        m_robotContainer.m_climberOuter.updateSetpoint(m_robotContainer.m_climberOuter.getPosition());
+
+        // FMS Data Logging for debugging and post-match analysis
+        SignalLogger.writeString("FMS/EventName", DriverStation.getEventName());
+        SignalLogger.writeInteger("FMS/MatchNumber", DriverStation.getMatchNumber());
+        SignalLogger.writeString("FMS/MatchType", DriverStation.getMatchType().toString());
+        SignalLogger.writeInteger("FMS/ReplayNumber", DriverStation.getReplayNumber());
     }
 
     @Override

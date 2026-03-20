@@ -112,7 +112,7 @@ public class RobotContainer {
                 new ZeroHoodSequence(m_hood),
                 new RunFlywheelOpenLoop(() -> 0, m_flywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
-                new SetChamberOpenLoop(() -> 0, m_chamber)));
+                new SetChamberOpenLoop(() -> 0, m_chamber)).withTimeout(0.5));
         NamedCommands.registerCommand("Lower Intake Arm",
             new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
             .alongWith(new SetIntakeWheelsVelocity(5, 10, m_intakeWheels)));
@@ -122,7 +122,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Stop Intaking",
             new SetIntakeWheelsVelocity(5, 10, m_intakeWheels));
         NamedCommands.registerCommand("Raise Intake Arm",
-            new MoveIntakeToPosition(0, 5, m_intakeArm));
+            new MoveIntakeToPosition(0, 5, m_intakeArm).withTimeout(2));
 
         
         configureBindings();
@@ -175,10 +175,9 @@ public class RobotContainer {
             .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
         joystick.rightBumper()
-            .onTrue(Commands.defer(() -> new MoveIntakeToPosition(130, 20, m_intakeArm)
-                .alongWith(new SetIntakeWheelsVelocity(SmartDashboard.getNumber("Intake Speed", 90.0), 80, m_intakeWheels))
-                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */,
-                java.util.Set.of(m_intakeArm, m_intakeWheels)))
+            .onTrue(new MoveIntakeToPosition(130, 20, m_intakeArm)
+                .alongWith(new SetIntakeWheelsVelocity(90, 80, m_intakeWheels))
+                /*.alongWith(new SetIndexerOpenLoop(() -> 60.0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsOpenLoop(() -> 0.1, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 /*.alongWith(new SetIndexerOpenLoop(() -> 0.0, m_indexer)) */);
@@ -223,24 +222,37 @@ public class RobotContainer {
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
         // Climb
-        joystick.povUp().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
+        // joystick.povUp().onTrue(
+        //     new MoveTurretToPosition(() -> 270, 1, m_turret)
+        //     .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
+        //     .andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
 
         // Chin up
-        joystick.povRight().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(
+        joystick.povRight().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
+            .andThen(new MoveOuterClimberToPosition(
             ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter)));
 
         // Alignment Check
-        joystick.povLeft().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
+        joystick.povLeft().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
+            .andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
 
         // Reset Climbers
-        joystick.povDown().onTrue(new MoveTurretToPosition(() -> 270, 1, m_turret).andThen(new MoveInnerClimberToPosition(
-            0.5, 10, m_climberInner).alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
+        joystick.povDown().onTrue(
+            new MoveTurretToPosition(() -> 270, 1, m_turret)
+            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
+            .andThen(new MoveInnerClimberToPosition(0.5, 10, m_climberInner)
+            .alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
 
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
         joystick.back().onTrue(new ZeroHoodSequence(m_hood));
 
         // SmartDashboard Commands
+        SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
         SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_hood));
     }

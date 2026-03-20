@@ -310,7 +310,7 @@ public class Calibrations {
         public static final double kFlywheelVelocityTolerance = 1;
 
         /** Hood Angle. */
-        public static final double kHoodAngle = 0.65;
+        public static final double kHoodAngle = 0.85;
 
         /** Hood Angle Tolerance. */
         public static final double kHoodAngleTolerance = 0.1;
@@ -341,7 +341,7 @@ public class Calibrations {
     public class DepotTrenchShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 56;
+        public static final double kFlywheelVelocity = 59;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
@@ -378,7 +378,7 @@ public class Calibrations {
     public class OutpostTrenchShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 58;
+        public static final double kFlywheelVelocity = 64;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
@@ -415,7 +415,7 @@ public class Calibrations {
     public class OutpostShotCalibrations {
 
         /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 73;
+        public static final double kFlywheelVelocity = 81;
 
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
@@ -495,6 +495,7 @@ public class Calibrations {
         public static final double kOuterTraversalPositionTolerance = 1;
     }
 
+    /** Calibrations for a shot which uses the gyro to pass fuel towards the driver station. */
     public class PassWithGyroCalibrations {
 
         /** Offset of the Turret when tracking. */
