@@ -32,6 +32,15 @@ public class Robot extends TimedRobot {
 
         m_loopCounter++;
 
+        var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
+        var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
+        if (brllMeasurement != null && brllMeasurement.tagCount > 0) {
+            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds);
+        }
+        if (blllMeasurement != null && blllMeasurement.tagCount > 0) {
+            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds);
+        }
+
         if ((m_loopCounter % 10) == 0) {
             SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
         }
@@ -86,7 +95,7 @@ public class Robot extends TimedRobot {
         }
 
         m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
-        m_robotContainer.m_intakeWheels.updateSetpoint(10);
+        m_robotContainer.m_intakeWheels.updateSetpoint(0);
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_chamber.runOpenLoop(0);
         m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
