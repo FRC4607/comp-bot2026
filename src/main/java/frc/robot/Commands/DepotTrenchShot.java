@@ -32,7 +32,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
         super(
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
-                    DepotTrenchShotCalibrations.kFlywheelVelocity,
+                    () -> DepotTrenchShotCalibrations.kFlywheelVelocity,
                     DepotTrenchShotCalibrations.kFlywheelVelocityTolerance,
                     flywheel).withTimeout(0.25),
                 new MoveHoodToPosition(

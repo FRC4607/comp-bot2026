@@ -6,6 +6,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.TreeMap;
+
 import frc.robot.Calibrations.ChinUpCalibrations;
 import frc.robot.Calibrations.ClimbSequenceCalibrations;
 import frc.robot.Calibrations.DrivetrainCalibrations;
@@ -29,6 +31,7 @@ import frc.robot.Commands.SetInnerClimberAmperage;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.SetOuterClimberAmperage;
+import frc.robot.Commands.StationaryShot;
 import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.ZeroClimbersSequence;
 import frc.robot.Commands.ZeroHood;
@@ -135,6 +138,7 @@ public class RobotContainer {
     private void configureBindings() {
 
         Trigger operatorRedL = new Trigger(() -> m_operator.getRawButton(1));
+        Trigger operatorRedR = new Trigger(() -> m_operator.getRawButton(2));
 
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
@@ -185,13 +189,25 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
             .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
-        joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+        // joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+        //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+        //         .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        
+        operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
-        
-        operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+
+        joystick.y().onTrue(new StationaryShot(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
+            .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new SetChamberVelocity(0, 90, m_chamber)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+
+        operatorRedR.onTrue(new StationaryShot(drivetrain, m_indexer, m_chamber, m_turret, m_hood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new SetChamberVelocity(0, 90, m_chamber)

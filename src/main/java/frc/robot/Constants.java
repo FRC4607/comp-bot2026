@@ -1,6 +1,19 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
+
+import edu.wpi.first.math.geometry.Translation2d;
+
 public class Constants {
+
+    public class FieldConstants {
+        /** Translation of the hub on the blue side. */
+        public static final Translation2d kBlueHub = new Translation2d(Inches.of(182.143595), Inches.of(158.84375));
+
+        /** Translation of the hub on the red side. */
+        public static final Translation2d kRedHub = new Translation2d(Inches.of(469.078905), Inches.of(158.84375));
+    }
+
     public class DrivetrainConstants {
         
     }

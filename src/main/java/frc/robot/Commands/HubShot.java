@@ -34,7 +34,7 @@ public class HubShot extends SequentialCommandGroup {
         super(
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
-                    HubShotCalibrations.kFlywheelVelocity,
+                    () -> HubShotCalibrations.kFlywheelVelocity,
                     HubShotCalibrations.kFlywheelVelocityTolerance, 
                     flywheel),
                 new MoveHoodToPosition(

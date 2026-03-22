@@ -33,7 +33,7 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
             // Spin up flywheel, move hood, move turret
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
-                    OutpostTrenchShotCalibrations.kFlywheelVelocity,
+                    () -> OutpostTrenchShotCalibrations.kFlywheelVelocity,
                     OutpostTrenchShotCalibrations.kFlywheelVelocityTolerance, 
                     flywheel).withTimeout(0.25),
                 new MoveHoodToPosition(

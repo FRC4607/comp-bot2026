@@ -40,7 +40,7 @@ public class PassWithGyro extends ParallelCommandGroup {
                                         .withTimeout(
                                                 PassWithGyroCalibrations.kHoodTimeout),
                                 new SetFlywheelVelocity(
-                                        PassWithGyroCalibrations.kFlywheelVelocity,
+                                        () -> PassWithGyroCalibrations.kFlywheelVelocity,
                                         PassWithGyroCalibrations.kFlywheelVelocityTolerance,
                                         flywheel)
                                         .withTimeout(

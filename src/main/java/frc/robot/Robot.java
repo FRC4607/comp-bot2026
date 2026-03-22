@@ -5,12 +5,16 @@
 package frc.robot;
 
 import com.ctre.phoenix6.SignalLogger;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.FieldConstants;
 
 import java.time.LocalTime;
 import java.util.Optional;
@@ -18,11 +22,17 @@ import java.util.Optional;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
+    private static Robot robotInstance;
+
     public final RobotContainer m_robotContainer;
     private int m_loopCounter;
     private double m_countDown;
+    public Translation2d m_targetHubPose;
+    public double m_shotOffset;
 
     public Robot() {
+        robotInstance = this;
+
         m_robotContainer = new RobotContainer();
     }
 
@@ -34,10 +44,10 @@ public class Robot extends TimedRobot {
 
         var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
         var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
-        if (brllMeasurement != null && brllMeasurement.tagCount > 0) {
+        if (brllMeasurement != null && brllMeasurement.tagCount > 0 && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) {
             m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds);
         }
-        if (blllMeasurement != null && blllMeasurement.tagCount > 0) {
+        if (blllMeasurement != null && blllMeasurement.tagCount > 0 && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2)) {
             m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds);
         }
 
@@ -90,8 +100,16 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
+        }
+
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.get() == Alliance.Red) {
+            m_targetHubPose = FieldConstants.kRedHub;
+        } else {
+            m_targetHubPose = FieldConstants.kBlueHub;
         }
 
         m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
@@ -135,6 +153,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void simulationPeriodic() {
+    }
+
+    public static Robot getRobotInstance() {
+        return robotInstance;
     }
 
     public boolean isHubActive() {
