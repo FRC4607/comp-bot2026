@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
+        // Code to run every 0.005 seconds (5 milliseconds)
         m_loopCounter++;
 
         var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
@@ -51,10 +52,22 @@ public class Robot extends TimedRobot {
             m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds);
         }
 
+        // Code to run every 0.05 seconds (50 milliseconds)
         if ((m_loopCounter % 10) == 0) {
             SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+
+            if ((brllMeasurement != null && brllMeasurement.tagCount > 0 
+                    && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) 
+                    || (blllMeasurement != null && blllMeasurement.tagCount > 0 
+                    && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2))) {
+                
+                SmartDashboard.putBoolean("Has Tags?", true);
+            } else {
+                SmartDashboard.putBoolean("Has Tags?", false);
+            }
         }
 
+        // Code to run every 0.25 seconds (250 milliseconds)
         if ((m_loopCounter % 50) == 0) {
             
             SmartDashboard.putBoolean("Hub State", isHubActive());
