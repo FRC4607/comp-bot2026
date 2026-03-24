@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.FieldConstants;
+import frc.robot.Constants.TurretConstants;
 import frc.robot.Robot;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
@@ -27,6 +28,8 @@ public class PointAtHub extends Command {
 
     private Translation2d m_targetHubPose;
     private double m_shotOffset;
+
+    private double m_drivetrainAngle;
 
     /** Creates a new PointAtHub. */
     public PointAtHub(CommandSwerveDrivetrain drivetrain, Turret turret, Hood hood, Flywheel flywheel) {
@@ -53,23 +56,35 @@ public class PointAtHub extends Command {
             System.out.println("Aiming at Blue Hub");
         }
         
+        m_drivetrainAngle = m_drivetrain.getState().Pose.getRotation().getDegrees();
         m_hood.updateSetpoint(2.25);
     }
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        m_drivetrainAngle = m_drivetrain.getState().Pose.getRotation().getDegrees();
+
         m_turret.updateSetpoint(
-            (m_drivetrain.getState().Pose.getRotation().getDegrees() + m_shotOffset)
+            (m_drivetrainAngle + m_shotOffset)
 
             /* ArcTangent to find field relative turret angle */
-            - ((((Math.atan((m_drivetrain.getState().Pose.getY() - m_targetHubPose.getY()) 
-            / (m_drivetrain.getState().Pose.getX() - m_targetHubPose.getX())) / 3.14159) * 180))));
+            - ((((Math.atan(((m_drivetrain.getState().Pose.getY() 
+                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * 3.14159) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse)) 
+                - m_targetHubPose.getY()) 
+            / (m_drivetrain.getState().Pose.getX() 
+                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * 3.14159) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse) 
+                - m_targetHubPose.getX())) 
+            / 3.14159) * 180))));
 
-        m_flywheel.updateSetpoint(24 + (11 * Math.pow(
+        m_flywheel.updateSetpoint(22.5 + (11 * Math.pow(
             Math.hypot(
-                m_drivetrain.getState().Pose.getX() - m_targetHubPose.getX(), 
-                m_drivetrain.getState().Pose.getY() - m_targetHubPose.getY()),
-            1)));
+                m_drivetrain.getState().Pose.getX() 
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * 3.14159) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse) 
+                - m_targetHubPose.getX(), 
+                m_drivetrain.getState().Pose.getY() 
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * 3.14159) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse)
+                - m_targetHubPose.getY()),
+                1)));
 
 
     }
