@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import java.lang.reflect.Field;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -24,10 +25,10 @@ import frc.robot.subsystems.Turret;
 public class StationaryShot extends ParallelCommandGroup {
     /** Creates a new StationaryShot. */
     public StationaryShot(
-        CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
+        DoubleSupplier vY, DoubleSupplier vX, CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
 
         super(
-            new PointAtHub(drivetrain, turret, hood, flywheel),
+            new PointAtHub(vY, vX, drivetrain, turret, hood, flywheel),
             new SequentialCommandGroup(
                 new WaitCommand(0.5),
                 new ParallelCommandGroup(

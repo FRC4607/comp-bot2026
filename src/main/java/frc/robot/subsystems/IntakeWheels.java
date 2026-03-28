@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.MotionMagicVelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
@@ -21,7 +22,7 @@ public class IntakeWheels extends SubsystemBase {
 
     private final TalonFXConfiguration m_talonFXConfig;
 
-    private final VelocityTorqueCurrentFOC m_request;
+    private final MotionMagicVelocityTorqueCurrentFOC m_request;
 
     /** Creates and configures the Intake Wheels subsystem. */
     public IntakeWheels() {
@@ -30,7 +31,9 @@ public class IntakeWheels extends SubsystemBase {
 
         m_talonFXConfig = new TalonFXConfiguration();
 
-        m_request = new VelocityTorqueCurrentFOC(0).withAcceleration(IntakeWheelCalibrations.kMaxAcceleration);
+        m_request = new MotionMagicVelocityTorqueCurrentFOC(0);
+
+        m_talonFXConfig.MotionMagic.MotionMagicAcceleration = IntakeWheelCalibrations.kMaxAcceleration;
 
         m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
         m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;

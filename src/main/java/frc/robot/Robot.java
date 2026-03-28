@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.SignalLogger;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -46,10 +48,10 @@ public class Robot extends TimedRobot {
         var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
         var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
         if (brllMeasurement != null && brllMeasurement.tagCount > 0 && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) {
-            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds);
+            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7, 0.7, 1.5));
         }
         if (blllMeasurement != null && blllMeasurement.tagCount > 0 && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2)) {
-            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds);
+            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7, 0.7, 1.5));
         }
 
         // Code to run every 0.05 seconds (50 milliseconds)

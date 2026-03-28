@@ -57,7 +57,7 @@ public class Calibrations {
     public class IntakeWheelCalibrations {
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 100;
+        public static final double kMaxAcceleration = 90;
 
         /** Static feedforward. */
         public static final double kS = 24;
