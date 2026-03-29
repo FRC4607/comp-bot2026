@@ -56,6 +56,10 @@ public class Chamber extends SubsystemBase {
         m_motor1.setControl(m_request.withVelocity(newSetpoint));
     }
 
+    public double getSetpoint() {
+        return m_motor1.getClosedLoopReference().getValueAsDouble();
+    }
+
     public void runOpenLoop(double dutyCycle) {
         m_motor1.set(dutyCycle);
     }

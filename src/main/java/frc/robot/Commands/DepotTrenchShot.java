@@ -51,7 +51,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new SetChamberVelocity(
                     DepotTrenchShotCalibrations.kChamberVelocity,
                     DepotTrenchShotCalibrations.kChamberVelocityTolerance,
-                    chamber))
+                    false, chamber, turret, hood, flywheel))
         );
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());

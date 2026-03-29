@@ -53,7 +53,7 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
                 new SetChamberVelocity(
                     OutpostTrenchShotCalibrations.kChamberVelocity,
                     OutpostTrenchShotCalibrations.kChamberVelocityTolerance, 
-                    chamber)));
+                    false, chamber, turret, hood, flywheel)));
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }

@@ -73,7 +73,7 @@ public class Constants {
         public static final double kEncoder2ToMechanism = 6.8;
 
         /** How far (Degrees) the turret is away from the right plane. */
-        public static final double kTurretPositionYaw = 41.248;
+        public static final double kTurretPositionYaw = 50.29;
 
         /** How far (Meters) the turret is away from the center of the robot on the XY plane. */
         public static final double kTurretHypotenuse = 0.2744978;

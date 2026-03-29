@@ -531,4 +531,40 @@ public class Calibrations {
         /** Indexer velocity tolerance. */
         public static final double kIndexerVelocityTolerance = 1;
     }
+
+    /** Calibrations for a shoot from anywhere command. */
+    public class ShootingCalibrations {
+        
+        /** 
+         * Add this much to the predicted flywheel velocity. 
+         * Increasing this increases shot distance at all ranges.
+         */
+        public static final double kFlywheelConstant = 22.5;
+
+        
+        /** 
+         * Add this much per meter of distance from the Hub, after velocity offset.
+         * Increasing this increases shot distance at long range.
+         */
+        public static final double kFlywheelDistanceMult = 13; // 11
+        public static final String kFlywheelDistanceMultPrefKey = "Flywheel Distance Multiplier";
+
+        /** 
+         * Correction amount for velocity offset. 
+         * Increasing will make it counter velocity more overall.
+         */
+        public static final double kVelocityOffsetMult = 0.2;
+
+        /** 
+         * Multiplier for distance, to use in velocity offset. Increasing this value will make it
+         * counter velocity harder at long range.
+         */
+        public static final double kVelocityDistanceMult = 1.5; // 1.1
+        
+        /** 
+         * Constant to add to the distance, after multiplier, to use in the velocity offset.
+         * Increasing this value will make it counter velocity more at close range.
+         */
+        public static final double kVelocityDistanceConst = 1.5;
+    }
 }

@@ -11,11 +11,13 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.Constants.FieldConstants;
 
 import java.time.LocalTime;
@@ -43,15 +45,18 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         // Code to run every 0.005 seconds (5 milliseconds)
+
         m_loopCounter++;
+
+        var m_speeds = m_robotContainer.drivetrain.getState().Speeds.fromRobotRelativeSpeeds(m_robotContainer.drivetrain.getState().Speeds, m_robotContainer.drivetrain.getState().Pose.getRotation());
 
         var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
         var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
         if (brllMeasurement != null && brllMeasurement.tagCount > 0 && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) {
-            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7, 0.7, 1.5));
+            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 1.5 + m_speeds.omegaRadiansPerSecond));
         }
         if (blllMeasurement != null && blllMeasurement.tagCount > 0 && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2)) {
-            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7, 0.7, 1.5));
+            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 1.5 + m_speeds.omegaRadiansPerSecond));
         }
 
         // Code to run every 0.05 seconds (50 milliseconds)
@@ -85,6 +90,9 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         m_robotContainer.m_turret.resetsetPosition();
+
+        Preferences.initDouble(
+            ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult);
     }
 
     @Override

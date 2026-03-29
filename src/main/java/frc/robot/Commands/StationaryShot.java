@@ -24,15 +24,14 @@ import frc.robot.subsystems.Turret;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StationaryShot extends ParallelCommandGroup {
     /** Creates a new StationaryShot. */
-    public StationaryShot(
-        DoubleSupplier vY, DoubleSupplier vX, CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
+    public StationaryShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
 
         super(
-            new PointAtHub(vY, vX, drivetrain, turret, hood, flywheel),
+            new PointAtHub(drivetrain, turret, hood, flywheel),
             new SequentialCommandGroup(
                 new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                    new SetChamberVelocity(90, 3, chamber),
+                    new SetChamberVelocity(90, 3, true, chamber, turret, hood, flywheel),
                     new SetIndexerVelocity(90, 3, indexer)
                 )
             )

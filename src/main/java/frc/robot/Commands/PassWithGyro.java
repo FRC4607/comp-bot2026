@@ -49,7 +49,7 @@ public class PassWithGyro extends ParallelCommandGroup {
                                 new SetChamberVelocity(
                                         PassWithGyroCalibrations.kChamberVelocity,
                                         PassWithGyroCalibrations.kChamberVelocityTolerance,
-                                        chamber),
+                                        true, chamber, turret, hood, flywheel),
                                 new SetIndexerVelocity(
                                         PassWithGyroCalibrations.kIndexerVelocity,
                                         PassWithGyroCalibrations.kIndexerVelocityTolerance,
