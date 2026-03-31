@@ -19,12 +19,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.LeftTurretConstants;
+import frc.robot.Constants.RightTurretConstants;
 import frc.robot.Robot;
 import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PointAtHub extends Command {
@@ -33,12 +37,16 @@ public class PointAtHub extends Command {
     private LeftTurret m_leftTurret;
     private LeftHood m_leftHood;
     private LeftFlywheel m_leftFlywheel;
+    private RightTurret m_rightTurret;
+    private RightHood m_rightHood;
+    private RightFlywheel m_rightFlywheel;
 
     private Translation2d m_targetHubPose;
     private double m_shotOffset;
 
     private double m_drivetrainAngle;
     private double m_distance;
+    private double m_rightDistance;
 
     private double m_offsetHubX;
     private double m_offsetHubY;
@@ -46,13 +54,16 @@ public class PointAtHub extends Command {
     private ChassisSpeeds m_speeds;
 
     /** Creates a new PointAtHub. */
-    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, LeftHood leftHood, LeftFlywheel leftFlywheel) {
+    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, LeftHood leftHood, LeftFlywheel leftFlywheel, RightTurret rightTurret, RightHood rightHood, RightFlywheel rightFlywheel) {
         m_drivetrain = drivetrain;
         m_leftTurret = turret;
         m_leftHood = leftHood;
         m_leftFlywheel = leftFlywheel;
+        m_rightTurret = rightTurret;
+        m_rightHood = rightHood;
+        m_rightFlywheel = rightFlywheel;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_leftTurret, m_leftHood, m_leftFlywheel);
+        addRequirements(m_leftTurret, m_leftHood, m_leftFlywheel, m_rightTurret, m_rightHood, m_rightFlywheel);
     }
 
     // Called when the command is initially scheduled.
@@ -73,6 +84,7 @@ public class PointAtHub extends Command {
         
         m_drivetrainAngle = m_drivetrain.getState().Pose.getRotation().getDegrees();
         m_leftHood.updateSetpoint(2.25);
+        m_rightHood.updateSetpoint(2.25);
     }
     // Called every time the scheduler runs while the command is scheduled.
     @Override
@@ -128,6 +140,39 @@ public class PointAtHub extends Command {
 
         // Include the operater-entered value in the signal logger for checking later
         SignalLogger.writeDouble("Shooting/FlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
+
+        // Right turret aiming
+        m_rightDistance = Math.hypot(
+                m_drivetrain.getState().Pose.getX()
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
+                - m_targetHubPose.getX(),
+                m_drivetrain.getState().Pose.getY()
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
+                - m_targetHubPose.getY());
+
+        m_rightTurret.updateSetpoint(
+            (m_drivetrainAngle + m_shotOffset)
+
+            /* ArcTangent to find field relative turret angle */
+            - ((((Math.atan(((m_drivetrain.getState().Pose.getY()
+                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse))
+                - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst))))
+            / (m_drivetrain.getState().Pose.getX()
+                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
+                - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst)))))
+            / Math.PI) * 180))));
+
+        m_rightFlywheel.updateSetpoint(ShootingCalibrations.kRightFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult) * Math.pow(
+            Math.hypot(
+                m_drivetrain.getState().Pose.getX()
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
+                - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst))),
+                m_drivetrain.getState().Pose.getY()
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
+                - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst)))),
+                1)));
+
+        SignalLogger.writeDouble("Shooting/RightFlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult));
     }
 
     // Called once the command ends or is interrupted.

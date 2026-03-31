@@ -22,6 +22,11 @@ import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.GeneralShot;
+import frc.robot.Commands.RightMoveHoodToPosition;
+import frc.robot.Commands.RightRunFlywheelOpenLoop;
+import frc.robot.Commands.RightSetChamberOpenLoop;
+import frc.robot.Commands.RightSetChamberVelocity;
+import frc.robot.Commands.RightZeroHoodSequence;
 import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.LeftZeroHoodSequence;
 
@@ -46,6 +51,10 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeWheels;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -71,6 +80,10 @@ public class RobotContainer {
     public final Indexer m_indexer = new Indexer();
     public final LeftChamber m_leftChamber = new LeftChamber();
     public final LeftTurret m_leftTurret = new LeftTurret();
+    public final RightFlywheel m_rightFlywheel = new RightFlywheel();
+    public final RightHood m_rightHood = new RightHood();
+    public final RightChamber m_rightChamber = new RightChamber();
+    public final RightTurret m_rightTurret = new RightTurret();
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -85,12 +98,15 @@ public class RobotContainer {
             new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
         NamedCommands.registerCommand("Hub Shot", 
             new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Stop Shooting", 
+        NamedCommands.registerCommand("Stop Shooting",
             new ParallelDeadlineGroup(
                 new LeftZeroHoodSequence(m_leftHood),
                 new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
-                new LeftSetChamberOpenLoop(() -> 0, m_leftChamber)).withTimeout(0.5));
+                new LeftSetChamberOpenLoop(() -> 0, m_leftChamber),
+                new RightZeroHoodSequence(m_rightHood),
+                new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel),
+                new RightSetChamberOpenLoop(() -> 0, m_rightChamber)).withTimeout(0.5));
         NamedCommands.registerCommand("Lower Intake Arm",
             new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
             .alongWith(new SetIntakeWheelsVelocity(5, 10, m_intakeWheels)));
@@ -179,11 +195,14 @@ public class RobotContainer {
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
                 .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.y().onTrue(new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
+        joystick.y().onTrue(new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood))
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))));
 
         // operatorRedR.onTrue(new StationaryShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
@@ -238,7 +257,9 @@ public class RobotContainer {
         // SmartDashboard Commands
         SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_leftTurret.resetsetPosition()));
+        SmartDashboard.putData("Reset Right Turret Position", new InstantCommand(() -> m_rightTurret.resetsetPosition()));
         SmartDashboard.putData("Zero Hood", new LeftZeroHoodSequence(m_leftHood));
+        SmartDashboard.putData("Zero Right Hood", new RightZeroHoodSequence(m_rightHood));
     }
 
     public Command getAutonomousCommand() {
