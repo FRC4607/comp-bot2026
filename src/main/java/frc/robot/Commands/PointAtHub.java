@@ -22,7 +22,7 @@ import frc.robot.Constants.LeftTurretConstants;
 import frc.robot.Robot;
 import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.LeftTurret;
 
@@ -32,7 +32,7 @@ public class PointAtHub extends Command {
     private CommandSwerveDrivetrain m_drivetrain;
     private LeftTurret m_leftTurret;
     private LeftHood m_leftHood;
-    private Flywheel m_flywheel;
+    private LeftFlywheel m_leftFlywheel;
 
     private Translation2d m_targetHubPose;
     private double m_shotOffset;
@@ -46,13 +46,13 @@ public class PointAtHub extends Command {
     private ChassisSpeeds m_speeds;
 
     /** Creates a new PointAtHub. */
-    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, LeftHood leftHood, Flywheel flywheel) {
+    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, LeftHood leftHood, LeftFlywheel leftFlywheel) {
         m_drivetrain = drivetrain;
         m_leftTurret = turret;
         m_leftHood = leftHood;
-        m_flywheel = flywheel;
+        m_leftFlywheel = leftFlywheel;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_leftTurret, m_leftHood, m_flywheel);
+        addRequirements(m_leftTurret, m_leftHood, m_leftFlywheel);
     }
 
     // Called when the command is initially scheduled.
@@ -116,7 +116,7 @@ public class PointAtHub extends Command {
                 - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst))))) 
             / Math.PI) * 180))));
 
-        m_flywheel.updateSetpoint(ShootingCalibrations.kFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult) * Math.pow(
+        m_leftFlywheel.updateSetpoint(ShootingCalibrations.kLeftFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult) * Math.pow(
             Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
                 - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
@@ -127,7 +127,7 @@ public class PointAtHub extends Command {
                 1)));
 
         // Include the operater-entered value in the signal logger for checking later
-        SignalLogger.writeDouble("Shooting/FlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult));
+        SignalLogger.writeDouble("Shooting/FlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
     }
 
     // Called once the command ends or is interrupted.

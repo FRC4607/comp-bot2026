@@ -6,7 +6,7 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.LeftChamber;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.LeftTurret;
 
@@ -21,17 +21,17 @@ public class LeftSetChamberVelocity extends Command {
     private LeftChamber m_leftChamber;
     private LeftTurret m_leftTurret;
     private LeftHood m_leftHood;
-    private Flywheel m_flywheel;
+    private LeftFlywheel m_leftFlywheel;
 
 
     /** Creates a new SetChamberVelocity. */
-    public LeftSetChamberVelocity(double setpoint, double tolerance, boolean waitForTurret, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood, Flywheel flywheel) {
+    public LeftSetChamberVelocity(double setpoint, double tolerance, boolean waitForTurret, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood, LeftFlywheel leftFlywheel) {
         m_setpoint = setpoint;
         m_tolerance = tolerance;
         m_leftChamber = leftChamber;
         m_leftTurret = leftTurret;
         m_leftHood = leftHood;
-        m_flywheel = flywheel;
+        m_leftFlywheel = leftFlywheel;
 
         m_waitForTurret = waitForTurret;
         // Use addRequirements() here to declare subsystem dependencies.
@@ -52,7 +52,7 @@ public class LeftSetChamberVelocity extends Command {
         if (m_waitForTurret) {
             if ((Math.abs(m_leftTurret.getPosition() - m_leftTurret.getSetpoint()) > 3)
                 && (Math.abs(m_leftHood.getPosition() - m_leftHood.getSetpoint()) > 0.2)
-                && (Math.abs(m_flywheel.getVelocity() - m_flywheel.getSetpoint()) > 3)) {
+                && (Math.abs(m_leftFlywheel.getVelocity() - m_leftFlywheel.getSetpoint()) > 3)) {
                 m_leftChamber.updateSetpoint(0);
             } else if ((Math.abs(m_leftChamber.getSetpoint() - m_setpoint) > 0.1)) {
                 m_leftChamber.updateSetpoint(m_setpoint);

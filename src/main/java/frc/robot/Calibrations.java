@@ -208,8 +208,8 @@ public class Calibrations {
         public static final double kMaxAmperage = 80;
     }
 
-    /** Calibrations for the flywheel. */
-    public class FlywheelCalibrations {
+    /** Calibrations for the leftFlywheel. */
+    public class LeftFlywheelCalibrations {
 
         /** Static Feedforward. */
         public static final double kS = 0.9;
@@ -236,11 +236,11 @@ public class Calibrations {
     /** Calibrations for a shot where the robot's left side is against the Hub. */
     public class HubShotCalibrations {
 
-        /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 45;
+        /** LeftFlywheel Velocity. */
+        public static final double kLeftFlywheelVelocity = 45;
 
-        /** Flywheel Velocity Tolerance. */
-        public static final double kFlywheelVelocityTolerance = 1;
+        /** LeftFlywheel Velocity Tolerance. */
+        public static final double kLeftFlywheelVelocityTolerance = 1;
 
         /** LeftHood Angle. */
         public static final double kLeftHoodAngle = 0.85;
@@ -273,11 +273,11 @@ public class Calibrations {
      */
     public class DepotTrenchShotCalibrations {
 
-        /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 59;
+        /** LeftFlywheel Velocity. */
+        public static final double kLeftFlywheelVelocity = 59;
 
-        /** Flywheel Velocity Tolerance. */
-        public static final double kFlywheelVelocityTolerance = 1;
+        /** LeftFlywheel Velocity Tolerance. */
+        public static final double kLeftFlywheelVelocityTolerance = 1;
 
         /** LeftHood Angle. */
         public static final double kLeftHoodAngle = 2.2;
@@ -310,11 +310,11 @@ public class Calibrations {
      */
     public class OutpostTrenchShotCalibrations {
 
-        /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 64;
+        /** LeftFlywheel Velocity. */
+        public static final double kLeftFlywheelVelocity = 64;
 
-        /** Flywheel Velocity Tolerance. */
-        public static final double kFlywheelVelocityTolerance = 1;
+        /** LeftFlywheel Velocity Tolerance. */
+        public static final double kLeftFlywheelVelocityTolerance = 1;
 
         /** LeftHood Angle. */
         public static final double kLeftHoodAngle = 2.25;
@@ -347,11 +347,11 @@ public class Calibrations {
      */
     public class OutpostShotCalibrations {
 
-        /** Flywheel Velocity. */
-        public static final double kFlywheelVelocity = 81;
+        /** LeftFlywheel Velocity. */
+        public static final double kLeftFlywheelVelocity = 81;
 
-        /** Flywheel Velocity Tolerance. */
-        public static final double kFlywheelVelocityTolerance = 1;
+        /** LeftFlywheel Velocity Tolerance. */
+        public static final double kLeftFlywheelVelocityTolerance = 1;
 
         /** LeftHood Angle. */
         public static final double kLeftHoodAngle = 2.25;
@@ -403,14 +403,14 @@ public class Calibrations {
         /** Number of seconds to continue if leftHood does not make it to position. */
         public static final double kLeftHoodTimeout = 0.25;
 
-        /** Velocity to run the flywheel at. */
-        public static final double kFlywheelVelocity = 75;
+        /** Velocity to run the leftFlywheel at. */
+        public static final double kLeftFlywheelVelocity = 75;
 
-        /** Flywheel velocity tolerance. */
-        public static final double kFlywheelVelocityTolerance = 1.5;
+        /** LeftFlywheel velocity tolerance. */
+        public static final double kLeftFlywheelVelocityTolerance = 1.5;
 
-        /** Number of seconds to continue if flywheel does not make it to velocity. */
-        public static final double kFlywheelTimeout = 1;
+        /** Number of seconds to continue if leftFlywheel does not make it to velocity. */
+        public static final double kLeftFlywheelTimeout = 1;
 
         /** Velocity to run the left chamber at. */
         public static final double kLeftChamberVelocity = 90;
@@ -429,18 +429,18 @@ public class Calibrations {
     public class ShootingCalibrations {
         
         /** 
-         * Add this much to the predicted flywheel velocity. 
+         * Add this much to the predicted leftFlywheel velocity. 
          * Increasing this increases shot distance at all ranges.
          */
-        public static final double kFlywheelConstant = 22.5;
+        public static final double kLeftFlywheelConstant = 22.5;
 
         
         /** 
          * Add this much per meter of distance from the Hub, after velocity offset.
          * Increasing this increases shot distance at long range.
          */
-        public static final double kFlywheelDistanceMult = 13; // 11
-        public static final String kFlywheelDistanceMultPrefKey = "Flywheel Distance Multiplier";
+        public static final double kLeftFlywheelDistanceMult = 13; // 11
+        public static final String kLeftFlywheelDistanceMultPrefKey = "Left Flywheel Distance Multiplier";
 
         /** 
          * Correction amount for velocity offset. 

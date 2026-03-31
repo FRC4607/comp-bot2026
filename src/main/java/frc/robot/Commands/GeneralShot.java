@@ -14,7 +14,7 @@ import frc.robot.Robot;
 import frc.robot.Constants.FieldConstants;
 import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
@@ -24,14 +24,14 @@ import frc.robot.subsystems.LeftTurret;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GeneralShot extends ParallelCommandGroup {
     /** Creates a new StationaryShot. */
-    public GeneralShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood, Flywheel flywheel) {
+    public GeneralShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood, LeftFlywheel leftFlywheel) {
 
         super(
-            new PointAtHub(drivetrain, leftTurret, leftHood, flywheel),
+            new PointAtHub(drivetrain, leftTurret, leftHood, leftFlywheel),
             new SequentialCommandGroup(
                 new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                    new LeftSetChamberVelocity(90, 3, true, leftChamber, leftTurret, leftHood, flywheel),
+                    new LeftSetChamberVelocity(90, 3, true, leftChamber, leftTurret, leftHood, leftFlywheel),
                     new SetIndexerVelocity(90, 3, indexer)
                 )
             )

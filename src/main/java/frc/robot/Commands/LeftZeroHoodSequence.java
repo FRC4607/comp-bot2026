@@ -12,17 +12,17 @@ import frc.robot.subsystems.LeftHood;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
 /** ZeroHoodSequence command group. */
-public class ZeroHoodSequence extends SequentialCommandGroup {
+public class LeftZeroHoodSequence extends SequentialCommandGroup {
 
     /** 
      * A command sequence for zeroing the leftHood.
      *
      * @param leftHood The leftHood to use
      */
-    public ZeroHoodSequence(LeftHood leftHood) {
+    public LeftZeroHoodSequence(LeftHood leftHood) {
         super(
-            new SetHoodOpenLoop(() -> 0.2, leftHood).withTimeout(0.1),
-            new ZeroHood(leftHood));
+            new LeftSetHoodOpenLoop(() -> 0.2, leftHood).withTimeout(0.1),
+            new LeftZeroHood(leftHood));
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }

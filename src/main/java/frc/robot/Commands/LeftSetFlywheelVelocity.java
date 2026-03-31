@@ -7,43 +7,43 @@ package frc.robot.Commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
 /** SetFlywheelVelocity command. */
-public class SetFlywheelVelocity extends Command {
+public class LeftSetFlywheelVelocity extends Command {
     private DoubleSupplier m_setpoint;
     private double m_tolerance;
-    private Flywheel m_flywheel;
+    private LeftFlywheel m_leftFlywheel;
 
     /**
-     * A command to set the closed loop setpoint of the flywheel, in rotations per second.
+     * A command to set the closed loop setpoint of the leftFlywheel, in rotations per second.
      *
-     * @param setpoint  The desired speed of the flywheel (rot/s)
+     * @param setpoint  The desired speed of the leftFlywheel (rot/s)
      * @param tolerance The tolerance for error (rot/s)
-     * @param flywheel  The flywheel to use
+     * @param leftFlywheel  The leftFlywheel to use
      */
-    public SetFlywheelVelocity(DoubleSupplier setpoint, double tolerance, Flywheel flywheel) {
+    public LeftSetFlywheelVelocity(DoubleSupplier setpoint, double tolerance, LeftFlywheel leftFlywheel) {
         m_setpoint = setpoint;
         m_tolerance = tolerance;
-        m_flywheel = flywheel;
+        m_leftFlywheel = leftFlywheel;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_flywheel);
+        addRequirements(m_leftFlywheel);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_flywheel.updateSetpoint(m_setpoint.getAsDouble());
+        m_leftFlywheel.updateSetpoint(m_setpoint.getAsDouble());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Math.abs(m_setpoint.getAsDouble() - m_flywheel.getSetpoint()) > 0.01) {
-            m_flywheel.updateSetpoint(m_setpoint.getAsDouble());
+        if (Math.abs(m_setpoint.getAsDouble() - m_leftFlywheel.getSetpoint()) > 0.01) {
+            m_leftFlywheel.updateSetpoint(m_setpoint.getAsDouble());
         }
     }
 
@@ -58,7 +58,7 @@ public class SetFlywheelVelocity extends Command {
         if (m_tolerance == 0) {
             return false;
         } else {
-            return Math.abs(m_flywheel.getVelocity() - m_setpoint.getAsDouble()) < m_tolerance;
+            return Math.abs(m_leftFlywheel.getVelocity() - m_setpoint.getAsDouble()) < m_tolerance;
         }
     }
 }

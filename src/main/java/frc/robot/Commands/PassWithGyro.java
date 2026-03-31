@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.PassWithGyroCalibrations;
 import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
@@ -25,7 +25,7 @@ public class PassWithGyro extends ParallelCommandGroup {
     
     /** Creates a new PassWithGyro. */
     public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood,
-            Flywheel flywheel) {
+            LeftFlywheel leftFlywheel) {
         super(
                 new LeftMoveTurretToPosition(
                         () -> drivetrain.getState().Pose.getRotation().getDegrees(),
@@ -33,23 +33,23 @@ public class PassWithGyro extends ParallelCommandGroup {
                         leftTurret),
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new MoveHoodToPosition(
+                                new LeftMoveHoodToPosition(
                                         PassWithGyroCalibrations.kLeftHoodAngle,
                                         PassWithGyroCalibrations.kLeftHoodTolerance,
                                         leftHood)
                                         .withTimeout(
                                                 PassWithGyroCalibrations.kLeftHoodTimeout),
-                                new SetFlywheelVelocity(
-                                        () -> PassWithGyroCalibrations.kFlywheelVelocity,
-                                        PassWithGyroCalibrations.kFlywheelVelocityTolerance,
-                                        flywheel)
+                                new LeftSetFlywheelVelocity(
+                                        () -> PassWithGyroCalibrations.kLeftFlywheelVelocity,
+                                        PassWithGyroCalibrations.kLeftFlywheelVelocityTolerance,
+                                        leftFlywheel)
                                         .withTimeout(
-                                                PassWithGyroCalibrations.kFlywheelTimeout)),
+                                                PassWithGyroCalibrations.kLeftFlywheelTimeout)),
                         new ParallelCommandGroup(
                                 new LeftSetChamberVelocity(
                                         PassWithGyroCalibrations.kLeftChamberVelocity,
                                         PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
-                                        true, leftChamber, leftTurret, leftHood, flywheel),
+                                        true, leftChamber, leftTurret, leftHood, leftFlywheel),
                                 new SetIndexerVelocity(
                                         PassWithGyroCalibrations.kIndexerVelocity,
                                         PassWithGyroCalibrations.kIndexerVelocityTolerance,

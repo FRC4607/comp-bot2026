@@ -9,24 +9,17 @@ import frc.robot.subsystems.LeftHood;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
-/** MoveHoodToPosition command. */
-public class MoveHoodToPosition extends Command {
-    private double m_setpoint;
-    private double m_tolerance;
+/** ZeroHood command. */
+public class LeftZeroHood extends Command {
     private LeftHood m_leftHood;
+    private boolean m_isHoodAtVelocity;
 
-    // TODO: Convert to degrees once converted in the leftHood subsystem
-
-    /**
-     * A command to set the closed loop setpoint of the leftHood, in motor rotations.
+    /** 
+     * A command to zero the leftHood when it is away from the hard stop.
      *
-     * @param setpoint  The position to drive to (motor rotations)
-     * @param tolerance The tolerance for error (motor rotations)
-     * @param leftHood      The leftHood to use.
+     * @param leftHood The leftHood to use
      */
-    public MoveHoodToPosition(double setpoint, double tolerance, LeftHood leftHood) {
-        m_setpoint = setpoint;
-        m_tolerance = tolerance;
+    public LeftZeroHood(LeftHood leftHood) {
         m_leftHood = leftHood;
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -36,22 +29,36 @@ public class MoveHoodToPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_leftHood.updateSetpoint(m_setpoint);
+        m_isHoodAtVelocity = false;
+        m_leftHood.runOpenLoop(-0.2);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if ((m_leftHood.getVelocity() < -0.3) & !m_isHoodAtVelocity) {
+            m_isHoodAtVelocity = true;
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        if (!interrupted) {
+            m_leftHood.resetPosition(0);
+        }
+
+        m_leftHood.runOpenLoop(0);
+
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_leftHood.getPosition() - m_setpoint) < m_tolerance;
+        if ((m_leftHood.getVelocity() > -0.3) && m_isHoodAtVelocity) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

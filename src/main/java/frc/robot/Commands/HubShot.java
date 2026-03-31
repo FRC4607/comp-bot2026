@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.HubShotCalibrations;
 import frc.robot.subsystems.LeftChamber;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
@@ -24,20 +24,20 @@ public class HubShot extends SequentialCommandGroup {
      * A Command sequence that will shoot into the Hub when the robot is
      * touching the hub with the intake to the right
      *
-     * @param flywheel The flywheel to use
+     * @param leftFlywheel The leftFlywheel to use
      * @param leftHood     The leftHood to use
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param leftChamber  The leftChamber to use
      */
-    public HubShot(Flywheel flywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
+    public HubShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
         super(
             new ParallelCommandGroup(
-                new SetFlywheelVelocity(
-                    () -> HubShotCalibrations.kFlywheelVelocity,
-                    HubShotCalibrations.kFlywheelVelocityTolerance, 
-                    flywheel),
-                new MoveHoodToPosition(
+                new LeftSetFlywheelVelocity(
+                    () -> HubShotCalibrations.kLeftFlywheelVelocity,
+                    HubShotCalibrations.kLeftFlywheelVelocityTolerance, 
+                    leftFlywheel),
+                new LeftMoveHoodToPosition(
                     HubShotCalibrations.kLeftHoodAngle, 
                     HubShotCalibrations.kLeftHoodAngleTolerance,
                     leftHood),
@@ -53,7 +53,7 @@ public class HubShot extends SequentialCommandGroup {
                 new LeftSetChamberVelocity(
                     HubShotCalibrations.kLeftChamberVelocity,
                     HubShotCalibrations.kLeftChamberVelocityTolerance, 
-                    false, leftChamber, leftTurret, leftHood, flywheel))
+                    false, leftChamber, leftTurret, leftHood, leftFlywheel))
         );
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());

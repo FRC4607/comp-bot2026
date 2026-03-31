@@ -12,12 +12,12 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Calibrations.FlywheelCalibrations;
+import frc.robot.Calibrations.LeftFlywheelCalibrations;
 import frc.robot.Calibrations.IntakeArmCalibrations;
-import frc.robot.Constants.FlywheelConstants;
+import frc.robot.Constants.LeftFlywheelConstants;
 
 /** Flywheel subsystem. */
-public class Flywheel extends SubsystemBase {
+public class LeftFlywheel extends SubsystemBase {
     /** Creates a new Flywheel. */
     private final TalonFX m_motor1;
     private final TalonFX m_motor2;
@@ -26,11 +26,11 @@ public class Flywheel extends SubsystemBase {
 
     private VelocityTorqueCurrentFOC m_request;
 
-    /** Creates and configures the flywheel subsystem. */
-    public Flywheel() {
+    /** Creates and configures the leftFlywheel subsystem. */
+    public LeftFlywheel() {
 
-        m_motor1 = new TalonFX(FlywheelConstants.kMotor1CANID, "kachow");
-        m_motor2 = new TalonFX(FlywheelConstants.kMotor2CANID, "kachow");
+        m_motor1 = new TalonFX(LeftFlywheelConstants.kMotor1CANID, "kachow");
+        m_motor2 = new TalonFX(LeftFlywheelConstants.kMotor2CANID, "kachow");
 
         m_talonFXConfig = new TalonFXConfiguration();
 
@@ -39,21 +39,21 @@ public class Flywheel extends SubsystemBase {
         m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         // Gains
-        m_talonFXConfig.Slot0.kS = FlywheelCalibrations.kS;
-        m_talonFXConfig.Slot0.kV = FlywheelCalibrations.kV;
-        m_talonFXConfig.Slot0.kP = FlywheelCalibrations.kP;
-        m_talonFXConfig.Slot0.kI = FlywheelCalibrations.kI;
-        m_talonFXConfig.Slot0.kD = FlywheelCalibrations.kD;
+        m_talonFXConfig.Slot0.kS = LeftFlywheelCalibrations.kS;
+        m_talonFXConfig.Slot0.kV = LeftFlywheelCalibrations.kV;
+        m_talonFXConfig.Slot0.kP = LeftFlywheelCalibrations.kP;
+        m_talonFXConfig.Slot0.kI = LeftFlywheelCalibrations.kI;
+        m_talonFXConfig.Slot0.kD = LeftFlywheelCalibrations.kD;
 
         m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
         // Current limit
-        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = FlywheelCalibrations.kMaxAmperage;
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = LeftFlywheelCalibrations.kMaxAmperage;
 
         m_motor1.getConfigurator().apply(m_talonFXConfig);
         m_motor2.getConfigurator().apply(m_talonFXConfig);
 
-        m_motor2.setControl(new Follower(FlywheelConstants.kMotor1CANID, MotorAlignmentValue.Opposed));
+        m_motor2.setControl(new Follower(LeftFlywheelConstants.kMotor1CANID, MotorAlignmentValue.Opposed));
     }
 
     public void updateSetpoint(double newSetpoint) {

@@ -89,8 +89,8 @@ public class Constants {
         public static final int kMotorCANID = 8;
     }
 
-    /** Constants for the flywheel on the left turret. */
-    public class FlywheelConstants {
+    /** Constants for the leftFlywheel on the left turret. */
+    public class LeftFlywheelConstants {
 
         /** CAN ID of the first motor. */
         // TODO: Conflict with Turret kEncoder2CANID

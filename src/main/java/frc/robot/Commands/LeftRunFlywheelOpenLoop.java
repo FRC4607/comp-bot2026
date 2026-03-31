@@ -5,29 +5,29 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.LeftFlywheel;
 import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
 /** RunFlywheelOpenLoop command. */
-public class RunFlywheelOpenLoop extends Command {
+public class LeftRunFlywheelOpenLoop extends Command {
 
     private DoubleSupplier m_dutyCycle;
-    private Flywheel m_flywheel;
+    private LeftFlywheel m_leftFlywheel;
 
     /**
-     * A command that runs the flywheel in open loop control.
+     * A command that runs the leftFlywheel in open loop control.
      *
      * @param dutyCycle The power to run at (-1, 1)
-     * @param flywheel  The flywheel to use
+     * @param leftFlywheel  The leftFlywheel to use
      */
-    public RunFlywheelOpenLoop(DoubleSupplier dutyCycle, Flywheel flywheel) {
+    public LeftRunFlywheelOpenLoop(DoubleSupplier dutyCycle, LeftFlywheel leftFlywheel) {
         m_dutyCycle = dutyCycle;
-        m_flywheel = flywheel;
+        m_leftFlywheel = leftFlywheel;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_flywheel);
+        addRequirements(m_leftFlywheel);
     }
 
     // Called when the command is initially scheduled.
@@ -39,7 +39,7 @@ public class RunFlywheelOpenLoop extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_flywheel.runOpenLoop(m_dutyCycle.getAsDouble());
+        m_leftFlywheel.runOpenLoop(m_dutyCycle.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.
