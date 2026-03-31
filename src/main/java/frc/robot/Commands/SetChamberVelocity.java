@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
@@ -19,17 +19,17 @@ public class SetChamberVelocity extends Command {
     private boolean m_waitForTurret;
 
     private Chamber m_chamber;
-    private Turret m_turret;
+    private LeftTurret m_leftTurret;
     private Hood m_hood;
     private Flywheel m_flywheel;
 
 
     /** Creates a new SetChamberVelocity. */
-    public SetChamberVelocity(double setpoint, double tolerance, boolean waitForTurret, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
+    public SetChamberVelocity(double setpoint, double tolerance, boolean waitForTurret, Chamber chamber, LeftTurret leftTurret, Hood hood, Flywheel flywheel) {
         m_setpoint = setpoint;
         m_tolerance = tolerance;
         m_chamber = chamber;
-        m_turret = turret;
+        m_leftTurret = leftTurret;
         m_hood = hood;
         m_flywheel = flywheel;
 
@@ -50,7 +50,7 @@ public class SetChamberVelocity extends Command {
     @Override
     public void execute() {
         if (m_waitForTurret) {
-            if ((Math.abs(m_turret.getPosition() - m_turret.getSetpoint()) > 3)
+            if ((Math.abs(m_leftTurret.getPosition() - m_leftTurret.getSetpoint()) > 3)
                 && (Math.abs(m_hood.getPosition() - m_hood.getSetpoint()) > 0.2)
                 && (Math.abs(m_flywheel.getVelocity() - m_flywheel.getSetpoint()) > 3)) {
                 m_chamber.updateSetpoint(0);

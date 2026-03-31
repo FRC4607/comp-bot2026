@@ -17,11 +17,11 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Calibrations.IntakeArmCalibrations;
-import frc.robot.Calibrations.TurretCalibrations;
-import frc.robot.Constants.TurretConstants;
+import frc.robot.Calibrations.LeftTurretCalibrations;
+import frc.robot.Constants.LeftTurretConstants;
 
 /** Turret subsystem. */
-public class Turret extends SubsystemBase {
+public class LeftTurret extends SubsystemBase {
 
     private final TalonFX m_motor;
 
@@ -38,60 +38,60 @@ public class Turret extends SubsystemBase {
     private double m_position;
 
     /** Creates and configures the turret subsystem. */
-    public Turret() {
+    public LeftTurret() {
 
-        m_motor = new TalonFX(TurretConstants.kMotorCANID, "kachow");
+        m_motor = new TalonFX(LeftTurretConstants.kMotorCANID, "kachow");
 
         m_talonFXConfig = new TalonFXConfiguration();
 
         m_request = new MotionMagicTorqueCurrentFOC(0);
 
-        m_encoder1 = new CANcoder(TurretConstants.kEncoder1CANID, "kachow");
-        m_encoder2 = new CANcoder(TurretConstants.kEncoder2CANID, "kachow");
+        m_encoder1 = new CANcoder(LeftTurretConstants.kEncoder1CANID, "kachow");
+        m_encoder2 = new CANcoder(LeftTurretConstants.kEncoder2CANID, "kachow");
 
         m_encoderConfig1 = new CANcoderConfiguration();
         m_encoderConfig2 = new CANcoderConfiguration();
 
         m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-        m_talonFXConfig.Feedback.SensorToMechanismRatio = TurretConstants.kRotorToMechanism;
+        m_talonFXConfig.Feedback.SensorToMechanismRatio = LeftTurretConstants.kRotorToMechanism;
 
         m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
         m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-        m_talonFXConfig.Slot0.GravityArmPositionOffset = TurretCalibrations.kGravityOffset;
+        m_talonFXConfig.Slot0.GravityArmPositionOffset = LeftTurretCalibrations.kGravityOffset;
 
-        m_talonFXConfig.Slot0.kG = TurretCalibrations.kG;
-        m_talonFXConfig.Slot0.kS = TurretCalibrations.kS;
-        m_talonFXConfig.Slot0.kP = TurretCalibrations.kP;
-        m_talonFXConfig.Slot0.kI = TurretCalibrations.kI;
-        m_talonFXConfig.Slot0.kD = TurretCalibrations.kD;
+        m_talonFXConfig.Slot0.kG = LeftTurretCalibrations.kG;
+        m_talonFXConfig.Slot0.kS = LeftTurretCalibrations.kS;
+        m_talonFXConfig.Slot0.kP = LeftTurretCalibrations.kP;
+        m_talonFXConfig.Slot0.kI = LeftTurretCalibrations.kI;
+        m_talonFXConfig.Slot0.kD = LeftTurretCalibrations.kD;
 
-        m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = TurretCalibrations.kMaxSpeed;
-        m_talonFXConfig.MotionMagic.MotionMagicAcceleration = TurretCalibrations.kMaxAcceleration;
-        m_talonFXConfig.MotionMagic.MotionMagicJerk = TurretCalibrations.kMaxJerk;
+        m_talonFXConfig.MotionMagic.MotionMagicCruiseVelocity = LeftTurretCalibrations.kMaxSpeed;
+        m_talonFXConfig.MotionMagic.MotionMagicAcceleration = LeftTurretCalibrations.kMaxAcceleration;
+        m_talonFXConfig.MotionMagic.MotionMagicJerk = LeftTurretCalibrations.kMaxJerk;
 
         m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
-        m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = TurretCalibrations.kForwardSoftLimit;
+        m_talonFXConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = LeftTurretCalibrations.kForwardSoftLimit;
 
         m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
-        m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = TurretCalibrations.kReverseSoftLimit;
+        m_talonFXConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = LeftTurretCalibrations.kReverseSoftLimit;
 
         m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         // Current limit
-        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = TurretCalibrations.kMaxAmperage;
+        m_talonFXConfig.CurrentLimits.StatorCurrentLimit = LeftTurretCalibrations.kMaxAmperage;
 
         m_motor.getConfigurator().apply(m_talonFXConfig);
 
-        m_encoderConfig1.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder1Offset;
-        m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder1Discontinuity;
+        m_encoderConfig1.MagnetSensor.MagnetOffset = LeftTurretCalibrations.kEncoder1Offset;
+        m_encoderConfig1.MagnetSensor.AbsoluteSensorDiscontinuityPoint = LeftTurretCalibrations.kEncoder1Discontinuity;
         m_encoderConfig1.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
 
         m_encoder1.getConfigurator().apply(m_encoderConfig1);
 
-        m_encoderConfig2.MagnetSensor.MagnetOffset = TurretCalibrations.kEncoder2Offset;
-        m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = TurretCalibrations.kEncoder2Discontinuity;
+        m_encoderConfig2.MagnetSensor.MagnetOffset = LeftTurretCalibrations.kEncoder2Offset;
+        m_encoderConfig2.MagnetSensor.AbsoluteSensorDiscontinuityPoint = LeftTurretCalibrations.kEncoder2Discontinuity;
         m_encoderConfig2.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         m_encoder2.getConfigurator().apply(m_encoderConfig2);

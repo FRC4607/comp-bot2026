@@ -17,21 +17,21 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StationaryShot extends ParallelCommandGroup {
+public class GeneralShot extends ParallelCommandGroup {
     /** Creates a new StationaryShot. */
-    public StationaryShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, Turret turret, Hood hood, Flywheel flywheel) {
+    public GeneralShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, LeftTurret leftTurret, Hood hood, Flywheel flywheel) {
 
         super(
-            new PointAtHub(drivetrain, turret, hood, flywheel),
+            new PointAtHub(drivetrain, leftTurret, hood, flywheel),
             new SequentialCommandGroup(
                 new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                    new SetChamberVelocity(90, 3, true, chamber, turret, hood, flywheel),
+                    new SetChamberVelocity(90, 3, true, chamber, leftTurret, hood, flywheel),
                     new SetIndexerVelocity(90, 3, indexer)
                 )
             )

@@ -11,7 +11,7 @@ import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,11 +26,11 @@ public class HubShot extends SequentialCommandGroup {
      *
      * @param flywheel The flywheel to use
      * @param hood     The hood to use
-     * @param turret   The turret to use
+     * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param chamber  The chamber to use
      */
-    public HubShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
+    public HubShot(Flywheel flywheel, Hood hood, LeftTurret leftTurret, Indexer indexer, Chamber chamber) {
         super(
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
@@ -41,10 +41,10 @@ public class HubShot extends SequentialCommandGroup {
                     HubShotCalibrations.kHoodAngle, 
                     HubShotCalibrations.kHoodAngleTolerance,
                     hood),
-                new MoveTurretToPosition(
+                new LeftMoveTurretToPosition(
                     () -> HubShotCalibrations.kTurretAngle,
                     HubShotCalibrations.kTurretAngleTolerance, 
-                    turret)),
+                    leftTurret)),
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
                     HubShotCalibrations.kIndexerVelocity, 
@@ -53,7 +53,7 @@ public class HubShot extends SequentialCommandGroup {
                 new SetChamberVelocity(
                     HubShotCalibrations.kChamberVelocity,
                     HubShotCalibrations.kChamberVelocityTolerance, 
-                    false, chamber, turret, hood, flywheel))
+                    false, chamber, leftTurret, hood, flywheel))
         );
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());

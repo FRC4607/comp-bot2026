@@ -11,7 +11,7 @@ import frc.robot.subsystems.Chamber;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,13 +26,13 @@ public class OutpostShot extends SequentialCommandGroup {
      *
      * @param flywheel The flywheel to use
      * @param hood     The hood to use
-     * @param turret   The turret to use
+     * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param chamber  The chamber to use
      */
-    public OutpostShot(Flywheel flywheel, Hood hood, Turret turret, Indexer indexer, Chamber chamber) {
+    public OutpostShot(Flywheel flywheel, Hood hood, LeftTurret leftTurret, Indexer indexer, Chamber chamber) {
         super(
-            // Spin up flywheel, move hood, move turret
+            // Spin up flywheel, move hood, move turrets
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
                     () -> OutpostShotCalibrations.kFlywheelVelocity,
@@ -42,10 +42,10 @@ public class OutpostShot extends SequentialCommandGroup {
                     OutpostShotCalibrations.kHoodAngle,
                     OutpostShotCalibrations.kHoodAngleTolerance, 
                     hood).withTimeout(0.25),
-                new MoveTurretToPosition(
+                new LeftMoveTurretToPosition(
                     () -> OutpostShotCalibrations.kTurretAngle,
                     OutpostShotCalibrations.kTurretAngleTolerance, 
-                    turret).withTimeout(0.25)),
+                    leftTurret).withTimeout(0.25)),
             // Once turret, flywheel and hood are prepped, run indexer and chamber.
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
@@ -55,7 +55,7 @@ public class OutpostShot extends SequentialCommandGroup {
                 new SetChamberVelocity(
                     OutpostShotCalibrations.kChamberVelocity,
                     OutpostShotCalibrations.kChamberVelocityTolerance, 
-                    false, chamber, turret, hood, flywheel)));
+                    false, chamber, leftTurret, hood, flywheel)));
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }

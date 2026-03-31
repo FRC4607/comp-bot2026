@@ -51,7 +51,7 @@ public class Constants {
     }
 
     /** Constants for the Left Turret. */
-    public class TurretConstants {
+    public class LeftTurretConstants {
 
         /** CAN ID of the motor. */
         public static final int kMotorCANID = 7;

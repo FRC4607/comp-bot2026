@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        m_robotContainer.m_turret.resetsetPosition();
+        m_robotContainer.m_leftTurret.resetsetPosition();
 
         Preferences.initDouble(
             ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult);
@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_intakeWheels.updateSetpoint(0);
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_chamber.runOpenLoop(0);
-        m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
+        m_robotContainer.m_leftTurret.updateSetpoint(m_robotContainer.m_leftTurret.getPosition());
         m_robotContainer.m_hood.updateSetpoint(0);
         m_robotContainer.m_flywheel.runOpenLoop(0);
 

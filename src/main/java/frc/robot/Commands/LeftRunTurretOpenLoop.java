@@ -5,15 +5,15 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
 /** RunTurretOpenLoop command. */
-public class RunTurretOpenLoop extends Command {
+public class LeftRunTurretOpenLoop extends Command {
     private DoubleSupplier m_dutyCycle;
-    private Turret m_turret;
+    private LeftTurret m_LeftTurret;
 
     /**
      * A command that runs the turret in open loop control.
@@ -21,12 +21,12 @@ public class RunTurretOpenLoop extends Command {
      * @param dutyCycle The power to run at (-1, 1)
      * @param turret    The turret to use
      */
-    public RunTurretOpenLoop(DoubleSupplier dutyCycle, Turret turret) {
+    public LeftRunTurretOpenLoop(DoubleSupplier dutyCycle, LeftTurret leftTurret) {
         m_dutyCycle = dutyCycle;
-        m_turret = turret;
+        m_LeftTurret = leftTurret;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_turret);
+        addRequirements(m_LeftTurret);
     }
 
     // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ public class RunTurretOpenLoop extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_turret.runOpenLoop(m_dutyCycle.getAsDouble());
+        m_LeftTurret.runOpenLoop(m_dutyCycle.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.

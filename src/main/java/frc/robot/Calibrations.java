@@ -131,7 +131,7 @@ public class Calibrations {
     }
 
     /** Calibrations for the turret. */
-    public class TurretCalibrations {
+    public class LeftTurretCalibrations {
 
         /** Gravity feedforward. */
         public static final double kG = 0;
@@ -140,22 +140,22 @@ public class Calibrations {
         public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 3500;
+        public static final double kP = 10; // 3500
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 125;
+        public static final double kD = 0;
 
         /** Offset of the gravity feedforward. */
         public static final double kGravityOffset = 0; // -0.26;
 
         /** Max speed of the mechanism. */
-        public static final double kMaxSpeed = 10; // 10;
+        public static final double kMaxSpeed = 0.1; // 10;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 30; // 40;
+        public static final double kMaxAcceleration = 0.1; // 30;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 0;

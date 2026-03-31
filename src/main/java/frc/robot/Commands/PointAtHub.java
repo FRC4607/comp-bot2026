@@ -18,19 +18,19 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.FieldConstants;
-import frc.robot.Constants.TurretConstants;
+import frc.robot.Constants.LeftTurretConstants;
 import frc.robot.Robot;
 import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.LeftTurret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PointAtHub extends Command {
 
     private CommandSwerveDrivetrain m_drivetrain;
-    private Turret m_turret;
+    private LeftTurret m_leftTurret;
     private Hood m_hood;
     private Flywheel m_flywheel;
 
@@ -46,13 +46,13 @@ public class PointAtHub extends Command {
     private ChassisSpeeds m_speeds;
 
     /** Creates a new PointAtHub. */
-    public PointAtHub(CommandSwerveDrivetrain drivetrain, Turret turret, Hood hood, Flywheel flywheel) {
+    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, Hood hood, Flywheel flywheel) {
         m_drivetrain = drivetrain;
-        m_turret = turret;
+        m_leftTurret = turret;
         m_hood = hood;
         m_flywheel = flywheel;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_turret, m_hood, m_flywheel);
+        addRequirements(m_leftTurret, m_hood, m_flywheel);
     }
 
     // Called when the command is initially scheduled.
@@ -98,31 +98,31 @@ public class PointAtHub extends Command {
 
         m_distance = Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
-                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse) 
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
                 - m_targetHubPose.getX(), 
                 m_drivetrain.getState().Pose.getY() 
-                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse)
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)
                 - m_targetHubPose.getY());
 
-        m_turret.updateSetpoint(
+        m_leftTurret.updateSetpoint(
             (m_drivetrainAngle + m_shotOffset)
 
             /* ArcTangent to find field relative turret angle */
             - ((((Math.atan(((m_drivetrain.getState().Pose.getY() 
-                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse)) 
+                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)) 
                 - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst)))) 
             / (m_drivetrain.getState().Pose.getX() 
-                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse) 
+                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
                 - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst))))) 
             / Math.PI) * 180))));
 
         m_flywheel.updateSetpoint(ShootingCalibrations.kFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult) * Math.pow(
             Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
-                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse) 
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
                 - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst))), 
                 m_drivetrain.getState().Pose.getY() 
-                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + TurretConstants.kTurretPositionYaw) * TurretConstants.kTurretHypotenuse)
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)
                 - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst)))),
                 1)));
 
