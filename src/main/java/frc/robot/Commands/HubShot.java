@@ -22,7 +22,7 @@ public class HubShot extends SequentialCommandGroup {
 
     /**
      * A Command sequence that will shoot into the Hub when the robot is
-     * touching the hub with the climbers directly opposite of the hub wall.
+     * touching the hub with the intake to the right
      *
      * @param flywheel The flywheel to use
      * @param hood     The hood to use

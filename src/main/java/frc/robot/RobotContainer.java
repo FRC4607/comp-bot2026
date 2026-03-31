@@ -6,64 +6,39 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
-import java.util.TreeMap;
-
-import frc.robot.Calibrations.ChinUpCalibrations;
-import frc.robot.Calibrations.ClimbSequenceCalibrations;
-import frc.robot.Calibrations.DrivetrainCalibrations;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import frc.robot.Calibrations.ShootingCalibrations;
-import frc.robot.Commands.ClimbSequence;
 import frc.robot.Commands.DepotTrenchShot;
 import frc.robot.Commands.HubShot;
 import frc.robot.Commands.MoveHoodToPosition;
-import frc.robot.Commands.MoveInnerClimberToPosition;
 import frc.robot.Commands.MoveIntakeToPosition;
-import frc.robot.Commands.MoveOuterClimberToPosition;
-import frc.robot.Commands.MoveTurretToPosition;
 import frc.robot.Commands.OutpostShot;
 import frc.robot.Commands.OutpostTrenchShot;
 import frc.robot.Commands.PassWithGyro;
 import frc.robot.Commands.RunFlywheelOpenLoop;
-import frc.robot.Commands.RunTurretOpenLoop;
-import frc.robot.Commands.SetHoodOpenLoop;
-import frc.robot.Commands.SetIndexerOpenLoop;
-import frc.robot.Commands.SetIndexerVelocity;
-import frc.robot.Commands.SetInnerClimberAmperage;
-import frc.robot.Commands.SetIntakeWheelsOpenLoop;
-import frc.robot.Commands.SetIntakeWheelsVelocity;
-import frc.robot.Commands.SetOuterClimberAmperage;
-import frc.robot.Commands.StationaryShot;
-import frc.robot.Commands.WheelRadiusCalibration;
-import frc.robot.Commands.ZeroClimbersSequence;
-import frc.robot.Commands.ZeroHood;
-import frc.robot.Commands.ZeroHoodSequence;
 import frc.robot.Commands.SetChamberOpenLoop;
 import frc.robot.Commands.SetChamberVelocity;
-import frc.robot.Commands.SetFlywheelVelocity;
-import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import frc.robot.Commands.SetIndexerOpenLoop;
+import frc.robot.Commands.SetIntakeWheelsOpenLoop;
+import frc.robot.Commands.SetIntakeWheelsVelocity;
+import frc.robot.Commands.StationaryShot;
+import frc.robot.Commands.WheelRadiusCalibration;
+import frc.robot.Commands.ZeroHoodSequence;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Chamber;
-import frc.robot.subsystems.ClimberInner;
-import frc.robot.subsystems.ClimberOuter;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -89,8 +64,6 @@ public class RobotContainer {
     public final Joystick m_operator = new Joystick(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    public final ClimberInner m_climberInner = new ClimberInner();
-    public final ClimberOuter m_climberOuter = new ClimberOuter();
     public final Flywheel m_flywheel = new Flywheel();
     public final Hood m_hood = new Hood();
     public final IntakeArm m_intakeArm = new IntakeArm();
@@ -242,32 +215,7 @@ public class RobotContainer {
                 .alongWith(new SetChamberVelocity(0, 90, false, m_chamber, m_turret, m_hood, m_flywheel)
                 .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
 
-        // Climb
-        // joystick.povUp().onTrue(
-        //     new MoveTurretToPosition(() -> 270, 1, m_turret)
-        //     .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
-        //     .andThen(new ClimbSequence(m_climberOuter, m_climberInner)));
-
-        // Chin up
-        joystick.povRight().onTrue(
-            new MoveTurretToPosition(() -> 270, 1, m_turret)
-            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
-            .andThen(new MoveOuterClimberToPosition(
-            ChinUpCalibrations.kOuterChinUpPosition, ChinUpCalibrations.kOuterChinUpTolerance, m_climberOuter)));
-
-        // Alignment Check
-        joystick.povLeft().onTrue(
-            new MoveTurretToPosition(() -> 270, 1, m_turret)
-            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
-            .andThen(new MoveOuterClimberToPosition(8.25, 1, m_climberOuter)));
-
-        // Reset Climbers
-        joystick.povDown().onTrue(
-            new MoveTurretToPosition(() -> 270, 1, m_turret)
-            .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm)).withTimeout(3)
-            .andThen(new MoveInnerClimberToPosition(0.5, 10, m_climberInner)
-            .alongWith(new MoveOuterClimberToPosition(1, 10, m_climberOuter))));
-
+        // A command to find the radius of the wheels.
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
         joystick.back().onTrue(new ZeroHoodSequence(m_hood));

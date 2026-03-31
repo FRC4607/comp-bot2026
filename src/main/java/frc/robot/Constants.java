@@ -21,10 +21,10 @@ public class Constants {
     public class IntakeArmConstants {
 
         /** CAN ID of the first motor. */
-        public static final int kMotor1CANID = 48;
+        public static final int kMotor1CANID = 15;
 
         /** CAN ID of the encoder. */
-        public static final int kEncoderCANID = 24;
+        public static final int kEncoderCANID = 15;
 
         /** How many sensor rotations equal one mechanism rotation. */
         public static final double kSensorToMechanismRatio = 2.25;
@@ -34,31 +34,33 @@ public class Constants {
     }
 
     public class IntakeWheelConstants {
-        public static final int kMotor1CANID = 45;
+        public static final int kMotor1CANID = 14;
     }
 
     public class IndexerConstants {
 
         /** CAN ID of the motor. */
-        public static final int kMotor1CANID = 26;
+        public static final int kMotor1CANID = 13;
     }
 
+    /** Constants for the Left Chamber. */
     public class ChamberConstants {
 
         /** CAN ID of the first motor. */
-        public static final int kMotor1CANID = 55;
+        public static final int kMotor1CANID = 6;
     }
 
+    /** Constants for the Left Turret. */
     public class TurretConstants {
 
         /** CAN ID of the motor. */
-        public static final int kMotorCANID = 32;
+        public static final int kMotorCANID = 7;
 
         /** CAN ID of the first encoder. */
-        public static final int kEncoder1CANID = 50;
+        public static final int kEncoder1CANID = 31;
 
         /** CAN ID of the second encoder. */
-        public static final int kEncoder2CANID = 51;
+        public static final int kEncoder2CANID = 32;
 
         /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
         public static final double kRotorToMechanism = 10.2;
@@ -80,40 +82,22 @@ public class Constants {
         
     }
 
+    /** Constants for the minion on the left turret. */
     public class HoodConstants {
 
-        /** CAN ID of the motor */
-        public static final int kMotorCANID = 52;
+        /** CAN ID of the motor. */
+        public static final int kMotorCANID = 8;
     }
 
+    /** Constants for the flywheel on the left turret. */
     public class FlywheelConstants {
 
         /** CAN ID of the first motor. */
         // TODO: Conflict with Turret kEncoder2CANID
-        public static final int kMotor1CANID = 50;
+        public static final int kMotor1CANID = 4;
 
         /** CAN ID of the second motor. */
         // TODO: Conflict with Turret kEncoder1CANID
-        public static final int kMotor2CANID = 51;
-    }
-
-    public class ClimberConstants {
-
-        /** CAN ID of the first outer chain motor. */
-        public static final int kOuterMotor1CANID = 23;
-
-        /** Can ID of the second outer chain motor. */
-        public static final int kOuterMotor2CANID = 6;
-
-        /** CAN ID of the first inner chain motor. */
-        public static final int kInnerMotor1CANID = 15;
-
-        /** CAN ID of the second inner chain motor. */
-        public static final int kInnerMotor2CANID = 56;
-
-        /** Inches of chain travel per motor revolution. */
-        public static final double kClimbersInchesPerRevolution = 0.19864;
-
-        // 5.625 inches per revolution of outer sprocket
+        public static final int kMotor2CANID = 5;
     }
 }
