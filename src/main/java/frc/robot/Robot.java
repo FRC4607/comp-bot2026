@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
         m_robotContainer.m_intakeWheels.updateSetpoint(0);
         m_robotContainer.m_indexer.runOpenLoop(0);
-        m_robotContainer.m_chamber.runOpenLoop(0);
+        m_robotContainer.m_leftChamber.runOpenLoop(0);
         m_robotContainer.m_leftTurret.updateSetpoint(m_robotContainer.m_leftTurret.getPosition());
         m_robotContainer.m_hood.updateSetpoint(0);
         m_robotContainer.m_flywheel.runOpenLoop(0);

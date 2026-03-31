@@ -44,7 +44,7 @@ public class Constants {
     }
 
     /** Constants for the Left Chamber. */
-    public class ChamberConstants {
+    public class LeftChamberConstants {
 
         /** CAN ID of the first motor. */
         public static final int kMotor1CANID = 6;

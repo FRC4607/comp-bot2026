@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.Constants.FieldConstants;
-import frc.robot.subsystems.Chamber;
+import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -24,14 +24,14 @@ import frc.robot.subsystems.LeftTurret;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GeneralShot extends ParallelCommandGroup {
     /** Creates a new StationaryShot. */
-    public GeneralShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, LeftTurret leftTurret, Hood hood, Flywheel flywheel) {
+    public GeneralShot(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, Hood hood, Flywheel flywheel) {
 
         super(
             new PointAtHub(drivetrain, leftTurret, hood, flywheel),
             new SequentialCommandGroup(
                 new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                    new SetChamberVelocity(90, 3, true, chamber, leftTurret, hood, flywheel),
+                    new LeftSetChamberVelocity(90, 3, true, leftChamber, leftTurret, hood, flywheel),
                     new SetIndexerVelocity(90, 3, indexer)
                 )
             )

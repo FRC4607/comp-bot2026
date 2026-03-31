@@ -5,23 +5,23 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Chamber;
+import frc.robot.subsystems.LeftChamber;
 import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
 /** SetChamberOpenLoop command. */
-public class SetChamberOpenLoop extends Command {
+public class LeftSetChamberOpenLoop extends Command {
     private DoubleSupplier m_dutyCycle;
-    private Chamber m_chamber;
+    private LeftChamber m_leftChamber;
 
     /** Creates a new SetChamberOpenLoop. */
-    public SetChamberOpenLoop(DoubleSupplier dutyCycle, Chamber chamber) {
-        m_chamber = chamber;
+    public LeftSetChamberOpenLoop(DoubleSupplier dutyCycle, LeftChamber leftChamber) {
+        m_leftChamber = leftChamber;
         m_dutyCycle = dutyCycle;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_chamber);
+        addRequirements(m_leftChamber);
     }
 
     // Called when the command is initially scheduled.
@@ -32,7 +32,7 @@ public class SetChamberOpenLoop extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_chamber.runOpenLoop(m_dutyCycle.getAsDouble());
+        m_leftChamber.runOpenLoop(m_dutyCycle.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.

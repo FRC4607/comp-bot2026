@@ -104,8 +104,8 @@ public class Calibrations {
         
     }
 
-    /** Calibrations for the chamber. */
-    public class ChamberCalibrations {
+    /** Calibrations for the leftChamber. */
+    public class LeftChamberCalibrations {
 
         /** Max acceleration of the Indexer. */
         public static final double kMaxAcceleration = 99999;
@@ -255,10 +255,10 @@ public class Calibrations {
         public static final double kLeftTurretAngleTolerance =  1;
 
         /** Chamber Velocity. */
-        public static final double kChamberVelocity = 60;
+        public static final double kLeftChamberVelocity = 60;
 
         /** Chamber Velocity Tolerance. */
-        public static final double kChamberVelocityTolerance = 90;
+        public static final double kLeftChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
@@ -292,10 +292,10 @@ public class Calibrations {
         public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
-        public static final double kChamberVelocity = 60;
+        public static final double kLeftChamberVelocity = 60;
 
         /** Chamber Velocity Tolerance. */
-        public static final double kChamberVelocityTolerance = 90;
+        public static final double kLeftChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
@@ -329,10 +329,10 @@ public class Calibrations {
         public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
-        public static final double kChamberVelocity = 60;
+        public static final double kLeftChamberVelocity = 60;
 
         /** Chamber Velocity Tolerance. */
-        public static final double kChamberVelocityTolerance = 90;
+        public static final double kLeftChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
@@ -366,10 +366,10 @@ public class Calibrations {
         public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
-        public static final double kChamberVelocity = 60;
+        public static final double kLeftChamberVelocity = 60;
 
         /** Chamber Velocity Tolerance. */
-        public static final double kChamberVelocityTolerance = 90;
+        public static final double kLeftChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
@@ -412,11 +412,11 @@ public class Calibrations {
         /** Number of seconds to continue if flywheel does not make it to velocity. */
         public static final double kFlywheelTimeout = 1;
 
-        /** Velocity to run the chamber at. */
-        public static final double kChamberVelocity = 90;
+        /** Velocity to run the left chamber at. */
+        public static final double kLeftChamberVelocity = 90;
 
         /** Chamber velocity tolerance. */
-        public static final double kChamberVelocityTolerance = 1;
+        public static final double kLeftChamberVelocityTolerance = 1;
 
         /** Velocity to run the indexer at. */
         public static final double kIndexerVelocity = 90;

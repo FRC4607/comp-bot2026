@@ -9,7 +9,7 @@ import javax.naming.PartialResultException;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.PassWithGyroCalibrations;
-import frc.robot.subsystems.Chamber;
+import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
@@ -24,7 +24,7 @@ import frc.robot.subsystems.LeftTurret;
 public class PassWithGyro extends ParallelCommandGroup {
     
     /** Creates a new PassWithGyro. */
-    public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, Chamber chamber, LeftTurret leftTurret, Hood hood,
+    public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, Hood hood,
             Flywheel flywheel) {
         super(
                 new LeftMoveTurretToPosition(
@@ -46,10 +46,10 @@ public class PassWithGyro extends ParallelCommandGroup {
                                         .withTimeout(
                                                 PassWithGyroCalibrations.kFlywheelTimeout)),
                         new ParallelCommandGroup(
-                                new SetChamberVelocity(
-                                        PassWithGyroCalibrations.kChamberVelocity,
-                                        PassWithGyroCalibrations.kChamberVelocityTolerance,
-                                        true, chamber, leftTurret, hood, flywheel),
+                                new LeftSetChamberVelocity(
+                                        PassWithGyroCalibrations.kLeftChamberVelocity,
+                                        PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
+                                        true, leftChamber, leftTurret, hood, flywheel),
                                 new SetIndexerVelocity(
                                         PassWithGyroCalibrations.kIndexerVelocity,
                                         PassWithGyroCalibrations.kIndexerVelocityTolerance,

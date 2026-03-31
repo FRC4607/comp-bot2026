@@ -7,7 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.OutpostTrenchShotCalibrations;
-import frc.robot.subsystems.Chamber;
+import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Indexer;
@@ -26,9 +26,9 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
      * @param hood     The hood to use
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
-     * @param chamber  The chamber to use
+     * @param leftChamber  The leftChamber to use
      */
-    public OutpostTrenchShot(Flywheel flywheel, Hood hood, LeftTurret leftTurret, Indexer indexer, Chamber chamber) {
+    public OutpostTrenchShot(Flywheel flywheel, Hood hood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
         super(
             // Spin up flywheel, move hood, move turret
             new ParallelCommandGroup(
@@ -50,10 +50,10 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
                     OutpostTrenchShotCalibrations.kIndexerVelocity, 
                     OutpostTrenchShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
-                new SetChamberVelocity(
-                    OutpostTrenchShotCalibrations.kChamberVelocity,
-                    OutpostTrenchShotCalibrations.kChamberVelocityTolerance, 
-                    false, chamber, leftTurret, hood, flywheel)));
+                new LeftSetChamberVelocity(
+                    OutpostTrenchShotCalibrations.kLeftChamberVelocity,
+                    OutpostTrenchShotCalibrations.kLeftChamberVelocityTolerance, 
+                    false, leftChamber, leftTurret, hood, flywheel)));
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }
