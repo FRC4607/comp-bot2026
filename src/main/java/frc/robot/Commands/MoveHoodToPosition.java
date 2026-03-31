@@ -5,7 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
@@ -13,30 +13,30 @@ import frc.robot.subsystems.Hood;
 public class MoveHoodToPosition extends Command {
     private double m_setpoint;
     private double m_tolerance;
-    private Hood m_hood;
+    private LeftHood m_leftHood;
 
-    // TODO: Convert to degrees once converted in the hood subsystem
+    // TODO: Convert to degrees once converted in the leftHood subsystem
 
     /**
-     * A command to set the closed loop setpoint of the hood, in motor rotations.
+     * A command to set the closed loop setpoint of the leftHood, in motor rotations.
      *
      * @param setpoint  The position to drive to (motor rotations)
      * @param tolerance The tolerance for error (motor rotations)
-     * @param hood      The hood to use.
+     * @param leftHood      The leftHood to use.
      */
-    public MoveHoodToPosition(double setpoint, double tolerance, Hood hood) {
+    public MoveHoodToPosition(double setpoint, double tolerance, LeftHood leftHood) {
         m_setpoint = setpoint;
         m_tolerance = tolerance;
-        m_hood = hood;
+        m_leftHood = leftHood;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_hood);
+        addRequirements(m_leftHood);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_hood.updateSetpoint(m_setpoint);
+        m_leftHood.updateSetpoint(m_setpoint);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -52,6 +52,6 @@ public class MoveHoodToPosition extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_hood.getPosition() - m_setpoint) < m_tolerance;
+        return Math.abs(m_leftHood.getPosition() - m_setpoint) < m_tolerance;
     }
 }

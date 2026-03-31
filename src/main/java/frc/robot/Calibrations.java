@@ -183,8 +183,8 @@ public class Calibrations {
 
     }
 
-    /** Calibrations for the Hood. */
-    public class HoodCalibrations {
+    /** Calibrations for the LeftHood. */
+    public class LeftHoodCalibrations {
 
         /** Static Feedforward. */
         public static final double kS = 0;
@@ -242,11 +242,11 @@ public class Calibrations {
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle. */
-        public static final double kHoodAngle = 0.85;
+        /** LeftHood Angle. */
+        public static final double kLeftHoodAngle = 0.85;
 
-        /** Hood Angle Tolerance. */
-        public static final double kHoodAngleTolerance = 0.1;
+        /** LeftHood Angle Tolerance. */
+        public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
         public static final double kLeftTurretAngle = 270;
@@ -279,11 +279,11 @@ public class Calibrations {
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle. */
-        public static final double kHoodAngle = 2.2;
+        /** LeftHood Angle. */
+        public static final double kLeftHoodAngle = 2.2;
 
-        /** Hood Angle Tolerance. */
-        public static final double kHoodAngleTolerance = 0.1;
+        /** LeftHood Angle Tolerance. */
+        public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
         public static final double kLeftTurretAngle = 80;
@@ -316,11 +316,11 @@ public class Calibrations {
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle. */
-        public static final double kHoodAngle = 2.25;
+        /** LeftHood Angle. */
+        public static final double kLeftHoodAngle = 2.25;
 
-        /** Hood Angle Tolerance. */
-        public static final double kHoodAngleTolerance = 0.1;
+        /** LeftHood Angle Tolerance. */
+        public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
         public static final double kLeftTurretAngle = 277.2;
@@ -353,11 +353,11 @@ public class Calibrations {
         /** Flywheel Velocity Tolerance. */
         public static final double kFlywheelVelocityTolerance = 1;
 
-        /** Hood Angle. */
-        public static final double kHoodAngle = 2.25;
+        /** LeftHood Angle. */
+        public static final double kLeftHoodAngle = 2.25;
 
-        /** Hood Angle Tolerance. */
-        public static final double kHoodAngleTolerance = 0.1;
+        /** LeftHood Angle Tolerance. */
+        public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
         public static final double kLeftTurretAngle = 48;
@@ -394,14 +394,14 @@ public class Calibrations {
         /** Offset of the Turret when tracking. */
         public static final double kLeftTurretAngleOffset = 0;
 
-        /** Angle of the hood to shoot at. */
-        public static final double kHoodAngle = 2.25;
+        /** Angle of the leftHood to shoot at. */
+        public static final double kLeftHoodAngle = 2.25;
 
-        /** Hood angle tolerance. */
-        public static final double kHoodTolerance = 0.1;
+        /** LeftHood angle tolerance. */
+        public static final double kLeftHoodTolerance = 0.1;
 
-        /** Number of seconds to continue if hood does not make it to position. */
-        public static final double kHoodTimeout = 0.25;
+        /** Number of seconds to continue if leftHood does not make it to position. */
+        public static final double kLeftHoodTimeout = 0.25;
 
         /** Velocity to run the flywheel at. */
         public static final double kFlywheelVelocity = 75;

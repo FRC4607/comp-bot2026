@@ -83,7 +83,7 @@ public class Constants {
     }
 
     /** Constants for the minion on the left turret. */
-    public class HoodConstants {
+    public class LeftHoodConstants {
 
         /** CAN ID of the motor. */
         public static final int kMotorCANID = 8;

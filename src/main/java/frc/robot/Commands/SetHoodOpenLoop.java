@@ -5,7 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 import java.util.function.DoubleSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -13,20 +13,20 @@ import java.util.function.DoubleSupplier;
 /** SetHoodOpenLoop command. */
 public class SetHoodOpenLoop extends Command {
     private DoubleSupplier m_dutyCycle;
-    private Hood m_hood;
+    private LeftHood m_leftHood;
 
     /** 
      * A command to set the power of the Hood in open loop.
      *
      * @param dutyCycle The power to run the motor at (-1, 1)
-     * @param hood The hood to use
+     * @param leftHood The leftHood to use
      */
-    public SetHoodOpenLoop(DoubleSupplier dutyCycle, Hood hood) {
+    public SetHoodOpenLoop(DoubleSupplier dutyCycle, LeftHood leftHood) {
         m_dutyCycle = dutyCycle;
-        m_hood = hood;
+        m_leftHood = leftHood;
 
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_hood);
+        addRequirements(m_leftHood);
     }
 
     // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ public class SetHoodOpenLoop extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_hood.runOpenLoop(m_dutyCycle.getAsDouble());
+        m_leftHood.runOpenLoop(m_dutyCycle.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.

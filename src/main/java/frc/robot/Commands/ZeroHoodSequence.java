@@ -5,7 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,14 +15,14 @@ import frc.robot.subsystems.Hood;
 public class ZeroHoodSequence extends SequentialCommandGroup {
 
     /** 
-     * A command sequence for zeroing the hood.
+     * A command sequence for zeroing the leftHood.
      *
-     * @param hood The hood to use
+     * @param leftHood The leftHood to use
      */
-    public ZeroHoodSequence(Hood hood) {
+    public ZeroHoodSequence(LeftHood leftHood) {
         super(
-            new SetHoodOpenLoop(() -> 0.2, hood).withTimeout(0.1),
-            new ZeroHood(hood));
+            new SetHoodOpenLoop(() -> 0.2, leftHood).withTimeout(0.1),
+            new ZeroHood(leftHood));
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
     }

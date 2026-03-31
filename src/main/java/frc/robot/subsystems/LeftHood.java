@@ -14,12 +14,12 @@ import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Calibrations.HoodCalibrations;
+import frc.robot.Calibrations.LeftHoodCalibrations;
 import frc.robot.Calibrations.IntakeArmCalibrations;
-import frc.robot.Constants.HoodConstants;
+import frc.robot.Constants.LeftHoodConstants;
 
 /** Hood subsystem. */
-public class Hood extends SubsystemBase {
+public class LeftHood extends SubsystemBase {
 
     private final TalonFXS m_motor;
 
@@ -28,9 +28,9 @@ public class Hood extends SubsystemBase {
     private final MotionMagicVoltage m_request;
 
     /** Creates and configures the hood subsystem. */
-    public Hood() {
+    public LeftHood() {
 
-        m_motor = new TalonFXS(HoodConstants.kMotorCANID, "kachow");
+        m_motor = new TalonFXS(LeftHoodConstants.kMotorCANID, "kachow");
 
         m_talonFXSConfig = new TalonFXSConfiguration();
 
@@ -43,14 +43,14 @@ public class Hood extends SubsystemBase {
         m_talonFXSConfig.Slot0.GravityType = GravityTypeValue.Elevator_Static;
 
         // Gains
-        m_talonFXSConfig.Slot0.kS = HoodCalibrations.kS;
-        m_talonFXSConfig.Slot0.kP = HoodCalibrations.kP;
-        m_talonFXSConfig.Slot0.kI = HoodCalibrations.kI;
-        m_talonFXSConfig.Slot0.kD = HoodCalibrations.kD;
+        m_talonFXSConfig.Slot0.kS = LeftHoodCalibrations.kS;
+        m_talonFXSConfig.Slot0.kP = LeftHoodCalibrations.kP;
+        m_talonFXSConfig.Slot0.kI = LeftHoodCalibrations.kI;
+        m_talonFXSConfig.Slot0.kD = LeftHoodCalibrations.kD;
 
         // Motion Magic settings
-        m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = HoodCalibrations.kMaxSpeed;
-        m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = HoodCalibrations.kMaxAcceleration;
+        m_talonFXSConfig.MotionMagic.MotionMagicCruiseVelocity = LeftHoodCalibrations.kMaxSpeed;
+        m_talonFXSConfig.MotionMagic.MotionMagicAcceleration = LeftHoodCalibrations.kMaxAcceleration;
 
         m_talonFXSConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
@@ -58,7 +58,7 @@ public class Hood extends SubsystemBase {
         m_talonFXSConfig.ExternalFeedback.ExternalFeedbackSensorSource = ExternalFeedbackSensorSourceValue.Commutation;
 
         // Current limit
-        m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = HoodCalibrations.kMaxAmperage;
+        m_talonFXSConfig.CurrentLimits.StatorCurrentLimit = LeftHoodCalibrations.kMaxAmperage;
 
         m_motor.getConfigurator().apply(m_talonFXSConfig);
 

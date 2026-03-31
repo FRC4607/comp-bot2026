@@ -41,7 +41,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeWheels;
@@ -65,7 +65,7 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final Flywheel m_flywheel = new Flywheel();
-    public final Hood m_hood = new Hood();
+    public final LeftHood m_leftHood = new LeftHood();
     public final IntakeArm m_intakeArm = new IntakeArm();
     public final IntakeWheels m_intakeWheels = new IntakeWheels();
     public final Indexer m_indexer = new Indexer();
@@ -78,16 +78,16 @@ public class RobotContainer {
     public RobotContainer() {
 
         NamedCommands.registerCommand("Trench Outpost Shot", 
-            new OutpostTrenchShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber));
+            new OutpostTrenchShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
         NamedCommands.registerCommand("Trench Depot Shot",
-            new DepotTrenchShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber));
+            new DepotTrenchShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
         NamedCommands.registerCommand("Outpost Shot", 
-            new OutpostShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber));
+            new OutpostShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
         NamedCommands.registerCommand("Hub Shot", 
-            new HubShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber));
+            new HubShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
         NamedCommands.registerCommand("Stop Shooting", 
             new ParallelDeadlineGroup(
-                new ZeroHoodSequence(m_hood),
+                new ZeroHoodSequence(m_leftHood),
                 new RunFlywheelOpenLoop(() -> 0, m_flywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
                 new LeftSetChamberOpenLoop(() -> 0, m_leftChamber)).withTimeout(0.5));
@@ -167,58 +167,58 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
             .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
-        // joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_hood, m_flywheel))
+        // joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
         //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
         //         .alongWith(new SetChamberVelocity(0, 90, m_leftChamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
         
-        operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_hood, m_flywheel))
+        operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.y().onTrue(new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_hood, m_flywheel))
+        joystick.y().onTrue(new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        // operatorRedR.onTrue(new StationaryShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_hood, m_flywheel))
+        // operatorRedR.onTrue(new StationaryShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel))
         //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
         //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
         //         .alongWith(new SetChamberVelocity(0, 90, m_leftChamber)
-        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+        //         .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.a().onTrue(new HubShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.a().onTrue(new HubShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.b().onTrue(new OutpostShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.b().onTrue(new OutpostShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_hood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_flywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
             .onFalse(new RunFlywheelOpenLoop(() -> 0, m_flywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_hood, m_flywheel)
-                .alongWith(new MoveHoodToPosition(0, 0.1, m_hood)))));
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_flywheel)
+                .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
         // A command to find the radius of the wheels.
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
-        joystick.back().onTrue(new ZeroHoodSequence(m_hood));
+        joystick.back().onTrue(new ZeroHoodSequence(m_leftHood));
 
         operatorLKnobUp.onTrue(new InstantCommand(
             () -> SmartDashboard.putNumber(
@@ -238,7 +238,7 @@ public class RobotContainer {
         // SmartDashboard Commands
         SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_leftTurret.resetsetPosition()));
-        SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_hood));
+        SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_leftHood));
     }
 
     public Command getAutonomousCommand() {

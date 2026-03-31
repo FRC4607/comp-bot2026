@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.DepotTrenchShotCalibrations;
 import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
 
@@ -23,12 +23,12 @@ public class DepotTrenchShot extends SequentialCommandGroup {
      * A command sequence to score from the depot-side trench.
      *
      * @param flywheel The flywheel to use
-     * @param hood     The hood to use
+     * @param leftHood     The leftHood to use
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param leftChamber  The leftChamber to use
      */
-    public DepotTrenchShot(Flywheel flywheel, Hood hood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
+    public DepotTrenchShot(Flywheel flywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
         super(
             new ParallelCommandGroup(
                 new SetFlywheelVelocity(
@@ -36,9 +36,9 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                     DepotTrenchShotCalibrations.kFlywheelVelocityTolerance,
                     flywheel).withTimeout(0.25),
                 new MoveHoodToPosition(
-                    DepotTrenchShotCalibrations.kHoodAngle,
-                    DepotTrenchShotCalibrations.kHoodAngleTolerance, 
-                    hood).withTimeout(0.25),
+                    DepotTrenchShotCalibrations.kLeftHoodAngle,
+                    DepotTrenchShotCalibrations.kLeftHoodAngleTolerance, 
+                    leftHood).withTimeout(0.25),
                 new LeftMoveTurretToPosition(
                     () -> DepotTrenchShotCalibrations.kLeftTurretAngle,
                     DepotTrenchShotCalibrations.kLeftTurretAngleTolerance, 
@@ -51,7 +51,7 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new LeftSetChamberVelocity(
                     DepotTrenchShotCalibrations.kLeftChamberVelocity,
                     DepotTrenchShotCalibrations.kLeftChamberVelocityTolerance,
-                    false, leftChamber, leftTurret, hood, flywheel))
+                    false, leftChamber, leftTurret, leftHood, flywheel))
         );
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());

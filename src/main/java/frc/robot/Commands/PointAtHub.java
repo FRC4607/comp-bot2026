@@ -23,7 +23,7 @@ import frc.robot.Robot;
 import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.LeftTurret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -31,7 +31,7 @@ public class PointAtHub extends Command {
 
     private CommandSwerveDrivetrain m_drivetrain;
     private LeftTurret m_leftTurret;
-    private Hood m_hood;
+    private LeftHood m_leftHood;
     private Flywheel m_flywheel;
 
     private Translation2d m_targetHubPose;
@@ -46,13 +46,13 @@ public class PointAtHub extends Command {
     private ChassisSpeeds m_speeds;
 
     /** Creates a new PointAtHub. */
-    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, Hood hood, Flywheel flywheel) {
+    public PointAtHub(CommandSwerveDrivetrain drivetrain, LeftTurret turret, LeftHood leftHood, Flywheel flywheel) {
         m_drivetrain = drivetrain;
         m_leftTurret = turret;
-        m_hood = hood;
+        m_leftHood = leftHood;
         m_flywheel = flywheel;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_leftTurret, m_hood, m_flywheel);
+        addRequirements(m_leftTurret, m_leftHood, m_flywheel);
     }
 
     // Called when the command is initially scheduled.
@@ -72,7 +72,7 @@ public class PointAtHub extends Command {
         }
         
         m_drivetrainAngle = m_drivetrain.getState().Pose.getRotation().getDegrees();
-        m_hood.updateSetpoint(2.25);
+        m_leftHood.updateSetpoint(2.25);
     }
     // Called every time the scheduler runs while the command is scheduled.
     @Override

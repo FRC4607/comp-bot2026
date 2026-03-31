@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
 
         // Code to run every 0.05 seconds (50 milliseconds)
         if ((m_loopCounter % 10) == 0) {
-            SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+            SmartDashboard.putBoolean("Is Left Hood Down?", m_robotContainer.m_leftHood.getPosition() < 0.5);
 
             if ((brllMeasurement != null && brllMeasurement.tagCount > 0 
                     && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) 
@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_leftChamber.runOpenLoop(0);
         m_robotContainer.m_leftTurret.updateSetpoint(m_robotContainer.m_leftTurret.getPosition());
-        m_robotContainer.m_hood.updateSetpoint(0);
+        m_robotContainer.m_leftHood.updateSetpoint(0);
         m_robotContainer.m_flywheel.runOpenLoop(0);
 
         // FMS Data Logging for debugging and post-match analysis

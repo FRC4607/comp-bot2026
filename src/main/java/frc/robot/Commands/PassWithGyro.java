@@ -12,7 +12,7 @@ import frc.robot.Calibrations.PassWithGyroCalibrations;
 import frc.robot.subsystems.LeftChamber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
 
@@ -24,7 +24,7 @@ import frc.robot.subsystems.LeftTurret;
 public class PassWithGyro extends ParallelCommandGroup {
     
     /** Creates a new PassWithGyro. */
-    public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, Hood hood,
+    public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood,
             Flywheel flywheel) {
         super(
                 new LeftMoveTurretToPosition(
@@ -34,11 +34,11 @@ public class PassWithGyro extends ParallelCommandGroup {
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
                                 new MoveHoodToPosition(
-                                        PassWithGyroCalibrations.kHoodAngle,
-                                        PassWithGyroCalibrations.kHoodTolerance,
-                                        hood)
+                                        PassWithGyroCalibrations.kLeftHoodAngle,
+                                        PassWithGyroCalibrations.kLeftHoodTolerance,
+                                        leftHood)
                                         .withTimeout(
-                                                PassWithGyroCalibrations.kHoodTimeout),
+                                                PassWithGyroCalibrations.kLeftHoodTimeout),
                                 new SetFlywheelVelocity(
                                         () -> PassWithGyroCalibrations.kFlywheelVelocity,
                                         PassWithGyroCalibrations.kFlywheelVelocityTolerance,
@@ -49,7 +49,7 @@ public class PassWithGyro extends ParallelCommandGroup {
                                 new LeftSetChamberVelocity(
                                         PassWithGyroCalibrations.kLeftChamberVelocity,
                                         PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
-                                        true, leftChamber, leftTurret, hood, flywheel),
+                                        true, leftChamber, leftTurret, leftHood, flywheel),
                                 new SetIndexerVelocity(
                                         PassWithGyroCalibrations.kIndexerVelocity,
                                         PassWithGyroCalibrations.kIndexerVelocityTolerance,
