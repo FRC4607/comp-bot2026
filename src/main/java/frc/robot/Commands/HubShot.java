@@ -42,8 +42,8 @@ public class HubShot extends SequentialCommandGroup {
                     HubShotCalibrations.kHoodAngleTolerance,
                     hood),
                 new LeftMoveTurretToPosition(
-                    () -> HubShotCalibrations.kTurretAngle,
-                    HubShotCalibrations.kTurretAngleTolerance, 
+                    () -> HubShotCalibrations.kLeftTurretAngle,
+                    HubShotCalibrations.kLeftTurretAngleTolerance, 
                     leftTurret)),
             new ParallelCommandGroup(
                 new SetIndexerVelocity(

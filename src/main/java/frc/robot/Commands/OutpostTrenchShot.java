@@ -41,8 +41,8 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
                     OutpostTrenchShotCalibrations.kHoodAngleTolerance, 
                     hood).withTimeout(0.25),
                 new LeftMoveTurretToPosition(
-                    () -> OutpostTrenchShotCalibrations.kTurretAngle,
-                    OutpostTrenchShotCalibrations.kTurretAngleTolerance, 
+                    () -> OutpostTrenchShotCalibrations.kLeftTurretAngle,
+                    OutpostTrenchShotCalibrations.kLeftTurretAngleTolerance, 
                     leftTurret).withTimeout(0.25)),
             // Once turret, flywheel and hood are prepped, run indexer and chamber.
             new ParallelCommandGroup(

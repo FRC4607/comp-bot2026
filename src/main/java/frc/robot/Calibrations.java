@@ -249,10 +249,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 270;
+        public static final double kLeftTurretAngle = 270;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance =  1;
+        public static final double kLeftTurretAngleTolerance =  1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -286,10 +286,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 80;
+        public static final double kLeftTurretAngle = 80;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 1;
+        public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -323,10 +323,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 277.2;
+        public static final double kLeftTurretAngle = 277.2;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 1;
+        public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -360,10 +360,10 @@ public class Calibrations {
         public static final double kHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kTurretAngle = 48;
+        public static final double kLeftTurretAngle = 48;
 
         /** Turret Angle Tolerance. */
-        public static final double kTurretAngleTolerance = 1;
+        public static final double kLeftTurretAngleTolerance = 1;
 
         /** Chamber Velocity. */
         public static final double kChamberVelocity = 60;
@@ -392,7 +392,7 @@ public class Calibrations {
     public class PassWithGyroCalibrations {
 
         /** Offset of the Turret when tracking. */
-        public static final double kTurretAngleOffset = 0;
+        public static final double kLeftTurretAngleOffset = 0;
 
         /** Angle of the hood to shoot at. */
         public static final double kHoodAngle = 2.25;

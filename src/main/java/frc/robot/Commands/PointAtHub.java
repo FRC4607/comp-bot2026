@@ -98,10 +98,10 @@ public class PointAtHub extends Command {
 
         m_distance = Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
-                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
                 - m_targetHubPose.getX(), 
                 m_drivetrain.getState().Pose.getY() 
-                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse)
                 - m_targetHubPose.getY());
 
         m_leftTurret.updateSetpoint(
@@ -109,20 +109,20 @@ public class PointAtHub extends Command {
 
             /* ArcTangent to find field relative turret angle */
             - ((((Math.atan(((m_drivetrain.getState().Pose.getY() 
-                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)) 
+                + (Math.sin((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse)) 
                 - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst)))) 
             / (m_drivetrain.getState().Pose.getX() 
-                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
+                + (Math.cos((((m_drivetrainAngle + m_shotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
                 - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst))))) 
             / Math.PI) * 180))));
 
         m_flywheel.updateSetpoint(ShootingCalibrations.kFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult) * Math.pow(
             Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
-                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse) 
+                - (Math.cos((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
                 - (m_targetHubPose.getX() - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst))), 
                 m_drivetrain.getState().Pose.getY() 
-                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kTurretPositionYaw) * LeftTurretConstants.kTurretHypotenuse)
+                - (Math.sin((((m_drivetrainAngle + m_shotOffset) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse)
                 - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst)))),
                 1)));
 
