@@ -5,12 +5,20 @@
 package frc.robot;
 
 import com.ctre.phoenix6.SignalLogger;
+
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Calibrations.ShootingCalibrations;
+import frc.robot.Constants.FieldConstants;
 
 import java.time.LocalTime;
 import java.util.Optional;
@@ -18,11 +26,17 @@ import java.util.Optional;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
+    private static Robot robotInstance;
+
     public final RobotContainer m_robotContainer;
     private int m_loopCounter;
     private double m_countDown;
+    public Translation2d m_targetHubPose;
+    public double m_shotOffset;
 
     public Robot() {
+        robotInstance = this;
+
         m_robotContainer = new RobotContainer();
     }
 
@@ -30,12 +44,37 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
+        // Code to run every 0.005 seconds (5 milliseconds)
+
         m_loopCounter++;
 
-        if ((m_loopCounter % 10) == 0) {
-            SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+        var m_speeds = m_robotContainer.drivetrain.getState().Speeds.fromRobotRelativeSpeeds(m_robotContainer.drivetrain.getState().Speeds, m_robotContainer.drivetrain.getState().Pose.getRotation());
+
+        var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
+        var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
+        if (brllMeasurement != null && brllMeasurement.tagCount > 0 && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) {
+            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 1.5 + m_speeds.omegaRadiansPerSecond));
+        }
+        if (blllMeasurement != null && blllMeasurement.tagCount > 0 && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2)) {
+            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 1.5 + m_speeds.omegaRadiansPerSecond));
         }
 
+        // Code to run every 0.05 seconds (50 milliseconds)
+        if ((m_loopCounter % 10) == 0) {
+            SmartDashboard.putBoolean("Is Hood Down?", m_robotContainer.m_hood.getPosition() < 0.5);
+
+            if ((brllMeasurement != null && brllMeasurement.tagCount > 0 
+                    && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) 
+                    || (blllMeasurement != null && blllMeasurement.tagCount > 0 
+                    && (blllMeasurement.avgTagDist < 2 || blllMeasurement.tagCount >= 2))) {
+                
+                SmartDashboard.putBoolean("Has Tags?", true);
+            } else {
+                SmartDashboard.putBoolean("Has Tags?", false);
+            }
+        }
+
+        // Code to run every 0.25 seconds (250 milliseconds)
         if ((m_loopCounter % 50) == 0) {
             
             SmartDashboard.putBoolean("Hub State", isHubActive());
@@ -51,6 +90,9 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         m_robotContainer.m_turret.resetsetPosition();
+
+        Preferences.initDouble(
+            ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult);
     }
 
     @Override
@@ -81,12 +123,20 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
 
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.get() == Alliance.Red) {
+            m_targetHubPose = FieldConstants.kRedHub;
+        } else {
+            m_targetHubPose = FieldConstants.kBlueHub;
+        }
+
         m_robotContainer.m_intakeArm.updateSetpoint(m_robotContainer.m_intakeArm.getPosition());
-        m_robotContainer.m_intakeWheels.updateSetpoint(10);
+        m_robotContainer.m_intakeWheels.updateSetpoint(0);
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_chamber.runOpenLoop(0);
         m_robotContainer.m_turret.updateSetpoint(m_robotContainer.m_turret.getPosition());
@@ -126,6 +176,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void simulationPeriodic() {
+    }
+
+    public static Robot getRobotInstance() {
+        return robotInstance;
     }
 
     public boolean isHubActive() {

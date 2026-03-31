@@ -1,6 +1,19 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
+
+import edu.wpi.first.math.geometry.Translation2d;
+
 public class Constants {
+
+    public class FieldConstants {
+        /** Translation of the hub on the blue side. */
+        public static final Translation2d kBlueHub = new Translation2d(Inches.of(182.143595), Inches.of(158.84375));
+
+        /** Translation of the hub on the red side. */
+        public static final Translation2d kRedHub = new Translation2d(Inches.of(469.078905), Inches.of(158.84375));
+    }
+
     public class DrivetrainConstants {
         
     }
@@ -58,6 +71,12 @@ public class Constants {
 
         /** Gear ratio of # of sensor rotations to one mechanism rotation. */
         public static final double kEncoder2ToMechanism = 6.8;
+
+        /** How far (Degrees) the turret is away from the right plane. */
+        public static final double kTurretPositionYaw = 50.29;
+
+        /** How far (Meters) the turret is away from the center of the robot on the XY plane. */
+        public static final double kTurretHypotenuse = 0.2744978;
         
     }
 

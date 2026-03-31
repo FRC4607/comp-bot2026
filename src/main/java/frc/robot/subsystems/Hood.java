@@ -94,6 +94,15 @@ public class Hood extends SubsystemBase {
     }
 
     /**
+     * Gets the setpoint of the hood, in motor rotations.
+     *
+     * @return The setpoint of the motor (0, 2.25)
+     */
+    public double getSetpoint() {
+        return m_motor.getClosedLoopReference().getValueAsDouble();
+    }
+
+    /**
      * Runs the hood in open loop.
      *
      * @param dutyCycle The power to run at (-1, 1)

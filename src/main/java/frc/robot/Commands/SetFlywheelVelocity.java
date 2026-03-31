@@ -4,6 +4,8 @@
 
 package frc.robot.Commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Flywheel;
 
@@ -11,7 +13,7 @@ import frc.robot.subsystems.Flywheel;
 
 /** SetFlywheelVelocity command. */
 public class SetFlywheelVelocity extends Command {
-    private double m_setpoint;
+    private DoubleSupplier m_setpoint;
     private double m_tolerance;
     private Flywheel m_flywheel;
 
@@ -22,7 +24,7 @@ public class SetFlywheelVelocity extends Command {
      * @param tolerance The tolerance for error (rot/s)
      * @param flywheel  The flywheel to use
      */
-    public SetFlywheelVelocity(double setpoint, double tolerance, Flywheel flywheel) {
+    public SetFlywheelVelocity(DoubleSupplier setpoint, double tolerance, Flywheel flywheel) {
         m_setpoint = setpoint;
         m_tolerance = tolerance;
         m_flywheel = flywheel;
@@ -34,12 +36,15 @@ public class SetFlywheelVelocity extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_flywheel.updateSetpoint(m_setpoint);
+        m_flywheel.updateSetpoint(m_setpoint.getAsDouble());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (Math.abs(m_setpoint.getAsDouble() - m_flywheel.getSetpoint()) > 0.01) {
+            m_flywheel.updateSetpoint(m_setpoint.getAsDouble());
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -50,6 +55,10 @@ public class SetFlywheelVelocity extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(m_flywheel.getVelocity() - m_setpoint) < m_tolerance;
+        if (m_tolerance == 0) {
+            return false;
+        } else {
+            return Math.abs(m_flywheel.getVelocity() - m_setpoint.getAsDouble()) < m_tolerance;
+        }
     }
 }
