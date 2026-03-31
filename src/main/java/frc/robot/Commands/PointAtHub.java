@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.Preferences;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -125,7 +126,8 @@ public class PointAtHub extends Command {
                 - (m_targetHubPose.getY() - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult * ((ShootingCalibrations.kVelocityDistanceMult * m_distance) + ShootingCalibrations.kVelocityDistanceConst)))),
                 1)));
 
-
+        // Include the operater-entered value in the signal logger for checking later
+        SignalLogger.writeDouble("Shooting/FlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kFlywheelDistanceMultPrefKey, ShootingCalibrations.kFlywheelDistanceMult));
     }
 
     // Called once the command ends or is interrupted.
