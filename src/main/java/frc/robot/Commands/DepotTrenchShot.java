@@ -12,6 +12,10 @@ import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,8 +31,12 @@ public class DepotTrenchShot extends SequentialCommandGroup {
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param leftChamber  The leftChamber to use
+     * @param rightFlywheel The rightFlywheel to use
+     * @param rightHood     The rightHood to use
+     * @param rightTurret   The rightTurret to use
+     * @param rightChamber  The rightChamber to use
      */
-    public DepotTrenchShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
+    public DepotTrenchShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber, RightFlywheel rightFlywheel, RightHood rightHood, RightTurret rightTurret, RightChamber rightChamber) {
         super(
             new ParallelCommandGroup(
                 new LeftSetFlywheelVelocity(
@@ -37,12 +45,24 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                     leftFlywheel).withTimeout(0.25),
                 new LeftMoveHoodToPosition(
                     DepotTrenchShotCalibrations.kLeftHoodAngle,
-                    DepotTrenchShotCalibrations.kLeftHoodAngleTolerance, 
+                    DepotTrenchShotCalibrations.kLeftHoodAngleTolerance,
                     leftHood).withTimeout(0.25),
                 new LeftMoveTurretToPosition(
                     () -> DepotTrenchShotCalibrations.kLeftTurretAngle,
-                    DepotTrenchShotCalibrations.kLeftTurretAngleTolerance, 
-                    leftTurret).withTimeout(0.25)),
+                    DepotTrenchShotCalibrations.kLeftTurretAngleTolerance,
+                    leftTurret).withTimeout(0.25),
+                new RightSetFlywheelVelocity(
+                    () -> DepotTrenchShotCalibrations.kRightFlywheelVelocity,
+                    DepotTrenchShotCalibrations.kRightFlywheelVelocityTolerance,
+                    rightFlywheel).withTimeout(0.25),
+                new RightMoveHoodToPosition(
+                    DepotTrenchShotCalibrations.kRightHoodAngle,
+                    DepotTrenchShotCalibrations.kRightHoodAngleTolerance,
+                    rightHood).withTimeout(0.25),
+                new RightMoveTurretToPosition(
+                    () -> DepotTrenchShotCalibrations.kRightTurretAngle,
+                    DepotTrenchShotCalibrations.kRightTurretAngleTolerance,
+                    rightTurret).withTimeout(0.25)),
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
                     DepotTrenchShotCalibrations.kIndexerVelocity,
@@ -51,9 +71,11 @@ public class DepotTrenchShot extends SequentialCommandGroup {
                 new LeftSetChamberVelocity(
                     DepotTrenchShotCalibrations.kLeftChamberVelocity,
                     DepotTrenchShotCalibrations.kLeftChamberVelocityTolerance,
-                    false, leftChamber, leftTurret, leftHood, leftFlywheel))
+                    false, leftChamber, leftTurret, leftHood, leftFlywheel),
+                new RightSetChamberVelocity(
+                    DepotTrenchShotCalibrations.kRightChamberVelocity,
+                    DepotTrenchShotCalibrations.kRightChamberVelocityTolerance,
+                    false, rightChamber, rightTurret, rightHood, rightFlywheel))
         );
-        // Add your commands in the addCommands() call, e.g.
-        // addCommands(new FooCommand(), new BarCommand());
     }
 }

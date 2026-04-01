@@ -90,14 +90,14 @@ public class RobotContainer {
 
     public RobotContainer() {
 
-        NamedCommands.registerCommand("Trench Outpost Shot", 
-            new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
+        NamedCommands.registerCommand("Trench Outpost Shot",
+            new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
         NamedCommands.registerCommand("Trench Depot Shot",
-            new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Outpost Shot", 
-            new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Hub Shot", 
-            new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
+            new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("Outpost Shot",
+            new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("Hub Shot",
+            new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
         NamedCommands.registerCommand("Stop Shooting",
             new ParallelDeadlineGroup(
                 new LeftZeroHoodSequence(m_leftHood),
@@ -210,29 +210,41 @@ public class RobotContainer {
         //         .alongWith(new SetChamberVelocity(0, 90, m_leftChamber)
         //         .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        joystick.a().onTrue(new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.a().onTrue(new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood))
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))));
 
-        joystick.b().onTrue(new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.b().onTrue(new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood))
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))));
 
-        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood))
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))));
 
-        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
+        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood))
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))));
 
         // A command to find the radius of the wheels.
         //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));

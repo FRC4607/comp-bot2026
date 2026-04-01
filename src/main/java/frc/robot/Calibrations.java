@@ -260,6 +260,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 45;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 0.85;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 270;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -267,7 +291,7 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
+    /**
      * Calibrations for a shot where the the robot is under the trench and the intake
      * is facing the neutral zone and the robot is against the depot-side wall.
      */
@@ -297,6 +321,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 59;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.2;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 80;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -304,7 +352,7 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
+    /**
      * Calibrations for a shot where the the robot is under the trench and the intake
      * is facing the neutral zone and the robot is against the outpost-side wall.
      */
@@ -334,6 +382,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 64;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.25;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 277.2;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -341,8 +413,8 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
-     * Calibrations for a shot where the the robot is in the 
+    /**
+     * Calibrations for a shot where the the robot is in the
      * outpost corner and the intake is facing the tower.
      */
     public class OutpostShotCalibrations {
@@ -370,6 +442,30 @@ public class Calibrations {
 
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
+
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 81;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.25;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 48;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;

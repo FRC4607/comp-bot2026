@@ -12,6 +12,10 @@ import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -27,37 +31,52 @@ public class OutpostTrenchShot extends SequentialCommandGroup {
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param leftChamber  The leftChamber to use
+     * @param rightFlywheel The rightFlywheel to use
+     * @param rightHood     The rightHood to use
+     * @param rightTurret   The rightTurret to use
+     * @param rightChamber  The rightChamber to use
      */
-    public OutpostTrenchShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
+    public OutpostTrenchShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber, RightFlywheel rightFlywheel, RightHood rightHood, RightTurret rightTurret, RightChamber rightChamber) {
         super(
-            // Spin up leftFlywheel, move leftHood, move turret
+            // Spin up flywheels, move hoods, move turrets
             new ParallelCommandGroup(
                 new LeftSetFlywheelVelocity(
                     () -> OutpostTrenchShotCalibrations.kLeftFlywheelVelocity,
-                    OutpostTrenchShotCalibrations.kLeftFlywheelVelocityTolerance, 
+                    OutpostTrenchShotCalibrations.kLeftFlywheelVelocityTolerance,
                     leftFlywheel).withTimeout(0.25),
                 new LeftMoveHoodToPosition(
                     OutpostTrenchShotCalibrations.kLeftHoodAngle,
-                    OutpostTrenchShotCalibrations.kLeftHoodAngleTolerance, 
+                    OutpostTrenchShotCalibrations.kLeftHoodAngleTolerance,
                     leftHood).withTimeout(0.25),
                 new LeftMoveTurretToPosition(
                     () -> OutpostTrenchShotCalibrations.kLeftTurretAngle,
-                    OutpostTrenchShotCalibrations.kLeftTurretAngleTolerance, 
-                    leftTurret).withTimeout(0.25)),
-            // Once turret, leftFlywheel and leftHood are prepped, run indexer and chamber.
+                    OutpostTrenchShotCalibrations.kLeftTurretAngleTolerance,
+                    leftTurret).withTimeout(0.25),
+                new RightSetFlywheelVelocity(
+                    () -> OutpostTrenchShotCalibrations.kRightFlywheelVelocity,
+                    OutpostTrenchShotCalibrations.kRightFlywheelVelocityTolerance,
+                    rightFlywheel).withTimeout(0.25),
+                new RightMoveHoodToPosition(
+                    OutpostTrenchShotCalibrations.kRightHoodAngle,
+                    OutpostTrenchShotCalibrations.kRightHoodAngleTolerance,
+                    rightHood).withTimeout(0.25),
+                new RightMoveTurretToPosition(
+                    () -> OutpostTrenchShotCalibrations.kRightTurretAngle,
+                    OutpostTrenchShotCalibrations.kRightTurretAngleTolerance,
+                    rightTurret).withTimeout(0.25)),
+            // Once turrets, flywheels and hoods are prepped, run indexer and chambers.
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
-                    OutpostTrenchShotCalibrations.kIndexerVelocity, 
+                    OutpostTrenchShotCalibrations.kIndexerVelocity,
                     OutpostTrenchShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
                 new LeftSetChamberVelocity(
                     OutpostTrenchShotCalibrations.kLeftChamberVelocity,
-                    OutpostTrenchShotCalibrations.kLeftChamberVelocityTolerance, 
-                    false, leftChamber, leftTurret, leftHood, leftFlywheel)));
-        // Add your commands in the addCommands() call, e.g.
-        // addCommands(new FooCommand(), new BarCommand());
+                    OutpostTrenchShotCalibrations.kLeftChamberVelocityTolerance,
+                    false, leftChamber, leftTurret, leftHood, leftFlywheel),
+                new RightSetChamberVelocity(
+                    OutpostTrenchShotCalibrations.kRightChamberVelocity,
+                    OutpostTrenchShotCalibrations.kRightChamberVelocityTolerance,
+                    false, rightChamber, rightTurret, rightHood, rightFlywheel)));
     }
-    
 }
-
-
