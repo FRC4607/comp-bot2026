@@ -71,7 +71,7 @@ public class IntakeArm extends SubsystemBase {
         m_encoderConfig.MagnetSensor.MagnetOffset = IntakeArmCalibrations.kEncoderOffset;
         m_encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint
             = IntakeArmCalibrations.kEncoderDiscontinuityPoint;
-        m_encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+        m_encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 
         m_encoder.getConfigurator().apply(m_encoderConfig);
     }

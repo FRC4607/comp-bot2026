@@ -27,7 +27,7 @@ public class Constants {
         public static final int kEncoderCANID = 15;
 
         /** How many sensor rotations equal one mechanism rotation. */
-        public static final double kSensorToMechanismRatio = 2.25;
+        public static final double kSensorToMechanismRatio = 2;
 
         /** How many motor rotations equal one sensor rotation. */
         public static final double kRotorToSensorRatio = 23;
