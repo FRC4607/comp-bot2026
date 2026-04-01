@@ -90,7 +90,6 @@ public class RightHood extends SubsystemBase {
      */
     public void updateSetpoint(double newSetpoint) {
         m_motor.setControl(m_request.withPosition(newSetpoint));
-        System.out.println("set" + newSetpoint);
     }
 
     /**
