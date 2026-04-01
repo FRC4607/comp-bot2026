@@ -82,22 +82,22 @@ public class Calibrations {
     public class IndexerCalibrations {
 
         /** Max acceleration of the Indexer. */
-        public static final double kMaxAcceleration = 99999;
+        public static final double kMaxAcceleration = 200;
 
         /** Static feedforward. */
-        public static final double kS = 1;
+        public static final double kS = 20;
 
         /** Velocity feedforward. */
         public static final double kV = 0;
 
         /** Proportional gain. */
-        public static final double kP = 10;
+        public static final double kP = 15;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 0;
+        public static final double kD = 0.1;
 
         /** Amperage limit of the motors. */
         public static final double kMaxAmperage = 80;
