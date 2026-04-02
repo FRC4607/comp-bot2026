@@ -12,6 +12,10 @@ import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -29,34 +33,52 @@ public class OutpostShot extends SequentialCommandGroup {
      * @param leftTurret   The leftTurret to use
      * @param indexer  The indexer to use
      * @param leftChamber  The leftChamber to use
+     * @param rightFlywheel The rightFlywheel to use
+     * @param rightHood     The rightHood to use
+     * @param rightTurret   The rightTurret to use
+     * @param rightChamber  The rightChamber to use
      */
-    public OutpostShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber) {
+    public OutpostShot(LeftFlywheel leftFlywheel, LeftHood leftHood, LeftTurret leftTurret, Indexer indexer, LeftChamber leftChamber, RightFlywheel rightFlywheel, RightHood rightHood, RightTurret rightTurret, RightChamber rightChamber) {
         super(
-            // Spin up leftFlywheel, move leftHood, move turrets
+            // Spin up flywheels, move hoods, move turrets
             new ParallelCommandGroup(
                 new LeftSetFlywheelVelocity(
                     () -> OutpostShotCalibrations.kLeftFlywheelVelocity,
-                    OutpostShotCalibrations.kLeftFlywheelVelocityTolerance, 
+                    OutpostShotCalibrations.kLeftFlywheelVelocityTolerance,
                     leftFlywheel).withTimeout(0.25),
                 new LeftMoveHoodToPosition(
                     OutpostShotCalibrations.kLeftHoodAngle,
-                    OutpostShotCalibrations.kLeftHoodAngleTolerance, 
+                    OutpostShotCalibrations.kLeftHoodAngleTolerance,
                     leftHood).withTimeout(0.25),
                 new LeftMoveTurretToPosition(
                     () -> OutpostShotCalibrations.kLeftTurretAngle,
-                    OutpostShotCalibrations.kLeftTurretAngleTolerance, 
-                    leftTurret).withTimeout(0.25)),
-            // Once turret, leftFlywheel and leftHood are prepped, run indexer and chamber.
+                    OutpostShotCalibrations.kLeftTurretAngleTolerance,
+                    leftTurret).withTimeout(0.25),
+                new RightSetFlywheelVelocity(
+                    () -> OutpostShotCalibrations.kRightFlywheelVelocity,
+                    OutpostShotCalibrations.kRightFlywheelVelocityTolerance,
+                    rightFlywheel).withTimeout(0.25),
+                new RightMoveHoodToPosition(
+                    OutpostShotCalibrations.kRightHoodAngle,
+                    OutpostShotCalibrations.kRightHoodAngleTolerance,
+                    rightHood).withTimeout(0.25),
+                new RightMoveTurretToPosition(
+                    () -> OutpostShotCalibrations.kRightTurretAngle,
+                    OutpostShotCalibrations.kRightTurretAngleTolerance,
+                    rightTurret).withTimeout(0.25)),
+            // Once turrets, flywheels and hoods are prepped, run indexer and chambers.
             new ParallelCommandGroup(
                 new SetIndexerVelocity(
-                    OutpostShotCalibrations.kIndexerVelocity, 
+                    OutpostShotCalibrations.kIndexerVelocity,
                     OutpostShotCalibrations.kIndexerVelocityTolerance,
                     indexer),
                 new LeftSetChamberVelocity(
                     OutpostShotCalibrations.kLeftChamberVelocity,
-                    OutpostShotCalibrations.kLeftChamberVelocityTolerance, 
-                    false, leftChamber, leftTurret, leftHood, leftFlywheel)));
-        // Add your commands in the addCommands() call, e.g.
-        // addCommands(new FooCommand(), new BarCommand());
+                    OutpostShotCalibrations.kLeftChamberVelocityTolerance,
+                    false, leftChamber, leftTurret, leftHood, leftFlywheel),
+                new RightSetChamberVelocity(
+                    OutpostShotCalibrations.kRightChamberVelocity,
+                    OutpostShotCalibrations.kRightChamberVelocityTolerance,
+                    false, rightChamber, rightTurret, rightHood, rightFlywheel)));
     }
 }

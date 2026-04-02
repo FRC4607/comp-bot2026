@@ -100,4 +100,69 @@ public class Constants {
         // TODO: Conflict with Turret kEncoder1CANID
         public static final int kMotor2CANID = 5;
     }
+
+    /** Constants for the Right Chamber. */
+    public class RightChamberConstants {
+
+        /** CAN ID of the first motor. */
+        // TODO: Set correct CAN ID
+        public static final int kMotor1CANID = 0;
+    }
+
+    /** Constants for the Right Turret. */
+    public class RightTurretConstants {
+
+        /** CAN ID of the motor. */
+        // TODO: Set correct CAN ID
+        public static final int kMotorCANID = 0;
+
+        /** CAN ID of the first encoder. */
+        // TODO: Set correct CAN ID
+        public static final int kEncoder1CANID = 0;
+
+        /** CAN ID of the second encoder. */
+        // TODO: Set correct CAN ID
+        public static final int kEncoder2CANID = 0;
+
+        /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
+        public static final double kRotorToMechanism = 10.2;
+
+        /** Gear ratio of # of sensor rotations to one mechanism rotation. */
+        public static final double kEncoder1ToMechanism = 6.375;
+
+        /** Gear ratio of # of motor rotor rotations to one sensor rotation. */
+        public static final double kEncoder1ToRotor = 1.6;
+
+        /** Gear ratio of # of sensor rotations to one mechanism rotation. */
+        public static final double kEncoder2ToMechanism = 6.8;
+
+        /** How far (Degrees) the turret is away from the right plane. */
+        // TODO: Measure and set correct value
+        public static final double kRightTurretPositionYaw = 0;
+
+        /** How far (Meters) the turret is away from the center of the robot on the XY plane. */
+        // TODO: Measure and set correct value
+        public static final double kRightTurretHypotenuse = 0;
+
+    }
+
+    /** Constants for the hood on the right turret. */
+    public class RightHoodConstants {
+
+        /** CAN ID of the motor. */
+        // TODO: Set correct CAN ID
+        public static final int kMotorCANID = 0;
+    }
+
+    /** Constants for the flywheel on the right turret. */
+    public class RightFlywheelConstants {
+
+        /** CAN ID of the first motor. */
+        // TODO: Set correct CAN ID
+        public static final int kMotor1CANID = 0;
+
+        /** CAN ID of the second motor. */
+        // TODO: Set correct CAN ID
+        public static final int kMotor2CANID = 0;
+    }
 }

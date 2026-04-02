@@ -51,8 +51,8 @@ public class LeftSetChamberVelocity extends Command {
     public void execute() {
         if (m_waitForTurret) {
             if ((Math.abs(m_leftTurret.getPosition() - m_leftTurret.getSetpoint()) > 3)
-                && (Math.abs(m_leftHood.getPosition() - m_leftHood.getSetpoint()) > 0.2)
-                && (Math.abs(m_leftFlywheel.getVelocity() - m_leftFlywheel.getSetpoint()) > 3)) {
+                || (Math.abs(m_leftHood.getPosition() - m_leftHood.getSetpoint()) > 0.2)
+                || (Math.abs(m_leftFlywheel.getVelocity() - m_leftFlywheel.getSetpoint()) > 3)) {
                 m_leftChamber.updateSetpoint(0);
             } else if ((Math.abs(m_leftChamber.getSetpoint() - m_setpoint) > 0.1)) {
                 m_leftChamber.updateSetpoint(m_setpoint);

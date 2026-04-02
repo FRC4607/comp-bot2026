@@ -22,6 +22,11 @@ import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.GeneralShot;
+import frc.robot.Commands.RightMoveHoodToPosition;
+import frc.robot.Commands.RightRunFlywheelOpenLoop;
+import frc.robot.Commands.RightSetChamberOpenLoop;
+import frc.robot.Commands.RightSetChamberVelocity;
+import frc.robot.Commands.RightZeroHoodSequence;
 import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.LeftZeroHoodSequence;
 
@@ -46,6 +51,10 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeWheels;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -71,26 +80,33 @@ public class RobotContainer {
     public final Indexer m_indexer = new Indexer();
     public final LeftChamber m_leftChamber = new LeftChamber();
     public final LeftTurret m_leftTurret = new LeftTurret();
+    public final RightFlywheel m_rightFlywheel = new RightFlywheel();
+    public final RightHood m_rightHood = new RightHood();
+    public final RightChamber m_rightChamber = new RightChamber();
+    public final RightTurret m_rightTurret = new RightTurret();
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
 
-        NamedCommands.registerCommand("Trench Outpost Shot", 
-            new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
+        NamedCommands.registerCommand("Trench Outpost Shot",
+            new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
         NamedCommands.registerCommand("Trench Depot Shot",
-            new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Outpost Shot", 
-            new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Hub Shot", 
-            new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber));
-        NamedCommands.registerCommand("Stop Shooting", 
+            new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("Outpost Shot",
+            new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("Hub Shot",
+            new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("Stop Shooting",
             new ParallelDeadlineGroup(
                 new LeftZeroHoodSequence(m_leftHood),
                 new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel),
                 new SetIndexerOpenLoop(() -> 0, m_indexer),
-                new LeftSetChamberOpenLoop(() -> 0, m_leftChamber)).withTimeout(0.5));
+                new LeftSetChamberOpenLoop(() -> 0, m_leftChamber),
+                new RightZeroHoodSequence(m_rightHood),
+                new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel),
+                new RightSetChamberOpenLoop(() -> 0, m_rightChamber)).withTimeout(0.5));
         NamedCommands.registerCommand("Lower Intake Arm",
             new MoveIntakeToPosition(72, 10, m_intakeArm).withTimeout(2)
             .alongWith(new SetIntakeWheelsVelocity(5, 10, m_intakeWheels)));
