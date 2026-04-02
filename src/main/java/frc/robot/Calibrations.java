@@ -260,6 +260,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 45;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 0.85;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 270;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -267,7 +291,7 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
+    /**
      * Calibrations for a shot where the the robot is under the trench and the intake
      * is facing the neutral zone and the robot is against the depot-side wall.
      */
@@ -297,6 +321,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 59;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.2;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 80;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -304,7 +352,7 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
+    /**
      * Calibrations for a shot where the the robot is under the trench and the intake
      * is facing the neutral zone and the robot is against the outpost-side wall.
      */
@@ -334,6 +382,30 @@ public class Calibrations {
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
 
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 64;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.25;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 277.2;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
+
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
 
@@ -341,8 +413,8 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 90;
     }
 
-    /** 
-     * Calibrations for a shot where the the robot is in the 
+    /**
+     * Calibrations for a shot where the the robot is in the
      * outpost corner and the intake is facing the tower.
      */
     public class OutpostShotCalibrations {
@@ -370,6 +442,30 @@ public class Calibrations {
 
         /** Chamber Velocity Tolerance. */
         public static final double kLeftChamberVelocityTolerance = 90;
+
+        /** Right Flywheel Velocity. */
+        public static final double kRightFlywheelVelocity = 81;
+
+        /** Right Flywheel Velocity Tolerance. */
+        public static final double kRightFlywheelVelocityTolerance = 1;
+
+        /** Right Hood Angle. */
+        public static final double kRightHoodAngle = 2.25;
+
+        /** Right Hood Angle Tolerance. */
+        public static final double kRightHoodAngleTolerance = 0.1;
+
+        /** Right Turret Angle. */
+        public static final double kRightTurretAngle = 48;
+
+        /** Right Turret Angle Tolerance. */
+        public static final double kRightTurretAngleTolerance = 1;
+
+        /** Right Chamber Velocity. */
+        public static final double kRightChamberVelocity = 60;
+
+        /** Right Chamber Velocity Tolerance. */
+        public static final double kRightChamberVelocityTolerance = 90;
 
         /** Indexer Velocity. */
         public static final double kIndexerVelocity = 90;
@@ -425,6 +521,137 @@ public class Calibrations {
         public static final double kIndexerVelocityTolerance = 1;
     }
 
+    /** Calibrations for the right chamber. */
+    public class RightChamberCalibrations {
+
+        /** Max acceleration of the Indexer. */
+        public static final double kMaxAcceleration = 99999;
+
+        /** Static feedforward. */
+        public static final double kS = 10;
+
+        /** Velocity feedforward. */
+        public static final double kV = 0.2;
+
+        /** Proportional gain. */
+        public static final double kP = 10;
+
+        /** Integral gain. */
+        public static final double kI = 0;
+
+        /** Derivative gain. */
+        public static final double kD = 0;
+
+        /** Amperage limit of the motors. */
+        public static final double kMaxAmperage = 80;
+
+    }
+
+    /** Calibrations for the right turret. */
+    public class RightTurretCalibrations {
+
+        /** Gravity feedforward. */
+        public static final double kG = 0;
+
+        /** Static feedforward. */
+        public static final double kS = 10;
+
+        /** Proportional gain. */
+        public static final double kP = 10;
+
+        /** Integral gain. */
+        public static final double kI = 0;
+
+        /** Derivative gain. */
+        public static final double kD = 0;
+
+        /** Offset of the gravity feedforward. */
+        public static final double kGravityOffset = 0;
+
+        /** Max speed of the mechanism. */
+        public static final double kMaxSpeed = 0.1;
+
+        /** Max acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 0.1;
+
+        /** Max jerk of the mechanism. */
+        public static final double kMaxJerk = 0;
+
+        /** Max amperage of the motor. */
+        public static final double kMaxAmperage = 80;
+
+        /** Forward software limit - mechanism will not power forwards past this point. */
+        public static final double kForwardSoftLimit = 0;
+
+        /** Reverse software limit - mechanism will not power backwards past this point. */
+        public static final double kReverseSoftLimit = 0;
+
+        /** Offset of the first encoder. */
+        // TODO: Calibrate encoder offset
+        public static final double kEncoder1Offset = 0;
+
+        /** Discontinuity point of the first encoder. */
+        public static final double kEncoder1Discontinuity = 1;
+
+        /** Offset of the second encoder. */
+        // TODO: Calibrate encoder offset
+        public static final double kEncoder2Offset = 0;
+
+        /** Discontinuity point of the second encoder. */
+        public static final double kEncoder2Discontinuity = 1;
+
+    }
+
+    /** Calibrations for the right hood. */
+    public class RightHoodCalibrations {
+
+        /** Static Feedforward. */
+        public static final double kS = 0;
+
+        /** Proportional Gain. */
+        public static final double kP = 8;
+
+        /** Integral Gain. */
+        public static final double kI = 0;
+
+        /** Derivative Gain. */
+        public static final double kD = 0;
+
+        /** Maximum velocity of the mechanism. */
+        public static final double kMaxSpeed = 20;
+
+        /** Maximum acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 9999;
+
+        /** Max Stator Current of the mechanism. */
+        public static final double kMaxAmperage = 80;
+    }
+
+    /** Calibrations for the right flywheel. */
+    public class RightFlywheelCalibrations {
+
+        /** Static Feedforward. */
+        public static final double kS = 0.9;
+
+        /** Velocity Feedforward. */
+        public static final double kV = 0.05;
+
+        /** Proportional Gain. */
+        public static final double kP = 13;
+
+        /** Integral Gain. */
+        public static final double kI = 0;
+
+        /** Derivative Gain. */
+        public static final double kD = 0;
+
+        /** Max acceleration of the mechanism. */
+        public static final double kMaxAcceleration = 0;
+
+        /** Current limit of each motor. */
+        public static final double kMaxAmperage = 80;
+    }
+
     /** Calibrations for a shoot from anywhere command. */
     public class ShootingCalibrations {
         
@@ -442,7 +669,20 @@ public class Calibrations {
         public static final double kLeftFlywheelDistanceMult = 13; // 11
         public static final String kLeftFlywheelDistanceMultPrefKey = "Left Flywheel Distance Multiplier";
 
-        /** 
+        /**
+         * Add this much to the predicted right flywheel velocity.
+         * Increasing this increases shot distance at all ranges.
+         */
+        public static final double kRightFlywheelConstant = 22.5;
+
+        /**
+         * Add this much per meter of distance from the Hub, after velocity offset.
+         * Increasing this increases shot distance at long range.
+         */
+        public static final double kRightFlywheelDistanceMult = 13;
+        public static final String kRightFlywheelDistanceMultPrefKey = "Right Flywheel Distance Multiplier";
+
+        /**
          * Correction amount for velocity offset. 
          * Increasing will make it counter velocity more overall.
          */
