@@ -159,10 +159,10 @@ public class Constants {
 
         /** CAN ID of the first motor. */
         // TODO: Set correct CAN ID
-        public static final int kMotor1CANID = 0;
+        public static final int kMotor1CANID = 19;
 
         /** CAN ID of the second motor. */
         // TODO: Set correct CAN ID
-        public static final int kMotor2CANID = 0;
+        public static final int kMotor2CANID = 18;
     }
 }

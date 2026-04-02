@@ -18,6 +18,7 @@ import frc.robot.Commands.PassWithGyro;
 import frc.robot.Commands.LeftRunFlywheelOpenLoop;
 import frc.robot.Commands.LeftSetChamberOpenLoop;
 import frc.robot.Commands.LeftSetChamberVelocity;
+import frc.robot.Commands.LeftSetFlywheelVelocity;
 import frc.robot.Commands.SetIndexerOpenLoop;
 import frc.robot.Commands.SetIndexerVelocity;
 import frc.robot.Commands.SetIntakeWheelsOpenLoop;
@@ -27,6 +28,7 @@ import frc.robot.Commands.RightMoveHoodToPosition;
 import frc.robot.Commands.RightRunFlywheelOpenLoop;
 import frc.robot.Commands.RightSetChamberOpenLoop;
 import frc.robot.Commands.RightSetChamberVelocity;
+import frc.robot.Commands.RightSetFlywheelVelocity;
 import frc.robot.Commands.RightZeroHoodSequence;
 import frc.robot.Commands.WheelRadiusCalibration;
 import frc.robot.Commands.LeftZeroHoodSequence;
@@ -180,7 +182,17 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 /*.alongWith(new SetIndexerVelocity(0, 0, m_indexer)) */);
+        joystick.a()
+            .onTrue(new LeftSetFlywheelVelocity(() -> 30, 0, m_leftFlywheel));
 
+        joystick.x()
+            .onTrue(new LeftSetFlywheelVelocity(() -> 60, 0, m_leftFlywheel));
+
+        joystick.y()
+            .onTrue(new LeftSetFlywheelVelocity(() -> 90, 0, m_leftFlywheel));
+
+        joystick.b()
+            .onTrue(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel));
         // joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
         //     .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
