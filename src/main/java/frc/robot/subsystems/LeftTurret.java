@@ -57,7 +57,7 @@ public class LeftTurret extends SubsystemBase {
 
         m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
         m_talonFXConfig.Slot0.GravityArmPositionOffset = LeftTurretCalibrations.kGravityOffset;
 
@@ -133,8 +133,8 @@ public class LeftTurret extends SubsystemBase {
      * @return the current position of the turret
      */
     public double getPosition() {
-        m_position = (m_encoder2.getAbsolutePosition().getValueAsDouble())
-                - (m_encoder1.getAbsolutePosition().getValueAsDouble());
+        m_position = (m_encoder1.getAbsolutePosition().getValueAsDouble())
+                - (m_encoder2.getAbsolutePosition().getValueAsDouble());
 
         if (m_position >= 0) {
             return (m_position * 2.35) * 360;

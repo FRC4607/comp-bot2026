@@ -57,7 +57,7 @@ public class RightTurret extends SubsystemBase {
         m_talonFXConfig.ClosedLoopGeneral.ContinuousWrap = false;
 
         // TODO: Verify motor and encoder inversion direction for right turret
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         m_talonFXConfig.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
         m_talonFXConfig.Slot0.GravityArmPositionOffset = RightTurretCalibrations.kGravityOffset;
 
@@ -100,6 +100,11 @@ public class RightTurret extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+
+        SmartDashboard.putNumber("Turret Encoder Position", getPosition());
+        SmartDashboard.putNumber("Turret Motor Position", m_motor.getPosition().getValueAsDouble() * 360);
+        SmartDashboard.putNumber("Encoder 1", m_encoder1.getAbsolutePosition().getValueAsDouble());
+        SmartDashboard.putNumber("Encoder 2", m_encoder2.getAbsolutePosition().getValueAsDouble());
     }
 
     /**
@@ -128,8 +133,8 @@ public class RightTurret extends SubsystemBase {
      * @return the current position of the turret
      */
     public double getPosition() {
-        m_position = (m_encoder2.getAbsolutePosition().getValueAsDouble())
-                - (m_encoder1.getAbsolutePosition().getValueAsDouble());
+        m_position = (m_encoder1.getAbsolutePosition().getValueAsDouble())
+                - (m_encoder2.getAbsolutePosition().getValueAsDouble());
 
         if (m_position >= 0) {
             return (m_position * 2.35) * 360;

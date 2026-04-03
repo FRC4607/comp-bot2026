@@ -75,7 +75,7 @@ public class Constants {
         public static final double kEncoder2ToMechanism = 6.8;
 
         /** How far (Degrees) the turret is away from the right plane. */
-        public static final double kLeftTurretPositionYaw = 50.29;
+        public static final double kLeftTurretPositionYaw = -50.29;
 
         /** How far (Meters) the turret is away from the center of the robot on the XY plane. */
         public static final double kLeftTurretHypotenuse = 0.2744978;
@@ -106,7 +106,7 @@ public class Constants {
 
         /** CAN ID of the first motor. */
         // TODO: Set correct CAN ID
-        public static final int kMotor1CANID = 0;
+        public static final int kMotor1CANID = 17;
     }
 
     /** Constants for the Right Turret. */
@@ -114,15 +114,15 @@ public class Constants {
 
         /** CAN ID of the motor. */
         // TODO: Set correct CAN ID
-        public static final int kMotorCANID = 0;
+        public static final int kMotorCANID = 16;
 
         /** CAN ID of the first encoder. */
         // TODO: Set correct CAN ID
-        public static final int kEncoder1CANID = 0;
+        public static final int kEncoder1CANID = 41;
 
         /** CAN ID of the second encoder. */
         // TODO: Set correct CAN ID
-        public static final int kEncoder2CANID = 0;
+        public static final int kEncoder2CANID = 42;
 
         /** Gear ratio of # of motor rotor rotations to one mechanism rotation. */
         public static final double kRotorToMechanism = 10.2;
@@ -138,11 +138,11 @@ public class Constants {
 
         /** How far (Degrees) the turret is away from the right plane. */
         // TODO: Measure and set correct value
-        public static final double kRightTurretPositionYaw = 0;
+        public static final double kRightTurretPositionYaw = 50.29;
 
         /** How far (Meters) the turret is away from the center of the robot on the XY plane. */
         // TODO: Measure and set correct value
-        public static final double kRightTurretHypotenuse = 0;
+        public static final double kRightTurretHypotenuse = 0.2744978;
 
     }
 
@@ -151,7 +151,7 @@ public class Constants {
 
         /** CAN ID of the motor. */
         // TODO: Set correct CAN ID
-        public static final int kMotorCANID = 0;
+        public static final int kMotorCANID = 9;
     }
 
     /** Constants for the flywheel on the right turret. */

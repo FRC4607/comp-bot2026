@@ -11,6 +11,7 @@ import frc.robot.Calibrations.ShootingCalibrations;
 import frc.robot.Commands.DepotTrenchShot;
 import frc.robot.Commands.HubShot;
 import frc.robot.Commands.LeftMoveHoodToPosition;
+import frc.robot.Commands.LeftMoveTurretToPosition;
 import frc.robot.Commands.MoveIntakeToPosition;
 import frc.robot.Commands.OutpostShot;
 import frc.robot.Commands.OutpostTrenchShot;
@@ -25,6 +26,7 @@ import frc.robot.Commands.SetIntakeWheelsOpenLoop;
 import frc.robot.Commands.SetIntakeWheelsVelocity;
 import frc.robot.Commands.GeneralShot;
 import frc.robot.Commands.RightMoveHoodToPosition;
+import frc.robot.Commands.RightMoveTurretToPosition;
 import frc.robot.Commands.RightRunFlywheelOpenLoop;
 import frc.robot.Commands.RightSetChamberOpenLoop;
 import frc.robot.Commands.RightSetChamberVelocity;
@@ -182,17 +184,7 @@ public class RobotContainer {
             .onFalse(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels)
                 .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 /*.alongWith(new SetIndexerVelocity(0, 0, m_indexer)) */);
-        joystick.a()
-            .onTrue(new LeftSetFlywheelVelocity(() -> 30, 0, m_leftFlywheel));
 
-        joystick.x()
-            .onTrue(new LeftSetFlywheelVelocity(() -> 60, 0, m_leftFlywheel));
-
-        joystick.y()
-            .onTrue(new LeftSetFlywheelVelocity(() -> 90, 0, m_leftFlywheel));
-
-        joystick.b()
-            .onTrue(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel));
         // joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
         //     .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
@@ -266,7 +258,7 @@ public class RobotContainer {
 
         // // SmartDashboard Commands
         // SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
-        // SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_leftTurret.resetsetPosition()));
+        SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_leftTurret.resetsetPosition()).andThen(new InstantCommand(() -> m_rightTurret.resetsetPosition())));
         // SmartDashboard.putData("Zero Hood", new LeftZeroHoodSequence(m_leftHood));
     }
 

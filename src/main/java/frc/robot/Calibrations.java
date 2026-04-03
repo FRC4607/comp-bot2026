@@ -140,22 +140,22 @@ public class Calibrations {
         public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 10; // 3500
+        public static final double kP = 2400;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 0;
+        public static final double kD = 120;
 
         /** Offset of the gravity feedforward. */
-        public static final double kGravityOffset = 0; // -0.26;
+        public static final double kGravityOffset = 0;
 
         /** Max speed of the mechanism. */
-        public static final double kMaxSpeed = 0.1; // 10;
+        public static final double kMaxSpeed = 10;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 0.1; // 30;
+        public static final double kMaxAcceleration = 30;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 0;
@@ -170,13 +170,13 @@ public class Calibrations {
         public static final double kReverseSoftLimit = 0;
 
         /** Offset of the first encoder. */
-        public static final double kEncoder1Offset = 0.09;
+        public static final double kEncoder1Offset = -0.069092;
 
         /** Discontinuity point of the first encoder. */
         public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
-        public static final double kEncoder2Offset = 0.5458;
+        public static final double kEncoder2Offset = -0.848145;
 
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;
@@ -269,22 +269,22 @@ public class Calibrations {
         public static final double kS = 10;
 
         /** Proportional gain. */
-        public static final double kP = 10;
+        public static final double kP = 2400;
 
         /** Integral gain. */
         public static final double kI = 0;
 
         /** Derivative gain. */
-        public static final double kD = 0;
+        public static final double kD = 100;
 
         /** Offset of the gravity feedforward. */
         public static final double kGravityOffset = 0;
 
         /** Max speed of the mechanism. */
-        public static final double kMaxSpeed = 0.1;
+        public static final double kMaxSpeed = 10;
 
         /** Max acceleration of the mechanism. */
-        public static final double kMaxAcceleration = 0.1;
+        public static final double kMaxAcceleration = 25;
 
         /** Max jerk of the mechanism. */
         public static final double kMaxJerk = 0;
@@ -300,14 +300,14 @@ public class Calibrations {
 
         /** Offset of the first encoder. */
         // TODO: Calibrate encoder offset
-        public static final double kEncoder1Offset = 0;
+        public static final double kEncoder1Offset = -0.920898;
 
         /** Discontinuity point of the first encoder. */
         public static final double kEncoder1Discontinuity = 1;
 
         /** Offset of the second encoder. */
         // TODO: Calibrate encoder offset
-        public static final double kEncoder2Offset = 0;
+        public static final double kEncoder2Offset = -0.502197;
 
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;

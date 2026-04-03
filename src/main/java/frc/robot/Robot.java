@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         m_robotContainer.m_leftTurret.resetsetPosition();
+        m_robotContainer.m_rightTurret.resetsetPosition();
 
         Preferences.initDouble(
             ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult);
@@ -142,6 +143,10 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_leftTurret.updateSetpoint(m_robotContainer.m_leftTurret.getPosition());
         m_robotContainer.m_leftHood.updateSetpoint(0);
         m_robotContainer.m_leftFlywheel.runOpenLoop(0);
+        m_robotContainer.m_rightChamber.runOpenLoop(0);
+        m_robotContainer.m_rightTurret.updateSetpoint(m_robotContainer.m_rightTurret.getPosition());
+        m_robotContainer.m_rightHood.updateSetpoint(0);
+        m_robotContainer.m_rightFlywheel.runOpenLoop(0);
 
         // FMS Data Logging for debugging and post-match analysis
         SignalLogger.writeString("FMS/EventName", DriverStation.getEventName());
