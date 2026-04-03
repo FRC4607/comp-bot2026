@@ -178,7 +178,7 @@ public class RobotContainer {
         //     .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
         joystick.rightBumper()
-            .onTrue(new MoveIntakeToPosition(60, 20, m_intakeArm)
+            .onTrue(new MoveIntakeToPosition(70, 20, m_intakeArm)
                 .alongWith(new SetIntakeWheelsVelocity(90, 80, m_intakeWheels))
                 /* .alongWith(new SetIndexerVelocity(90.0, 0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels)
@@ -188,11 +188,13 @@ public class RobotContainer {
         // joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels))
         //     .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels));
 
-        // // joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
-        // //     .onFalse(new RunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
-        // //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        // //         .alongWith(new SetChamberVelocity(0, 90, m_leftChamber)
-        // //         .alongWith(new MoveHoodToPosition(0, 0.1, m_leftHood)))));
+        joystick.y().onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel))
+            .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))))));
         
         // operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
         //     .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)

@@ -35,7 +35,7 @@ public class RightFlywheel extends SubsystemBase {
         m_request = new VelocityTorqueCurrentFOC(0);
 
         // TODO: Verify motor inversion direction for right flywheel
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
         // Gains
         m_talonFXConfig.Slot0.kS = RightFlywheelCalibrations.kS;

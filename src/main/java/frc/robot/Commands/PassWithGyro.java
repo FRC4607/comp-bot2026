@@ -15,6 +15,10 @@ import frc.robot.subsystems.LeftFlywheel;
 import frc.robot.subsystems.LeftHood;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.LeftTurret;
+import frc.robot.subsystems.RightChamber;
+import frc.robot.subsystems.RightFlywheel;
+import frc.robot.subsystems.RightHood;
+import frc.robot.subsystems.RightTurret;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -25,35 +29,54 @@ public class PassWithGyro extends ParallelCommandGroup {
     
     /** Creates a new PassWithGyro. */
     public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood,
-            LeftFlywheel leftFlywheel) {
+            LeftFlywheel leftFlywheel, RightChamber rightChamber, RightTurret rightTurret, RightHood rightHood, RightFlywheel rightFlywheel) {
         super(
                 new LeftMoveTurretToPosition(
-                        () -> drivetrain.getState().Pose.getRotation().getDegrees(),
+                        () -> -drivetrain.getState().Pose.getRotation().getDegrees(),
                         0,
                         leftTurret),
+                new RightMoveTurretToPosition(() -> -drivetrain.getState().Pose.getRotation().getDegrees(), 0, rightTurret),
                 new SequentialCommandGroup(
-                        new ParallelCommandGroup(
-                                new LeftMoveHoodToPosition(
-                                        PassWithGyroCalibrations.kLeftHoodAngle,
-                                        PassWithGyroCalibrations.kLeftHoodTolerance,
-                                        leftHood)
-                                        .withTimeout(
-                                                PassWithGyroCalibrations.kLeftHoodTimeout),
-                                new LeftSetFlywheelVelocity(
-                                        () -> PassWithGyroCalibrations.kLeftFlywheelVelocity,
-                                        PassWithGyroCalibrations.kLeftFlywheelVelocityTolerance,
-                                        leftFlywheel)
-                                        .withTimeout(
-                                                PassWithGyroCalibrations.kLeftFlywheelTimeout)),
-                        new ParallelCommandGroup(
-                                new LeftSetChamberVelocity(
-                                        PassWithGyroCalibrations.kLeftChamberVelocity,
-                                        PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
-                                        true, leftChamber, leftTurret, leftHood, leftFlywheel),
-                                new SetIndexerVelocity(
-                                        PassWithGyroCalibrations.kIndexerVelocity,
-                                        PassWithGyroCalibrations.kIndexerVelocityTolerance,
-                                        indexer))));
+                    new ParallelCommandGroup(
+                        new SequentialCommandGroup(
+                                new ParallelCommandGroup(
+                                        new LeftMoveHoodToPosition(
+                                                PassWithGyroCalibrations.kLeftHoodAngle,
+                                                PassWithGyroCalibrations.kLeftHoodTolerance,
+                                                leftHood)
+                                                .withTimeout(
+                                                        PassWithGyroCalibrations.kLeftHoodTimeout),
+                                        new LeftSetFlywheelVelocity(
+                                                () -> PassWithGyroCalibrations.kLeftFlywheelVelocity,
+                                                PassWithGyroCalibrations.kLeftFlywheelVelocityTolerance,
+                                                leftFlywheel)
+                                                .withTimeout(
+                                                        PassWithGyroCalibrations.kLeftFlywheelTimeout)),
+                                new ParallelCommandGroup(
+                                        new LeftSetChamberVelocity(
+                                                PassWithGyroCalibrations.kLeftChamberVelocity,
+                                                PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
+                                                true, leftChamber, leftTurret, leftHood, leftFlywheel))),
+                        new SequentialCommandGroup(
+                                new ParallelCommandGroup(
+                                        new RightMoveHoodToPosition(
+                                                PassWithGyroCalibrations.kLeftHoodAngle,
+                                                PassWithGyroCalibrations.kLeftHoodTolerance,
+                                                rightHood)
+                                                .withTimeout(
+                                                        PassWithGyroCalibrations.kLeftHoodTimeout),
+                                        new RightSetFlywheelVelocity(
+                                                () -> PassWithGyroCalibrations.kLeftFlywheelVelocity,
+                                                PassWithGyroCalibrations.kLeftFlywheelVelocityTolerance,
+                                                rightFlywheel)
+                                                .withTimeout(
+                                                        PassWithGyroCalibrations.kLeftFlywheelTimeout)),
+                                new ParallelCommandGroup(
+                                        new RightSetChamberVelocity(
+                                                PassWithGyroCalibrations.kLeftChamberVelocity,
+                                                PassWithGyroCalibrations.kLeftChamberVelocityTolerance,
+                                                true, rightChamber, rightTurret, rightHood, rightFlywheel)))).withTimeout(0.5),
+                    new SetIndexerVelocity(90, 10, indexer)));
 
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());

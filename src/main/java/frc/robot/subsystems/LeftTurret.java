@@ -113,7 +113,7 @@ public class LeftTurret extends SubsystemBase {
      * @param newSetpoint The new setpoint, in mechanism rotations.
      */
     public void updateSetpoint(double newSetpoint) {
-        m_motor.setControl(m_request.withPosition(((newSetpoint / 360) + 1) % 1));
+        m_motor.setControl(m_request.withPosition((((newSetpoint + LeftTurretCalibrations.kClosedLoopOffset) / 360) + 1) % 1));
     }
 
     /**

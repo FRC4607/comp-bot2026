@@ -181,6 +181,9 @@ public class Calibrations {
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;
 
+        /** An offset for the final position of the turret. */
+        public static final double kClosedLoopOffset = 90;
+
     }
 
     /** Calibrations for the LeftHood. */
@@ -312,6 +315,8 @@ public class Calibrations {
         /** Discontinuity point of the second encoder. */
         public static final double kEncoder2Discontinuity = 1;
 
+        /** An offset for the final position of the turret. */
+        public static final double kClosedLoopOffset = 90;
     }
 
     /** Calibrations for the right hood. */

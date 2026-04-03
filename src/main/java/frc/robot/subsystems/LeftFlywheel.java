@@ -36,7 +36,7 @@ public class LeftFlywheel extends SubsystemBase {
 
         m_request = new VelocityTorqueCurrentFOC(0);
 
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
         // Gains
         m_talonFXConfig.Slot0.kS = LeftFlywheelCalibrations.kS;

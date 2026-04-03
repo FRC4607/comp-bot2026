@@ -36,7 +36,7 @@ public class RightChamber extends SubsystemBase {
         m_talonFXConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
         m_talonFXConfig.Feedback.SensorToMechanismRatio = 1;
 
-        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        m_talonFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
         // Gains
         m_talonFXConfig.Slot0.kS = RightChamberCalibrations.kS;
