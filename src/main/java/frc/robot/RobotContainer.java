@@ -142,6 +142,8 @@ public class RobotContainer {
         Trigger operatorRedL = new Trigger(() -> m_operator.getRawButton(1));
         Trigger operatorRedR = new Trigger(() -> m_operator.getRawButton(2));
 
+        Trigger operatorBlueL = new Trigger(() -> m_operator.getRawButton(7));
+
         Trigger operator3Way1Up = new Trigger(() -> m_operator.getRawButton(15));
         Trigger operator3Way1Down = new Trigger(() -> m_operator.getRawButton(16));
         Trigger operator3Way2Up = new Trigger(() -> m_operator.getRawButton(17));
@@ -190,16 +192,26 @@ public class RobotContainer {
         // joystick.back().onTrue(new MoveIntakeToPosition(0, 10, m_intakeArm)
         //     .alongWith(new SetIntakeWheelsOpenLoop(() -> 0.0, m_intakeWheels)));
 
-        joystick.rightBumper()
+        joystick.rightBumper().and(operatorBlueL)
             .onTrue(new MoveIntakeToPosition(70, 20, m_intakeArm)
                 .alongWith(new SetIntakeWheelsVelocity(90, 80, m_intakeWheels))
                 /* .alongWith(new SetIndexerVelocity(90.0, 0, m_indexer)) */)
             .onFalse(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels)
-                .alongWith(new MoveIntakeToPosition(0, 10, m_intakeArm))
                 /*.alongWith(new SetIndexerVelocity(0, 0, m_indexer)) */);
 
+        joystick.rightBumper().and(operatorBlueL.negate())
+            .onTrue(new MoveIntakeToPosition(70, 20, m_intakeArm)
+                .alongWith(new SetIntakeWheelsVelocity(90, 80, m_intakeWheels))
+                /* .alongWith(new SetIndexerVelocity(0, 0, m_indexer)) */)
+            .onFalse(new MoveIntakeToPosition(0, 20, m_intakeArm)
+                .alongWith(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels))
+                /* .alongWith(new SetIndexerVelocity(90.0, 0, m_indexer)) */);
+
+        operatorBlueL.onFalse(new MoveIntakeToPosition(0, 10, m_intakeArm)
+            .alongWith(new SetIntakeWheelsVelocity(10, 10, m_intakeWheels)));
+
         joystick.leftBumper().onTrue(new SetIntakeWheelsVelocity(-10, 10, m_intakeWheels)
-                .alongWith(new SetIndexerVelocity(-10, 10, m_indexer))
+                .alongWith(new SetIndexerVelocity(-30, 10, m_indexer))
                 .alongWith(new LeftSetChamberVelocity(-10, 10, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
                 .alongWith(new RightSetChamberVelocity(-10, 10, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)))
             .onFalse(new SetIntakeWheelsVelocity(0, 10, m_intakeWheels)
@@ -264,7 +276,8 @@ public class RobotContainer {
         // // A command to find the radius of the wheels.
         // //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
-        // joystick.back().onTrue(new LeftZeroHoodSequence(m_leftHood));
+        joystick.back().onTrue(new LeftZeroHoodSequence(m_leftHood)
+            .alongWith(new RightZeroHoodSequence(m_rightHood)));
 
         operator3Way1Up.onTrue(
             new InstantCommand(() -> m_leftChamber.disable(false))

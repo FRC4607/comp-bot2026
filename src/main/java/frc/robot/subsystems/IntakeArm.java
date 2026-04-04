@@ -85,6 +85,10 @@ public class IntakeArm extends SubsystemBase {
         m_motor1.setControl(m_request.withPosition(newSetpoint / 360));
     }
 
+    public double getSetpoint() {
+        return m_motor1.getClosedLoopReference().getValueAsDouble() * 360;
+    }
+
     /**
      * Gets the position of the Intake Arm in degrees.
      *
