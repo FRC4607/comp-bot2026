@@ -42,6 +42,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -290,31 +291,31 @@ public class RobotContainer {
             .alongWith(new InstantCommand(() -> m_rightFlywheel.disable(true))));
 
         operatorLKnobUp.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
                 + 0.1)));
         operatorLKnobDown.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
                 - 0.1)));
 
         operatorRKnobUp.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
                 + 0.1)));
         operatorRKnobDown.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
                 - 0.1)));
@@ -325,33 +326,33 @@ public class RobotContainer {
         // SmartDashboard.putData("Zero Hood", new LeftZeroHoodSequence(m_leftHood));
 
         SmartDashboard.putData("Increase Left Shot Power", new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
                 + 0.1)));
 
         SmartDashboard.putData("Decrease Left Shot Power", new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
                 - 0.1)));
 
         SmartDashboard.putData("Increase Right Shot Power", new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
                 + 0.1)));
 
         SmartDashboard.putData("Decrease Right Shot Power", new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
                 - 0.1)));

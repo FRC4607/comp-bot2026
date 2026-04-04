@@ -76,6 +76,14 @@ public class Robot extends TimedRobot {
 
         // Code to run every 0.25 seconds (250 milliseconds)
         if ((m_loopCounter % 50) == 0) {
+
+            SmartDashboard.putNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
+                Preferences.getDouble(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
+                    ShootingCalibrations.kLeftFlywheelDistanceMult));
+                    
+            SmartDashboard.putNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
+                Preferences.getDouble(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
+                    ShootingCalibrations.kRightFlywheelDistanceMult));
             
             SmartDashboard.putBoolean("Hub State", isHubActive());
             SmartDashboard.putNumber("Time Until Switch", m_countDown);
