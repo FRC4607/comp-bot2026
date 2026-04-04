@@ -141,7 +141,7 @@ public class PointAtHub extends Command {
                 1)));
 
         // Include the operater-entered value in the signal logger for checking later
-        SignalLogger.writeDouble("Shooting/FlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
+        SignalLogger.writeDouble("Shooting/LeftFlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
 
         m_rightDistance = Math.hypot(
                 m_drivetrain.getState().Pose.getX() 
@@ -187,6 +187,9 @@ public class PointAtHub extends Command {
                 - (Math.cos((((m_drivetrainAngle + m_rightShotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
                 - (m_rightOffsetHubY)),
                 1)));
+
+        // Include the operater-entered value in the signal logger for checking later
+        SignalLogger.writeDouble("Shooting/RightFlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult));
     }
 
     // Called once the command ends or is interrupted.

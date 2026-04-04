@@ -22,6 +22,8 @@ public class RightChamber extends SubsystemBase {
 
     private final VelocityTorqueCurrentFOC m_request;
 
+    private boolean m_disable = false;
+
     /** Creates and configures settings for the right chamber. */
     public RightChamber() {
 
@@ -52,7 +54,11 @@ public class RightChamber extends SubsystemBase {
     }
 
     public void updateSetpoint(double newSetpoint) {
-        m_motor1.setControl(m_request.withVelocity(newSetpoint));
+        if (!m_disable) {
+            m_motor1.setControl(m_request.withVelocity(newSetpoint));
+        } else {
+            m_motor1.set(0);
+        }
     }
 
     public double getSetpoint() {
@@ -60,12 +66,20 @@ public class RightChamber extends SubsystemBase {
     }
 
     public void runOpenLoop(double dutyCycle) {
-        m_motor1.set(dutyCycle);
+        if (!m_disable) {
+            m_motor1.set(dutyCycle);
+        } else {
+            m_motor1.set(0);
+        }
     }
 
     public double getVelocity() {
         return m_motor1.getVelocity().getValueAsDouble();
 
+    }
+
+    public void disable(boolean disable) {
+        m_disable = disable;
     }
 
     @Override

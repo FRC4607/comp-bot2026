@@ -37,6 +37,8 @@ public class LeftTurret extends SubsystemBase {
 
     private double m_position;
 
+    private boolean m_disable = false;
+
     /** Creates and configures the turret subsystem. */
     public LeftTurret() {
 
@@ -113,7 +115,14 @@ public class LeftTurret extends SubsystemBase {
      * @param newSetpoint The new setpoint, in mechanism rotations.
      */
     public void updateSetpoint(double newSetpoint) {
-        m_motor.setControl(m_request.withPosition((((newSetpoint + LeftTurretCalibrations.kClosedLoopOffset) / 360) + 1) % 1));
+
+        if (!m_disable) {
+            // Converts incoming setpoint to rotations, modulus to get it close to zero, 
+            // add one in case of negative, modulus by one again in case of a positive.
+            m_motor.setControl(m_request.withPosition(((((newSetpoint + LeftTurretCalibrations.kClosedLoopOffset) / 360) % 1) + 1) % 1));
+        } else {
+            m_motor.set(0);
+        }
     }
 
     /**
@@ -122,7 +131,11 @@ public class LeftTurret extends SubsystemBase {
      * @param dutyCycle The power to drive the motor at.
      */
     public void runOpenLoop(double dutyCycle) {
-        m_motor.set(dutyCycle);
+        if (!m_disable) {
+            m_motor.set(dutyCycle);
+        } else {
+            m_motor.set(0);
+        }
     }
 
     /**
@@ -161,6 +174,10 @@ public class LeftTurret extends SubsystemBase {
         } else {
             m_motor.setPosition(getPosition() / 360);
         }
+    }
+
+    public void disable(boolean disable) {
+        m_disable = disable;
     }
 
 }

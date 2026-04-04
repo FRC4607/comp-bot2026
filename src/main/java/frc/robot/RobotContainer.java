@@ -141,6 +141,11 @@ public class RobotContainer {
         Trigger operatorRedL = new Trigger(() -> m_operator.getRawButton(1));
         Trigger operatorRedR = new Trigger(() -> m_operator.getRawButton(2));
 
+        Trigger operator3Way1Up = new Trigger(() -> m_operator.getRawButton(15));
+        Trigger operator3Way1Down = new Trigger(() -> m_operator.getRawButton(16));
+        Trigger operator3Way2Up = new Trigger(() -> m_operator.getRawButton(17));
+        Trigger operator3Way2Down = new Trigger(() -> m_operator.getRawButton(18));
+
         Trigger operatorLKnobDown = new Trigger(() -> m_operator.getRawButton(21));
         Trigger operatorLKnobUp = new Trigger(() -> m_operator.getRawButton(22));
         Trigger operatorRKnobDown = new Trigger(() -> m_operator.getRawButton(23));
@@ -259,6 +264,30 @@ public class RobotContainer {
         // //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
 
         // joystick.back().onTrue(new LeftZeroHoodSequence(m_leftHood));
+
+        operator3Way1Up.onTrue(
+            new InstantCommand(() -> m_leftChamber.disable(false))
+            .alongWith(new InstantCommand(() -> m_leftTurret.disable(false)))
+            .alongWith(new InstantCommand(() -> m_leftHood.disable(false)))
+            .alongWith(new InstantCommand(() -> m_leftFlywheel.disable(false))));
+
+        operator3Way1Down.onTrue(
+            new InstantCommand(() -> m_leftChamber.disable(true))
+            .alongWith(new InstantCommand(() -> m_leftTurret.disable(true)))
+            .alongWith(new InstantCommand(() -> m_leftHood.disable(true)))
+            .alongWith(new InstantCommand(() -> m_leftFlywheel.disable(true))));
+
+        operator3Way2Up.onTrue(
+            new InstantCommand(() -> m_rightChamber.disable(false))
+            .alongWith(new InstantCommand(() -> m_rightTurret.disable(false)))
+            .alongWith(new InstantCommand(() -> m_rightHood.disable(false)))
+            .alongWith(new InstantCommand(() -> m_rightFlywheel.disable(false))));
+
+        operator3Way2Down.onTrue(
+            new InstantCommand(() -> m_rightChamber.disable(true))
+            .alongWith(new InstantCommand(() -> m_rightTurret.disable(true)))
+            .alongWith(new InstantCommand(() -> m_rightHood.disable(true)))
+            .alongWith(new InstantCommand(() -> m_rightFlywheel.disable(true))));
 
         operatorLKnobUp.onTrue(new InstantCommand(
             () -> SmartDashboard.putNumber(

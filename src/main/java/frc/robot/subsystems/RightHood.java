@@ -26,6 +26,8 @@ public class RightHood extends SubsystemBase {
 
     private final MotionMagicVoltage m_request;
 
+    private boolean m_disable = false;
+
     /** Creates and configures the right hood subsystem. */
     public RightHood() {
 
@@ -89,7 +91,11 @@ public class RightHood extends SubsystemBase {
      * @param newSetpoint The position to drive towards (0, 2.2)
      */
     public void updateSetpoint(double newSetpoint) {
-        m_motor.setControl(m_request.withPosition(newSetpoint));
+        if (!m_disable) {
+            m_motor.setControl(m_request.withPosition(newSetpoint));
+        } else {
+            m_motor.set(0);
+        }
     }
 
     /**
@@ -107,7 +113,11 @@ public class RightHood extends SubsystemBase {
      * @param dutyCycle The power to run at (-1, 1)
      */
     public void runOpenLoop(double dutyCycle) {
-        m_motor.set(dutyCycle);
+        if (!m_disable) {
+            m_motor.set(dutyCycle);
+        } else {
+            m_motor.set(0);
+        }
     }
 
     /**
@@ -117,6 +127,10 @@ public class RightHood extends SubsystemBase {
      */
     public void resetPosition(double newPosition) {
         m_motor.setPosition(newPosition);
+    }
+
+    public void disable(boolean disable) {
+        m_disable = disable;
     }
 
     @Override
