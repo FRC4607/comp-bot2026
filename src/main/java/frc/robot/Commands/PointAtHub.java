@@ -123,10 +123,10 @@ public class PointAtHub extends Command {
 
             /* ArcTangent to find field relative turret angle */
             - ((((Math.atan(((m_drivetrain.getState().Pose.getY() 
-                - (Math.sin((((m_drivetrainAngle + m_leftShotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse)) 
+                + (Math.sin((((m_drivetrainAngle + m_leftShotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse)) 
                 - (m_leftOffsetHubY)) 
             / (m_drivetrain.getState().Pose.getX() 
-                - (Math.cos((((m_drivetrainAngle + m_leftShotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
+                + (Math.cos((((m_drivetrainAngle + m_leftShotOffset + 180) / 180) * Math.PI) + LeftTurretConstants.kLeftTurretPositionYaw) * LeftTurretConstants.kLeftTurretHypotenuse) 
                 - (m_leftOffestHubX))) 
             / Math.PI) * 180)))));
 
