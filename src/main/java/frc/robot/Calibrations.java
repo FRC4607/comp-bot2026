@@ -447,7 +447,7 @@ public class Calibrations {
         public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kLeftTurretAngle = 80;
+        public static final double kLeftTurretAngle = 277.2;
 
         /** Turret Angle Tolerance. */
         public static final double kLeftTurretAngleTolerance = 1;
@@ -471,7 +471,7 @@ public class Calibrations {
         public static final double kRightHoodAngleTolerance = 0.1;
 
         /** Right Turret Angle. */
-        public static final double kRightTurretAngle = 80;
+        public static final double kRightTurretAngle = 277.2;
 
         /** Right Turret Angle Tolerance. */
         public static final double kRightTurretAngleTolerance = 1;
@@ -496,7 +496,7 @@ public class Calibrations {
     public class OutpostTrenchShotCalibrations {
 
         /** LeftFlywheel Velocity. */
-        public static final double kLeftFlywheelVelocity = 64;
+        public static final double kLeftFlywheelVelocity = 58;
 
         /** LeftFlywheel Velocity Tolerance. */
         public static final double kLeftFlywheelVelocityTolerance = 1;
@@ -508,7 +508,7 @@ public class Calibrations {
         public static final double kLeftHoodAngleTolerance = 0.1;
 
         /** Turret Angle. */
-        public static final double kLeftTurretAngle = 277.2;
+        public static final double kLeftTurretAngle = 80;
 
         /** Turret Angle Tolerance. */
         public static final double kLeftTurretAngleTolerance = 1;
@@ -520,7 +520,7 @@ public class Calibrations {
         public static final double kLeftChamberVelocityTolerance = 90;
 
         /** Right Flywheel Velocity. */
-        public static final double kRightFlywheelVelocity = 64;
+        public static final double kRightFlywheelVelocity = 61;
 
         /** Right Flywheel Velocity Tolerance. */
         public static final double kRightFlywheelVelocityTolerance = 1;
@@ -532,7 +532,7 @@ public class Calibrations {
         public static final double kRightHoodAngleTolerance = 0.1;
 
         /** Right Turret Angle. */
-        public static final double kRightTurretAngle = 277.2;
+        public static final double kRightTurretAngle = 80;
 
         /** Right Turret Angle Tolerance. */
         public static final double kRightTurretAngleTolerance = 1;
@@ -672,7 +672,7 @@ public class Calibrations {
          * Add this much per meter of distance from the Hub, after velocity offset.
          * Increasing this increases shot distance at long range.
          */
-        public static final double kLeftFlywheelDistanceMult = 9; // 11
+        public static final double kLeftFlywheelDistanceMult = 9;
         public static final String kLeftFlywheelDistanceMultPrefKey = "Left Flywheel Distance Multiplier";
 
         /**

@@ -148,6 +148,8 @@ public class RobotContainer {
         Trigger operator3Way1Down = new Trigger(() -> m_operator.getRawButton(16));
         Trigger operator3Way2Up = new Trigger(() -> m_operator.getRawButton(17));
         Trigger operator3Way2Down = new Trigger(() -> m_operator.getRawButton(18));
+        Trigger operator3Way3Up = new Trigger(() -> m_operator.getRawButton(19));
+        Trigger operator3Way3Down = new Trigger(() -> m_operator.getRawButton(20));
 
         Trigger operatorLKnobDown = new Trigger(() -> m_operator.getRawButton(21));
         Trigger operatorLKnobUp = new Trigger(() -> m_operator.getRawButton(22));
@@ -261,17 +263,21 @@ public class RobotContainer {
         //         .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
         //         .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
 
-        // joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
-        //     .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-        //         .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+        joystick.axisGreaterThan(3, 0.8).onTrue(new OutpostTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
+            .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))))));
 
-        // joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber))
-        //     .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
-        //         .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-        //         .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-        //         .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)))));
+        joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
+            .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
+                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
+                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))))));
 
         // // A command to find the radius of the wheels.
         // //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
@@ -302,6 +308,14 @@ public class RobotContainer {
             .alongWith(new InstantCommand(() -> m_rightTurret.disable(true)))
             .alongWith(new InstantCommand(() -> m_rightHood.disable(true)))
             .alongWith(new InstantCommand(() -> m_rightFlywheel.disable(true))));
+
+        operator3Way3Up.onTrue(
+            new InstantCommand(() -> m_rightChamber.reverseWhenDisabled(true))
+            .alongWith(new InstantCommand(() -> m_leftChamber.reverseWhenDisabled(true))));
+
+        operator3Way3Down.onTrue(
+            new InstantCommand(() -> m_rightChamber.reverseWhenDisabled(false))
+            .alongWith(new InstantCommand(() -> m_leftChamber.reverseWhenDisabled(false))));
 
         operatorLKnobUp.onTrue(new InstantCommand(
             () -> Preferences.setDouble(
