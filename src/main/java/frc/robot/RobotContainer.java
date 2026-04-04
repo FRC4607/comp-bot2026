@@ -273,16 +273,16 @@ public class RobotContainer {
         joystick.back().onTrue(new ZeroHoodSequence(m_hood));
 
         operatorLKnobUp.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kFlywheelDistanceMult) 
                 + 0.1)));
         operatorLKnobDown.onTrue(new InstantCommand(
-            () -> SmartDashboard.putNumber(
+            () -> Preferences.setDouble(
                 ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
-                SmartDashboard.getNumber(
+                Preferences.getDouble(
                     ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kFlywheelDistanceMult) 
                 - 0.1)));
@@ -291,6 +291,22 @@ public class RobotContainer {
         SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
         SmartDashboard.putData("Reset Turret Position", new InstantCommand(() -> m_turret.resetsetPosition()));
         SmartDashboard.putData("Zero Hood", new ZeroHoodSequence(m_hood));
+
+        SmartDashboard.putData("Increase Flywheel Distance Multiplier", new InstantCommand(
+            () -> Preferences.setDouble(
+                ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
+                Preferences.getDouble(
+                    ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
+                    ShootingCalibrations.kFlywheelDistanceMult) 
+                + 0.1)));
+        
+        SmartDashboard.putData("Decrease Flywheel Distance Multiplier", new InstantCommand(
+            () -> Preferences.setDouble(
+                ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
+                Preferences.getDouble(
+                    ShootingCalibrations.kFlywheelDistanceMultPrefKey, 
+                    ShootingCalibrations.kFlywheelDistanceMult) 
+                - 0.1)));
     }
 
     public Command getAutonomousCommand() {

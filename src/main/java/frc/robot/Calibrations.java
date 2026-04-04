@@ -546,7 +546,7 @@ public class Calibrations {
          * Add this much per meter of distance from the Hub, after velocity offset.
          * Increasing this increases shot distance at long range.
          */
-        public static final double kFlywheelDistanceMult = 13; // 11
+        public static final double kFlywheelDistanceMult = 9;
         public static final String kFlywheelDistanceMultPrefKey = "Flywheel Distance Multiplier";
 
         /** 
