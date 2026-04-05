@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
 
-        // Code to run every 0.005 seconds (5 milliseconds)
+        // Code to run every 0.02 seconds (20 milliseconds)
 
         m_loopCounter++;
 
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
         }
         
 
-        // Code to run every 0.05 seconds (50 milliseconds)
+        // Code to run every 0.2 seconds (200 milliseconds)
         if ((m_loopCounter % 10) == 0) {
             SmartDashboard.putBoolean("Is Left Hood Down?", m_robotContainer.m_leftHood.getPosition() < 0.5);
 
@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
             }
         }
 
-        // Code to run every 0.25 seconds (250 milliseconds)
+        // Code to run every 1 seconds (1000 milliseconds)
         if ((m_loopCounter % 50) == 0) {
 
             SmartDashboard.putNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 

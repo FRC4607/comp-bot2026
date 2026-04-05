@@ -76,6 +76,10 @@ public class IntakeArm extends SubsystemBase {
         m_encoder.getConfigurator().apply(m_encoderConfig);
     }
 
+    public void runOpenLoop(double dutyCycle) {
+        m_motor1.set(dutyCycle);
+    }
+
     /**
      * Sets the setpoint of the mechanism in degrees.
      *

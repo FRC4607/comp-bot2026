@@ -92,6 +92,9 @@ public class RightHood extends SubsystemBase {
      */
     public void updateSetpoint(double newSetpoint) {
         if (!m_disable) {
+            if (newSetpoint > 2.25) {
+                newSetpoint = 2.25;
+            }
             m_motor.setControl(m_request.withPosition(newSetpoint));
         } else {
             m_motor.set(0);
