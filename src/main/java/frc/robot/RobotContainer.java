@@ -17,6 +17,7 @@ import frc.robot.Commands.OutpostShot;
 import frc.robot.Commands.OutpostTrenchShot;
 import frc.robot.Commands.PassWithGyro;
 import frc.robot.Commands.LeftRunFlywheelOpenLoop;
+import frc.robot.Commands.LeftRunTurretOpenLoop;
 import frc.robot.Commands.LeftSetChamberOpenLoop;
 import frc.robot.Commands.LeftSetChamberVelocity;
 import frc.robot.Commands.LeftSetFlywheelVelocity;
@@ -28,6 +29,7 @@ import frc.robot.Commands.GeneralShot;
 import frc.robot.Commands.RightMoveHoodToPosition;
 import frc.robot.Commands.RightMoveTurretToPosition;
 import frc.robot.Commands.RightRunFlywheelOpenLoop;
+import frc.robot.Commands.RightRunTurretOpenLoop;
 import frc.robot.Commands.RightSetChamberOpenLoop;
 import frc.robot.Commands.RightSetChamberVelocity;
 import frc.robot.Commands.RightSetFlywheelVelocity;
@@ -229,9 +231,11 @@ public class RobotContainer {
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
                 .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new LeftRunTurretOpenLoop(() -> 0, m_leftTurret)
                 .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
                 .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)
-                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel))))))));
+                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel)
+                .alongWith(new RightRunTurretOpenLoop(() -> 0, m_rightTurret))))))))));
         
         // operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
         //     .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
@@ -268,16 +272,20 @@ public class RobotContainer {
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
                 .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new LeftRunTurretOpenLoop(() -> 0, m_leftTurret)
                 .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
-                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))))));
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)
+                .alongWith(new RightRunTurretOpenLoop(() -> 0, m_rightTurret)))))))));
 
         joystick.axisGreaterThan(2, 0.8).onTrue(new DepotTrenchShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber))
             .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
                 .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
                 .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
                 .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                .alongWith(new LeftRunTurretOpenLoop(() ->0, m_leftTurret)
                 .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
-                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)))))));
+                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)
+                .alongWith(new RightRunTurretOpenLoop(() -> 0, m_rightTurret)))))))));
 
         // // A command to find the radius of the wheels.
         // //joystick.povRight().onTrue(new WheelRadiusCalibration(drivetrain, drive));
@@ -323,14 +331,14 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
-                + 0.1)));
+                + 0.02)));
         operatorLKnobDown.onTrue(new InstantCommand(
             () -> Preferences.setDouble(
                 ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                 Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
-                - 0.1)));
+                - 0.02)));
 
         operatorRKnobUp.onTrue(new InstantCommand(
             () -> Preferences.setDouble(
@@ -338,14 +346,14 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
-                + 0.1)));
+                + 0.02)));
         operatorRKnobDown.onTrue(new InstantCommand(
             () -> Preferences.setDouble(
                 ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                 Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
-                - 0.1)));
+                - 0.02)));
 
         // // SmartDashboard Commands
         // SmartDashboard.putData("Wheel Radius Calibration", new WheelRadiusCalibration(drivetrain, drive));
@@ -358,7 +366,7 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
-                + 0.1)));
+                + 0.02)));
 
         SmartDashboard.putData("Decrease Left Shot Power", new InstantCommand(
             () -> Preferences.setDouble(
@@ -366,7 +374,7 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kLeftFlywheelDistanceMult) 
-                - 0.1)));
+                - 0.02)));
 
         SmartDashboard.putData("Increase Right Shot Power", new InstantCommand(
             () -> Preferences.setDouble(
@@ -374,7 +382,7 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
-                + 0.1)));
+                + 0.02)));
 
         SmartDashboard.putData("Decrease Right Shot Power", new InstantCommand(
             () -> Preferences.setDouble(
@@ -382,7 +390,7 @@ public class RobotContainer {
                 Preferences.getDouble(
                     ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, 
                     ShootingCalibrations.kRightFlywheelDistanceMult) 
-                - 0.1)));
+                - 0.02)));
     }
 
     public Command getAutonomousCommand() {

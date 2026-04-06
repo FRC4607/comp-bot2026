@@ -50,9 +50,9 @@ public class RightSetChamberVelocity extends Command {
     @Override
     public void execute() {
         if (m_waitForTurret) {
-            if (((Math.abs(m_rightTurret.getPosition() - m_rightTurret.getSetpoint()) < 3)
+            if (((Math.abs(m_rightTurret.getPosition() - m_rightTurret.getSetpoint()) < 5)
                 && (Math.abs(m_rightHood.getPosition() - m_rightHood.getSetpoint()) < 0.2)
-                && (Math.abs(m_rightFlywheel.getVelocity() - m_rightFlywheel.getSetpoint()) < 3)
+                && (Math.abs(m_rightFlywheel.getVelocity() - m_rightFlywheel.getSetpoint()) < 10)
                 && (Math.abs(m_rightChamber.getSetpoint() - m_setpoint) > 0.1))
                 || m_rightChamber.isDisabled()) {
                 m_rightChamber.updateSetpoint(m_setpoint);

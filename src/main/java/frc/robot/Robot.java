@@ -50,15 +50,18 @@ public class Robot extends TimedRobot {
 
         var m_speeds = m_robotContainer.drivetrain.getState().Speeds.fromRobotRelativeSpeeds(m_robotContainer.drivetrain.getState().Speeds, m_robotContainer.drivetrain.getState().Pose.getRotation());
 
+        // LimelightHelpers.SetRobotOrientation("limelight-br", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees() + 180, 0, 0, 0, 0, 0);
+        // LimelightHelpers.SetRobotOrientation("limelight-bl", m_robotContainer.drivetrain.getState().Pose.getRotation().getDegrees() + 180, 0, 0, 0, 0, 0);
+
         var brllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-br");
         var blllMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-bl");
         if (brllMeasurement != null && brllMeasurement.tagCount >= 2) {
-            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, (2 * brllMeasurement.avgTagDist) + m_speeds.omegaRadiansPerSecond));
+            m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 9999999));
         } else if (brllMeasurement != null && brllMeasurement.tagCount > 0 && (brllMeasurement.avgTagDist < 2)) {
             m_robotContainer.drivetrain.addVisionMeasurement(brllMeasurement.pose, brllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 9999999));
         }
         if (blllMeasurement != null && blllMeasurement.tagCount >= 2) {
-            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, (2 * blllMeasurement.avgTagDist) + m_speeds.omegaRadiansPerSecond));
+            m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 9999999));
         } else if (blllMeasurement != null && blllMeasurement.tagCount > 0 && (blllMeasurement.avgTagDist < 2)) {
             m_robotContainer.drivetrain.addVisionMeasurement(blllMeasurement.pose, blllMeasurement.timestampSeconds, VecBuilder.fill(0.7 + m_speeds.vxMetersPerSecond, 0.7 + m_speeds.vyMetersPerSecond, 9999999));
         }
@@ -66,7 +69,7 @@ public class Robot extends TimedRobot {
 
         // Code to run every 0.2 seconds (200 milliseconds)
         if ((m_loopCounter % 10) == 0) {
-            SmartDashboard.putBoolean("Is Left Hood Down?", m_robotContainer.m_leftHood.getPosition() < 0.5);
+            SmartDashboard.putBoolean("Are Hoods Down?", m_robotContainer.m_leftHood.getPosition() < 0.5 && m_robotContainer.m_rightHood.getPosition() < 0.5);
 
             if ((brllMeasurement != null && brllMeasurement.tagCount > 0 
                     && (brllMeasurement.avgTagDist < 2 || brllMeasurement.tagCount >= 2)) 
@@ -153,11 +156,11 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_intakeWheels.updateSetpoint(0);
         m_robotContainer.m_indexer.runOpenLoop(0);
         m_robotContainer.m_leftChamber.runOpenLoop(0);
-        m_robotContainer.m_leftTurret.updateSetpoint(m_robotContainer.m_leftTurret.getPosition());
+        m_robotContainer.m_leftTurret.runOpenLoop(0);
         m_robotContainer.m_leftHood.updateSetpoint(0);
         m_robotContainer.m_leftFlywheel.runOpenLoop(0);
         m_robotContainer.m_rightChamber.runOpenLoop(0);
-        m_robotContainer.m_rightTurret.updateSetpoint(m_robotContainer.m_rightTurret.getPosition());
+        m_robotContainer.m_rightTurret.runOpenLoop(0);
         m_robotContainer.m_rightHood.updateSetpoint(0);
         m_robotContainer.m_rightFlywheel.runOpenLoop(0);
 
