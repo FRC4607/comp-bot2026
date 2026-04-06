@@ -111,6 +111,8 @@ public class RobotContainer {
             new OutpostShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
         NamedCommands.registerCommand("Hub Shot",
             new HubShot(m_leftFlywheel, m_leftHood, m_leftTurret, m_indexer, m_leftChamber, m_rightFlywheel, m_rightHood, m_rightTurret, m_rightChamber));
+        NamedCommands.registerCommand("General Shot", 
+            new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel));
         NamedCommands.registerCommand("Stop Shooting",
             new ParallelDeadlineGroup(
                 new LeftZeroHoodSequence(m_leftHood),
