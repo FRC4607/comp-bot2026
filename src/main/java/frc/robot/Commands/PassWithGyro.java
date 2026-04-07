@@ -6,6 +6,9 @@ package frc.robot.Commands;
 
 import javax.naming.PartialResultException;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Calibrations.PassWithGyroCalibrations;
@@ -31,11 +34,25 @@ public class PassWithGyro extends ParallelCommandGroup {
     public PassWithGyro(CommandSwerveDrivetrain drivetrain, Indexer indexer, LeftChamber leftChamber, LeftTurret leftTurret, LeftHood leftHood,
             LeftFlywheel leftFlywheel, RightChamber rightChamber, RightTurret rightTurret, RightHood rightHood, RightFlywheel rightFlywheel) {
         super(
-                new LeftMoveTurretToPosition(
+                new ConditionalCommand(
+                    new LeftMoveTurretToPosition(
                         () -> -drivetrain.getState().Pose.getRotation().getDegrees(),
                         0,
-                        leftTurret),
-                new RightMoveTurretToPosition(() -> -drivetrain.getState().Pose.getRotation().getDegrees(), 0, rightTurret),
+                        leftTurret)
+                        .alongWith(new RightMoveTurretToPosition(
+                            () -> -drivetrain.getState().Pose.getRotation().getDegrees(), 
+                            0, 
+                            rightTurret)), 
+                    new LeftMoveTurretToPosition(
+                        () -> -drivetrain.getState().Pose.getRotation().getDegrees() + 180, 
+                        0, 
+                        leftTurret)
+                        .alongWith(
+                            new RightMoveTurretToPosition(
+                                () -> -drivetrain.getState().Pose.getRotation().getDegrees() + 180, 
+                                0, 
+                                rightTurret)), 
+                    () -> DriverStation.getAlliance().get() == Alliance.Red),
                 new SequentialCommandGroup(
                     new ParallelCommandGroup(
                         new SequentialCommandGroup(

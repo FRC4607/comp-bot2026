@@ -164,7 +164,7 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
+            drivetrain.applyRequest(() -> 
                 drive.withVelocityX(-joystick.getLeftY() * MaxSpeed).withDeadband(0.12 * MaxSpeed) // Drive forward with negative Y (forward)
                     .withVelocityY(-joystick.getLeftX() * MaxSpeed).withDeadband(0.12 * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate).withDeadband(0.12 * MaxAngularRate) // Drive counterclockwise with negative X (left)
@@ -225,19 +225,24 @@ public class RobotContainer {
                 .alongWith(new LeftSetChamberOpenLoop(() -> 0, m_leftChamber))
                 .alongWith(new RightSetChamberOpenLoop(() -> 0, m_rightChamber)));
 
-        joystick.y().onTrue(new ConditionalCommand(
-            new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel),
-            new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel),
-            () -> (drivetrain.getState().Pose.getX() > FieldConstants.kBlueHub.getX() && DriverStation.getAlliance().get() == Alliance.Blue) || (drivetrain.getState().Pose.getX() < FieldConstants.kRedHub.getX() && DriverStation.getAlliance().get() == Alliance.Red)))
-            .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
-                .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
-                .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
-                .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
-                .alongWith(new LeftRunTurretOpenLoop(() -> 0, m_leftTurret)
-                .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
-                .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)
-                .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel)
-                .alongWith(new RightRunTurretOpenLoop(() -> 0, m_rightTurret))))))))));
+        joystick.y().onTrue(
+            new InstantCommand(() -> MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * 0.2)
+            .alongWith(new InstantCommand(() -> MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond) * 0.2))
+            .alongWith(new ConditionalCommand(
+                new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel),
+                new GeneralShot(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel),
+                () -> (drivetrain.getState().Pose.getX() > FieldConstants.kBlueHub.getX() && DriverStation.getAlliance().get() == Alliance.Blue) || (drivetrain.getState().Pose.getX() < FieldConstants.kRedHub.getX() && DriverStation.getAlliance().get() == Alliance.Red))))
+                .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)
+                    .alongWith(new SetIndexerOpenLoop(() -> 0, m_indexer)
+                    .alongWith(new LeftSetChamberVelocity(0, 90, false, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel)
+                    .alongWith(new LeftMoveHoodToPosition(0, 0.1, m_leftHood)
+                    .alongWith(new LeftRunTurretOpenLoop(() -> 0, m_leftTurret)
+                    .alongWith(new RightSetChamberVelocity(0, 90, false, m_rightChamber, m_rightTurret, m_rightHood, m_rightFlywheel)
+                    .alongWith(new RightMoveHoodToPosition(0, 0.1, m_rightHood)
+                    .alongWith(new RightRunFlywheelOpenLoop(() -> 0, m_rightFlywheel)
+                    .alongWith(new RightRunTurretOpenLoop(() -> 0, m_rightTurret)
+                    .alongWith(new InstantCommand(() -> MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond))
+                    .alongWith(new InstantCommand(() -> MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond)))))))))))));
         
         // operatorRedL.onTrue(new PassWithGyro(drivetrain, m_indexer, m_leftChamber, m_leftTurret, m_leftHood, m_leftFlywheel))
         //     .onFalse(new LeftRunFlywheelOpenLoop(() -> 0, m_leftFlywheel)

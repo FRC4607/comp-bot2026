@@ -162,7 +162,7 @@ public class PointAtHub extends Command {
         //         m_leftTurretPose.getY() - (m_leftOffsetHubY))));
 
         // // Include the operater-entered value in the signal logger for checking later
-        // SignalLogger.writeDouble("Shooting/LeftFlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
+        SignalLogger.writeDouble("Shooting/LeftFlywheelMult", SmartDashboard.getNumber(ShootingCalibrations.kLeftFlywheelDistanceMultPrefKey, ShootingCalibrations.kLeftFlywheelDistanceMult));
 
         m_rightDistance = Math.hypot(
             m_rightTurretPose.getX() - m_targetHubPose.getX(), 
@@ -201,53 +201,10 @@ public class PointAtHub extends Command {
                 m_rightTurretPose.getX() - (m_rightOffestHubX), 
                 m_rightTurretPose.getY() - (m_rightOffsetHubY))));
 
-        // m_rightDistance = Math.hypot(
-        //         m_drivetrain.getState().Pose.getX() 
-        //         - (Math.cos((((m_drivetrainAngle + m_rightShotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse) 
-        //         - m_targetHubPose.getX(), 
-        //         m_drivetrain.getState().Pose.getY() 
-        //         - (Math.sin((((m_drivetrainAngle + m_rightShotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
-        //         - m_targetHubPose.getY());
-        
-        // m_rightOffestHubX = m_targetHubPose.getX() 
-        //     - (m_speeds.vxMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult 
-        //     * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst));
-
-        // m_rightOffsetHubY = m_targetHubPose.getY() 
-        //     - (m_speeds.vyMetersPerSecond * ShootingCalibrations.kVelocityOffsetMult 
-        //     * ((ShootingCalibrations.kVelocityDistanceMult * m_rightDistance) + ShootingCalibrations.kVelocityDistanceConst));
-
-        // if (m_rightOffestHubX > m_drivetrain.getState().Pose.getX()) {
-        //     m_rightShotOffset = 0;
-        // } else {
-        //     m_rightShotOffset = 180;
-        // }
-
-
-        // m_rightTurret.updateSetpoint(-(
-        //     (m_drivetrainAngle + m_rightShotOffset)
-
-        //     /* ArcTangent to find field relative turret angle */
-        //     - ((((Math.atan(((m_drivetrain.getState().Pose.getY() 
-        //         - (Math.cos((((m_drivetrainAngle + m_rightShotOffset + 180) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)) 
-        //         - (m_rightOffsetHubY)) 
-        //     / (m_drivetrain.getState().Pose.getX() 
-        //         - (Math.sin((((m_drivetrainAngle + m_rightShotOffset + 180) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse) 
-        //         - (m_rightOffestHubX))) 
-        //     / Math.PI) * 180)))));
-
-        // m_rightFlywheel.updateSetpoint(ShootingCalibrations.kRightFlywheelConstant + (SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult) * Math.pow(
-        //     Math.hypot(
-        //         m_drivetrain.getState().Pose.getX() 
-        //         - (Math.sin((((m_drivetrainAngle + m_rightShotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse) 
-        //         - (m_rightOffestHubX), 
-        //         m_drivetrain.getState().Pose.getY() 
-        //         - (Math.cos((((m_drivetrainAngle + m_rightShotOffset) / 180) * Math.PI) + RightTurretConstants.kRightTurretPositionYaw) * RightTurretConstants.kRightTurretHypotenuse)
-        //         - (m_rightOffsetHubY)),
-        //         1)));
-
         // Include the operater-entered value in the signal logger for checking later
-        SignalLogger.writeDouble("Shooting/RightFlywheelDistanceMult", SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult));
+        SignalLogger.writeDouble("Shooting/RightFlywheelMult", SmartDashboard.getNumber(ShootingCalibrations.kRightFlywheelDistanceMultPrefKey, ShootingCalibrations.kRightFlywheelDistanceMult));
+
+        // SmartDashboard.putNumber("Right Turret Distance To Hub", m_rightDistance);
     }
 
     // Called once the command ends or is interrupted.

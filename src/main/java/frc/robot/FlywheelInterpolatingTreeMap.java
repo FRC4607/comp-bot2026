@@ -33,6 +33,7 @@ public class FlywheelInterpolatingTreeMap extends InterpolatingTreeMap<Double, D
         map.put(1.672, 45.0);
         map.put(3.501, 50.0);
         map.put(4.466, 60.0);
+        map.put(5.72, 65.0);
         return map;
     }
 
